@@ -56,6 +56,11 @@ public class PantallaPrincipal extends JFrame {
 		menuBar.add(mnUsuarios);
 		
 		JMenuItem mntmCrearUsuario = new JMenuItem("Crear Usuario");
+		mntmCrearUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new CrearUsuario().setVisible(true);
+			}
+		});
 		mnUsuarios.add(mntmCrearUsuario);
 		
 		JMenuItem mntmModificarUsuario = new JMenuItem("Modificar Usuario");

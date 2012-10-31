@@ -4,7 +4,7 @@ import entidades.Usuario;
 
 public class GestorUsuario {
 	
-	Usuario usuarioLogueado = new Usuario(true, "AdminJuan", "1234");
+	private Usuario usuarioLogueado = new Usuario(false, "AdminJuan", "1234");
 	
 	
 	protected GestorUsuario(){}

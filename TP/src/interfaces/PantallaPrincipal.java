@@ -77,6 +77,11 @@ public class PantallaPrincipal extends JFrame {
 		menuBar.add(mnTitular);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Crear Titular");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new CrearTitular().setVisible(true);
+			}
+		});
 		mnTitular.add(mntmNewMenuItem);
 		
 		JMenuItem mntmModificarTitular = new JMenuItem("Modificar Titular");

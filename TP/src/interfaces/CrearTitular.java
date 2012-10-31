@@ -9,6 +9,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -47,6 +48,7 @@ public class CrearTitular extends JDialog {
 	 * Create the dialog.
 	 */
 	public CrearTitular() {
+		super(new JFrame(),true);
 		setTitle("Crear Titular");
 		setBounds(100, 100, 604, 406);
 		getContentPane().setLayout(new BorderLayout());

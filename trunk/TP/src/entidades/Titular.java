@@ -11,12 +11,11 @@ public class Titular {
 	private String nombre;
 	private String apellido;
 	private String tipoDoc;
-	private String numeroDoc;
+	private String numDoc;
 	private Date fechaNac;
 	private String direccion;
 	private String grupoSanguineo;
 	private boolean donante;
-	private String observaciones;
 	private Collection<Licencia> licencia;
 	private String localidad;
 	
@@ -31,12 +30,11 @@ public class Titular {
 		this.nombre=unNombre;
 		this.apellido=unApellido;
 		this.tipoDoc=unTipoDoc;
-		this.numeroDoc=unNumeroDoc;
+		this.numDoc=unNumeroDoc;
 		this.fechaNac= unaFechaNac;
 		this.direccion = unaDireccion;
 		this.grupoSanguineo = unGrupoSanguineo;
 		this.donante= esDonante;
-		this.observaciones=unObservaciones;
 		this.localidad = unaLocalidad;
 		
 	}
@@ -92,13 +90,13 @@ public class Titular {
 
 
 	public String getNumeroDoc() {
-		return numeroDoc;
+		return numDoc;
 	}
 
 
 
 	public void setNumeroDoc(String numeroDoc) {
-		this.numeroDoc = numeroDoc;
+		this.numDoc = numeroDoc;
 	}
 
 
@@ -163,15 +161,6 @@ public class Titular {
 
 
 
-	public String getObservaciones() {
-		return observaciones;
-	}
-
-
-
-	public void setObservaciones(String observaciones) {
-		this.observaciones = observaciones;
-	}
 
 	
 

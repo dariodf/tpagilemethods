@@ -14,7 +14,7 @@ public class GestorTitular {
 		return instancia;
 	}
 	
-	private Contribuyente buscarContribuyente(String tipoDoc, String numDoc) throws SQLException{
+	public Contribuyente buscarContribuyente(String tipoDoc, String numDoc) throws SQLException{
 		ResultSet rs = AdminBD.getIstance().buscarContribuyente(tipoDoc, numDoc);
 		if(!rs.next()){}
 			//lanzar ventana

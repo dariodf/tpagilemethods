@@ -9,12 +9,11 @@ public class Contribuyente {
 		private String nombre;
 		private String apellido;
 		private String tipoDoc;
-		private String numeroDoc;
+		private String numDoc;
 		private Date fechaNac;
 		private String direccion;
 		private String grupoSanguineo;
 		private boolean donante;
-		private String observaciones;
 		private String localidad;
 		
 /*Constructores*/
@@ -27,12 +26,11 @@ public class Contribuyente {
 			this.nombre = nombre;
 			this.apellido = apellido;
 			this.tipoDoc = tipoDoc;
-			this.numeroDoc = numeroDoc;
+			this.numDoc = numeroDoc;
 			this.fechaNac = fechaNac;
 			this.direccion = direccion;
 			this.grupoSanguineo = grupoSanguineo;
 			this.donante = donante;
-			this.observaciones = observaciones;
 			this.localidad = unaLocalidad;
 		}
 
@@ -71,11 +69,11 @@ public class Contribuyente {
 		}
 
 		public String getNumeroDoc() {
-			return numeroDoc;
+			return numDoc;
 		}
 
 		public void setNumeroDoc(String numeroDoc) {
-			this.numeroDoc = numeroDoc;
+			this.numDoc = numeroDoc;
 		}
 
 		public Date getFechaNac() {
@@ -110,12 +108,6 @@ public class Contribuyente {
 			this.donante = donante;
 		}
 
-		public String getObservaciones() {
-			return observaciones;
-		}
 
-		public void setObservaciones(String observaciones) {
-			this.observaciones = observaciones;
-		}
 		
 }

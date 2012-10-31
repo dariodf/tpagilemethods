@@ -62,6 +62,13 @@ public class AdminBD {
 		conexion = null;
 	}
 	
+	public ResultSet buscarContribuyente(String tipoDoc, String numDoc) throws SQLException{
+		ResultSet rs = null;
+		String consulta = "SELECT * FROM contribuyente WHERE tipodoc LIKE " + tipoDoc + " AND numdoc LIKE " + numDoc;
+		rs = devolverConsulta(consulta);
+		
+		return rs;
+	}
 	
 	
 }

@@ -1,10 +1,12 @@
 package interfaces;
 
 import java.awt.Container;
+import java.awt.Dialog.ModalityType;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
@@ -57,10 +59,18 @@ public class PantallaPrincipal extends JFrame {
 		
 		JMenuItem mntmCrearUsuario = new JMenuItem("Crear Usuario");
 		mntmCrearUsuario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				new CrearUsuario().setVisible(true);
+			public void actionPerformed(ActionEvent e) {
+					CrearUsuario crearUsuarioDialog = new CrearUsuario();
+					crearUsuarioDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					crearUsuarioDialog.setModalityType(ModalityType.DOCUMENT_MODAL);
+					crearUsuarioDialog.setModal(true);
+					crearUsuarioDialog.setVisible(true);
+				
 			}
 		});
+		
+			
+		
 		mnUsuarios.add(mntmCrearUsuario);
 		
 		JMenuItem mntmModificarUsuario = new JMenuItem("Modificar Usuario");

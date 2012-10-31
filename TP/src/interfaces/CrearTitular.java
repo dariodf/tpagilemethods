@@ -1,5 +1,8 @@
 package interfaces;
 
+import entidades.Contribuyente;
+import gestores.GestorTitular;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
@@ -16,6 +19,11 @@ import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 
 public class CrearTitular extends JDialog {
 
@@ -48,7 +56,7 @@ public class CrearTitular extends JDialog {
 	 * Create the dialog.
 	 */
 	public CrearTitular() {
-		super(new JFrame(),true);
+		//super(new JFrame(),true);
 		setTitle("Crear Titular");
 		setBounds(100, 100, 604, 406);
 		getContentPane().setLayout(new BorderLayout());
@@ -67,7 +75,7 @@ public class CrearTitular extends JDialog {
 		label.setBounds(10, 24, 46, 14);
 		panel.add(label);
 		
-		JComboBox comboBox = new JComboBox();
+		final JComboBox comboBox = new JComboBox();
 		comboBox.addItem("DNI");
 		comboBox.addItem("LE");
 		comboBox.addItem("LC");
@@ -80,6 +88,15 @@ public class CrearTitular extends JDialog {
 		panel.add(textField);
 		
 		JButton button = new JButton("Buscar");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					Contribuyente contribuyente = GestorTitular.getIstance().buscarContribuyente(comboBox.toString(), textField.toString());
+				} catch (SQLException e) {
+					// Lanzar error de la BD
+				}
+			}
+		});
 		button.setBounds(359, 20, 89, 23);
 		panel.add(button);
 		

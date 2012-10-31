@@ -15,6 +15,8 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import gestores.GestorUsuario;
+import excepciones.GeneralException;
 
 public class CrearUsuario extends JDialog {
 
@@ -38,6 +40,7 @@ public class CrearUsuario extends JDialog {
 	 * Create the dialog.
 	 */
 	public CrearUsuario() {
+		
 		//super(new JFrame(),true);
 		setResizable(false);
 		setTitle("Crear Usuario");
@@ -48,11 +51,30 @@ public class CrearUsuario extends JDialog {
 		contentPanel.setLayout(null);
 		
 		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					
+					if(!GestorUsuario.getIstance().getUsuarioLogueado().isSuperUsuario())
+						throw new GeneralException("El usuario logueado no posee los privilegios para esta acción");
+					
+					
+				} catch (GeneralException e) {
+					e.lanzarMensaje();
+				}
+				
+			}
+		});
 		btnAceptar.setBounds(22, 113, 83, 23);
 		btnAceptar.setActionCommand("OK");
 		contentPanel.add(btnAceptar);
 	
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		btnCancelar.setBounds(169, 113, 90, 23);
 		btnCancelar.setActionCommand("Cancel");
 		contentPanel.add(btnCancelar);

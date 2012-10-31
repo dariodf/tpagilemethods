@@ -38,7 +38,7 @@ public class CrearUsuario extends JDialog {
 	 * Create the dialog.
 	 */
 	public CrearUsuario() {
-		super(new JFrame(),true);
+		//super(new JFrame(),true);
 		setResizable(false);
 		setTitle("Crear Usuario");
 		setBounds(100, 100, 290, 182);

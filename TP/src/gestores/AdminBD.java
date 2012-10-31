@@ -31,7 +31,7 @@ public class AdminBD {
 		return null;
 	}
 	
-	public static ResultSet devolverConsulta(String consulta) throws SQLException {
+	private static ResultSet devolverConsulta(String consulta) throws SQLException {
 		//Ejecuta y devuelve consultas del tipo select
 		ResultSet rs = null;
 		
@@ -45,7 +45,7 @@ public class AdminBD {
 		return rs;
 	}	
 	
-	public static void hacerConsulta(String sql) throws SQLException{	
+	private static void hacerConsulta(String sql) throws SQLException{	
 		//Ejecuta consultas del tipo update/delete
 		if(conexion==null || conexion.isClosed())
 			conexion = establecerConexion();
@@ -57,10 +57,11 @@ public class AdminBD {
 		st = null;
 	}
 
-	public static void cerrarConexion() throws SQLException {
+	private static void cerrarConexion() throws SQLException {
 		conexion.close();
 		conexion = null;
 	}
-
+	
+	
 	
 }

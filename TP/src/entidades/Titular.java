@@ -15,6 +15,7 @@ public class Titular {
 	private Date fechaNac;
 	private String direccion;
 	private String grupoSanguineo;
+	private String factorRH;
 	private boolean donante;
 	private Collection<Licencia> licencia;
 	private String localidad;
@@ -24,7 +25,7 @@ public class Titular {
 	
 	public Titular (String unNombre, String unApellido, String unTipoDoc,
 			String unNumeroDoc, Date unaFechaNac, String unaDireccion,
-			String unGrupoSanguineo, String unObservaciones, boolean esDonante, String localidad, String unaLocalidad){
+			String unGrupoSanguineo, String factorRH, String unObservaciones, boolean esDonante, String unaLocalidad){
 	
 		super();
 		this.nombre=unNombre;
@@ -34,6 +35,7 @@ public class Titular {
 		this.fechaNac= unaFechaNac;
 		this.direccion = unaDireccion;
 		this.grupoSanguineo = unGrupoSanguineo;
+		this.factorRH = factorRH;
 		this.donante= esDonante;
 		this.localidad = unaLocalidad;
 		
@@ -135,7 +137,15 @@ public class Titular {
 		this.grupoSanguineo = grupoSanguineo;
 	}
 
+	public String getFactorRH() {
+		return factorRH;
+	}
 
+
+
+	public void setFactorRH(String factorRH) {
+		this.factorRH = factorRH;
+	}
 
 	public boolean isDonante() {
 		return donante;

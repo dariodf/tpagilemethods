@@ -1,9 +1,11 @@
 package interfaces;
 
 import entidades.Contribuyente;
+import entidades.Titular;
 import gestores.GestorTitular;
 
 import java.awt.BorderLayout;
+import java.awt.Checkbox;
 import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
@@ -24,6 +26,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.util.Date;
+import java.awt.Font;
 
 public class CrearTitular extends JDialog {
 
@@ -38,6 +43,7 @@ public class CrearTitular extends JDialog {
 	private JTextField textField_7;
 	private JTextField textField_8;
 	private JTextField textField_9;
+	private JTextField textField_10;
 
 	/**
 	 * Launch the application.
@@ -92,9 +98,25 @@ public class CrearTitular extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					Contribuyente contribuyente = GestorTitular.getIstance().buscarContribuyente(comboBox.toString(), textField.toString());
+					textField_1.setText(contribuyente.getTipoDoc());
+					textField_2.setText(contribuyente.getNumeroDoc());
+					textField_3.setText(contribuyente.getApellido());
+					textField_4.setText(contribuyente.getNombre());
+					textField_5.setText(contribuyente.getFechaNac().toString());
+					textField_6.setText(contribuyente.getDireccion());
+					textField_7.setText(contribuyente.getLocalidad());
+					textField_8.setText(contribuyente.getGrupoSanguineo());
+					textField_9.setText(contribuyente.getFactorRH());
+					if(contribuyente.isDonante()== true){
+						textField_10.setText("Si");
+					}
+					else{
+						textField_10.setText("No");
+					} 
 				} catch (SQLException e) {
 					// Lanzar error de la BD
 				}
+			
 			}
 		});
 		button.setBounds(359, 20, 89, 23);
@@ -201,13 +223,28 @@ public class CrearTitular extends JDialog {
 		textField_9.setBounds(287, 121, 46, 20);
 		panel_1.add(textField_9);
 		
-		JCheckBox checkBox = new JCheckBox("Donante");
-		checkBox.setHorizontalTextPosition(SwingConstants.LEFT);
-		checkBox.setEnabled(false);
-		checkBox.setBounds(394, 120, 97, 23);
-		panel_1.add(checkBox);
+		JLabel label_11 = new JLabel("Es donante");
+		label_11.setBounds(358, 124, 61, 14);
+		panel_1.add(label_11);
+		
+		textField_10 = new JTextField();
+		textField_10.setEditable(false);
+		textField_10.setBounds(429, 121, 46, 20);
+		panel_1.add(textField_10);
+		textField_10.setColumns(10);
 		
 		JButton button_1 = new JButton("Aceptar");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Boolean bool = new Boolean(false);
+				if(textField_10.getText()== "Si"){
+					bool = true;
+				}
+				java.sql.Date fecha = GestorTitular.getIstance().getDate(textField_5.toString());				
+				Titular titular = new Titular(textField_4.toString(), textField_3.toString(), textField_1.toString(), textField_2.toString(), fecha, textField_6.toString(), textField_8.toString(), textField_9.toString(), "", bool.booleanValue(), textField_7.toString());
+				//falta actualizar la BD con el nuevo titular
+			}
+		});
 		button_1.setBounds(390, 324, 89, 23);
 		contentPanel.add(button_1);
 		

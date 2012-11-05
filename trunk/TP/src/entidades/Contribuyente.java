@@ -13,6 +13,7 @@ public class Contribuyente {
 		private Date fechaNac;
 		private String direccion;
 		private String grupoSanguineo;
+		private String factorRH;
 		private boolean donante;
 		private String localidad;
 		
@@ -20,7 +21,7 @@ public class Contribuyente {
 		
 		public Contribuyente(String nombre, String apellido, String tipoDoc,
 				String numeroDoc, Date fechaNac, String direccion,
-				String grupoSanguineo, boolean donante, String observaciones, String unaLocalidad) {
+				String grupoSanguineo, String factorRH, boolean donante, String observaciones, String unaLocalidad) {
 			
 			super();
 			this.nombre = nombre;
@@ -30,6 +31,7 @@ public class Contribuyente {
 			this.fechaNac = fechaNac;
 			this.direccion = direccion;
 			this.grupoSanguineo = grupoSanguineo;
+			this.factorRH = factorRH;
 			this.donante = donante;
 			this.localidad = unaLocalidad;
 		}
@@ -98,6 +100,14 @@ public class Contribuyente {
 
 		public void setGrupoSanguineo(String grupoSanguineo) {
 			this.grupoSanguineo = grupoSanguineo;
+		}
+		
+		public String getFactorRH() {
+			return factorRH;
+		}
+
+		public void setFactorRH(String factorRH) {
+			this.factorRH = factorRH;
 		}
 
 		public boolean isDonante() {

@@ -2,6 +2,8 @@ package gestores;
 
 import java.sql.*;
 
+import javax.swing.JOptionPane;
+
 public class AdminBD {
 	private static Connection conexion;
 	private static Statement st;
@@ -69,6 +71,44 @@ public class AdminBD {
 		
 		return rs;
 	}
+	
+	
+	//AGREGAR USUARIO
+	public void crearUsuario(boolean unSuperUsuario, String unNombre, String unaPassword)
+	{
+		String superUser = "0";
+		if(unSuperUsuario) superUser = "1";
+		String consulta = "INSERT INTO usuario (nombre, password, superUsuario) VALUES ("+unNombre+", " +unaPassword+", "+superUser+"); ";
+		
+		try {
+			
+			AdminBD.getIstance().hacerConsulta(consulta);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public int getIdUsuarioDisponible() throws SQLException{
+		
+		ResultSet rs = null;
+		String consulta = "SELECT MAX(id) FROM usuario";
+		rs = devolverConsulta(consulta);
+		if(null == rs){
+			return 0;
+		}
+		else{
+			rs.first();
+			
+			return rs.getInt("MAX(id)");
+		}
+		
+		
+		
+					
+	}
+	
+	
 	
 	
 }

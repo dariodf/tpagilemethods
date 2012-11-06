@@ -2,12 +2,13 @@ package entidades;
 
 public class Usuario {
 
-/*Atributos*/
+	/*Atributos*/
 	private boolean superUsuario;
 	private String nombre;
 	private String password;
+	private int id;
 	
-/*Constructores*/
+	/*Constructores*/
 	public Usuario(boolean unSuperUsuario, String unNombre, String unaPassword){
 		
 		super();
@@ -16,9 +17,8 @@ public class Usuario {
 		this.setPassword(unaPassword);
 	}
 
-/*Getters & Setters*/
-	
-	public boolean isSuperUsuario() {
+	/*Getters & Setters*/
+		public boolean isSuperUsuario() {
 		return superUsuario;
 	}
 
@@ -40,6 +40,14 @@ public class Usuario {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 

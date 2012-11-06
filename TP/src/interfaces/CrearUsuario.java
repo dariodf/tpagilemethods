@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
@@ -41,6 +42,8 @@ public class CrearUsuario extends JDialog {
 	 */
 	public CrearUsuario() {
 		
+				
+		
 		//super(new JFrame(),true);
 		setResizable(false);
 		setTitle("Crear Usuario");
@@ -50,13 +53,25 @@ public class CrearUsuario extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
+		final JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Simple", "Administrador"}));
+		comboBox.setMaximumRowCount(2);
+		comboBox.setBounds(101, 58, 122, 20);
+		contentPanel.add(comboBox);
+		
+		
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					
-					if(!GestorUsuario.getIstance().getUsuarioLogueado().isSuperUsuario())
-						throw new GeneralException("El usuario logueado no posee los privilegios para esta acción");
+					boolean superUsuario=false;
+					if(comboBox.getSelectedIndex()==1)
+						superUsuario=true;
+						
+					String pass = GestorUsuario.getIstance().crearUsuario(superUsuario, "Usuario-"+GestorUsuario.getIstance().getIdUsuarioDisponible());
+					
+					JOptionPane.showMessageDialog(null, "Se ha creado con Exito el usuario /n"+"Usuario-"+GestorUsuario.getIstance().getIdUsuarioDisponible()+" Contraseña: "+pass, "Informacion",JOptionPane.INFORMATION_MESSAGE);
 					
 					
 				} catch (GeneralException e) {
@@ -91,15 +106,13 @@ public class CrearUsuario extends JDialog {
 		txtUsuariox = new JTextField();
 		txtUsuariox.setHorizontalAlignment(SwingConstants.CENTER);
 		txtUsuariox.setEditable(false);
-		txtUsuariox.setText("Usuario-X");
 		txtUsuariox.setBounds(101, 22, 122, 20);
 		contentPanel.add(txtUsuariox);
 		txtUsuariox.setColumns(10);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Simple", "Administrador"}));
-		comboBox.setMaximumRowCount(2);
-		comboBox.setBounds(101, 58, 122, 20);
-		contentPanel.add(comboBox);
+		//MUESTRA EL NUMERO DE USUARIO DISPONIBLE
+		txtUsuariox.setText("Usuario-"+GestorUsuario.getIstance().getIdUsuarioDisponible());
+		
+		
 	}
 }

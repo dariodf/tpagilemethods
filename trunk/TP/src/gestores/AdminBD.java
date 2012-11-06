@@ -78,7 +78,9 @@ public class AdminBD {
 	{
 		String superUser = "0";
 		if(unSuperUsuario) superUser = "1";
-		String consulta = "INSERT INTO usuario (nombre, password, superUsuario) VALUES ("+unNombre+", " +unaPassword+", "+superUser+"); ";
+		String consulta = "INSERT INTO `agiles`.`usuario` (`id`, `nombre`, `password`, `superUsuario`) VALUES (NULL, '"+unNombre+"', '" +unaPassword+"', '"+superUser+"'); ";
+		
+		
 		
 		try {
 			

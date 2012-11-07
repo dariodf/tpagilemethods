@@ -1,11 +1,17 @@
 package gestores;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.swing.JOptionPane;
 
+import entidades.Usuario;
+
 import entidades.Titular;
 import excepciones.GeneralException;
+
 
 public class AdminBD {
 	private static Connection conexion;
@@ -79,14 +85,23 @@ public class AdminBD {
 	//AGREGAR USUARIO
 	public void crearUsuario(boolean unSuperUsuario, String unNombre, String unaPassword)
 	{
-		String superUser = "0";
-		if(unSuperUsuario) superUser = "1";
-		String consulta = "INSERT INTO `agiles`.`usuario` (`id`, `nombre`, `password`, `superUsuario`) VALUES (NULL, '"+unNombre+"', '" +unaPassword+"', '"+superUser+"'); ";
-		
-		
 		
 		try {
+			/*Datos Auditoría*/
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Calendar cal = Calendar.getInstance();
+			String fechaHora = dateFormat.format(cal.getTime());
 			
+
+			String superUser = "0";
+			if(unSuperUsuario) superUser = "1";
+				String consulta = "INSERT INTO `agiles`.`usuario` (`id`, `nombre`, `password`, `superUsuario`) VALUES (NULL, '"+unNombre+"', '" +unaPassword+"', '"+superUser+"'); ";
+			AdminBD.getIstance().hacerConsulta(consulta);
+			
+			Usuario usuarioCreado = AdminBD.getIstance().recuperarUsuario(unNombre);
+			Usuario usuarioLogueado = AdminBD.getIstance().recuperarUsuario(GestorUsuario.getIstance().getUsuarioLogueado().getNombre());
+			String descripcion = "El usuario "+usuarioLogueado.getNombre()+" ha creado al usuario "+usuarioCreado.getNombre();
+			consulta =  "INSERT INTO `agiles`.`auditoriausuario` (`id`, `id_usuario_creado`, `Descripcion`, `Fecha`, `id_usuario_logueado`) VALUES (NULL, '"+usuarioLogueado.getId()+"','"+descripcion+"','" +fechaHora  +"', '"+usuarioCreado.getId()+"'); ";
 			AdminBD.getIstance().hacerConsulta(consulta);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -123,11 +138,33 @@ public class AdminBD {
 			rs.first();
 			
 			return rs.getInt("MAX(id)");
-		}
-		
-		
-		
+		}	
 					
+	}
+	public Usuario recuperarUsuario(String unNombre)
+	{
+		int id=-1;
+		String nombreUsuario= "";
+		String password= "";
+		boolean superUsuario = false;
+		
+		try {
+		ResultSet rs = null;
+		String consulta = "SELECT* FROM usuario WHERE nombre LIKE '"+unNombre+"';";
+		rs = devolverConsulta(consulta);
+		
+		rs.first();
+
+		id = rs.getInt("id");
+		nombreUsuario = rs.getString("nombre");
+		password = rs.getString("password");
+		superUsuario = rs.getBoolean("superUsuario");
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	Usuario user = new Usuario(id, superUsuario,nombreUsuario, password);
+	return user;
 	}
 	
 	

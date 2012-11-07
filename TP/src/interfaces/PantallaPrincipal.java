@@ -17,6 +17,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class PantallaPrincipal extends JFrame {
 
@@ -43,6 +44,7 @@ public class PantallaPrincipal extends JFrame {
 	 */
 	public PantallaPrincipal() 
 	{
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\WS\\TP\\icono.png"));
 		setTitle("Municipalidad de Santa Fe - Registro del conductor");
 		// Causa la apertura en modo maximizado de la ventana
 		setExtendedState(JFrame.MAXIMIZED_BOTH);

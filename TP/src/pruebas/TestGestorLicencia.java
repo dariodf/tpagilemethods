@@ -1,5 +1,7 @@
 package pruebas;
 
+
+
 import static org.junit.Assert.*;
 
 import java.text.ParseException;
@@ -7,6 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.junit.Test;
+
+
 
 import entidades.Licencia;
 import entidades.Titular;
@@ -45,7 +49,7 @@ public class TestGestorLicencia {
 	
 	
 	titular1.getLicencias().add(new Licencia("B","No ve con el ojo izquierdo",fechaEntrada));
-	assertEquals(fechaResultado,test.calcularVigencia(titular1));
+		assertEquals(fechaResultado,test.calcularVigencia(titular1));
 	}
 
 	

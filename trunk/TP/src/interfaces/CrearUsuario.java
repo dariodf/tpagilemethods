@@ -75,7 +75,7 @@ public class CrearUsuario extends JDialog {
 					
 					
 				} catch (GeneralException e) {
-					e.lanzarMensaje();
+					e.lanzarMensaje("Error");
 				}
 				
 			}

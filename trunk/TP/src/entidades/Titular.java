@@ -25,7 +25,7 @@ public class Titular {
 	
 	public Titular (String unNombre, String unApellido, String unTipoDoc,
 			String unNumeroDoc, Date unaFechaNac, String unaDireccion,
-			String unGrupoSanguineo, String factorRH, String unObservaciones, boolean esDonante, String unaLocalidad){
+			String unGrupoSanguineo, String factorRH, boolean esDonante, String unaLocalidad){
 	
 		super();
 		this.nombre=unNombre;

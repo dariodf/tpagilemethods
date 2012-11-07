@@ -21,7 +21,7 @@ public class Contribuyente {
 		
 		public Contribuyente(String nombre, String apellido, String tipoDoc,
 				String numeroDoc, Date fechaNac, String direccion,
-				String grupoSanguineo, String factorRH, boolean donante, String observaciones, String unaLocalidad) {
+				String grupoSanguineo, String factorRH, boolean donante, String unaLocalidad) {
 			
 			super();
 			this.nombre = nombre;

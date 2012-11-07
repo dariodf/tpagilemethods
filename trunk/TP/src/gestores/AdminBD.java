@@ -75,7 +75,7 @@ public class AdminBD {
 	
 	public ResultSet buscarContribuyente(String tipoDoc, String numDoc) throws SQLException{
 		ResultSet rs = null;
-		String consulta = "SELECT * FROM contribuyente WHERE tipodoc LIKE " + tipoDoc + " AND numdoc LIKE " + numDoc;
+		String consulta = "SELECT * FROM contribuyente WHERE TipoDoc LIKE " + tipoDoc + " AND NumDoc LIKE " + numDoc;
 		rs = devolverConsulta(consulta);
 		
 		return rs;
@@ -110,7 +110,7 @@ public class AdminBD {
 		
 		ResultSet rs = null;
 		//Realiza la consulta para testear si el titular existe en la BD
-		String consulta1 = "SELECT * FROM 'agiles'.'titular' WHERE tipodoc LIKE '"+unTitular.getTipoDoc()+"' AND numdoc LIKE '"+unTitular.getNumeroDoc()+"' AND sexo LIKE '"+unTitular.getSexo()+"';";
+		String consulta1 = "SELECT * FROM 'agiles'.'titular' WHERE TipoDoc LIKE '"+unTitular.getTipoDoc()+"' AND NumDoc LIKE '"+unTitular.getNumeroDoc()+"' AND Sexo LIKE '"+unTitular.getSexo()+"';";
 		rs = AdminBD.getIstance().devolverConsulta(consulta1);
 		
 		if (rs.next()){
@@ -119,7 +119,7 @@ public class AdminBD {
 		else{
 			
 			//Agrega el titular a la BD
-			String consulta2 = "INSERT INTO 'agiles'.'titular' ('id', 'nombre', 'apellido', 'sexo', 'estadocivil', 'fechanacimiento', 'localidad', 'direccion', ''gruposanguineo', 'factorrh', 'donante', 'numdoc', 'tipodoc' ) VALUES (NULL, '"+unTitular.getNombre()+"', '"+unTitular.getApellido()+"', '"+unTitular.getSexo()+"', '" +unTitular.getEstadoCivil()+"','"+unTitular.getFechaNac().toString()+"','"+unTitular.getLocalidad()+"','"+unTitular.getDireccion()+"', '"+unTitular.getGrupoSanguineo()+"', '"+unTitular.getFactorRH()+"', '"+unTitular.isDonante()+"', '"+unTitular.getNumeroDoc()+"', '" +unTitular.getTipoDoc()+"'); ";
+			String consulta2 = "INSERT INTO 'agiles'.'titular' ('Id', 'Nombre', 'Apellido', 'Sexo', 'EstadoCivil', 'FechaCacimiento', 'Localidad', 'Direccion', ''GrupoSanguineo', 'FactorRH', 'Donante', 'NumDoc', 'TipoDoc' ) VALUES (NULL, '"+unTitular.getNombre()+"', '"+unTitular.getApellido()+"', '"+unTitular.getSexo()+"', '" +unTitular.getEstadoCivil()+"','"+unTitular.getFechaNac().toString()+"','"+unTitular.getLocalidad()+"','"+unTitular.getDireccion()+"', '"+unTitular.getGrupoSanguineo()+"', '"+unTitular.getFactorRH()+"', '"+unTitular.isDonante()+"', '"+unTitular.getNumeroDoc()+"', '" +unTitular.getTipoDoc()+"'); ";
 			AdminBD.getIstance().hacerConsulta(consulta2);
 			
 			
@@ -131,7 +131,7 @@ public class AdminBD {
 			int id = recuperarIdTitular(unTitular.getTipoDoc(), unTitular.getNumeroDoc(), unTitular.getSexo());
 			entidades.Usuario usuario = recuperarUsuario(GestorUsuario.getIstance().getUsuarioLogueado().getNombre());
 			
-			String consulta3 = "INSERT INTO 'agiles'.'auditoriatitular' ('id', 'descripcion', 'fecha', 'id_titular', 'id_usuario') VALUES (NULL, 'El usuario "+GestorUsuario.getIstance().getUsuarioLogueado().getNombre()+" creó el titular "+unTitular.getNombre()+" "+unTitular.getApellido()+"', '"+fechaHora+"', '"+id+"', '"+usuario.getId()+"' ) ;";
+			String consulta3 = "INSERT INTO 'agiles'.'auditoriatitular' ('id', 'Descripcion', 'Fecha', 'Id_titular', 'id_usuario') VALUES (NULL, 'El usuario "+GestorUsuario.getIstance().getUsuarioLogueado().getNombre()+" creó el titular "+unTitular.getNombre()+" "+unTitular.getApellido()+"', '"+fechaHora+"', '"+id+"', '"+usuario.getId()+"' ) ;";
 		}
 
 		
@@ -179,7 +179,7 @@ public class AdminBD {
 	{
 		
 		ResultSet rs = null;
-		String consulta = "SELECT 'id' FROM 'agiles'.'titular' WHERE tipodoc LIKE '"+unTipoDoc+"' AND numdoc LIKE '"+unNumDoc+"' AND sexo LIKE '"+unSexo+"';";
+		String consulta = "SELECT 'id' FROM 'agiles'.'titular' WHERE TipoDoc LIKE '"+unTipoDoc+"' AND NumDoc LIKE '"+unNumDoc+"' AND Sexo LIKE '"+unSexo+"';";
 		rs = devolverConsulta(consulta);
 	
 		rs.first();

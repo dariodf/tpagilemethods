@@ -41,6 +41,20 @@ public class Titular {
 		this.localidad = unaLocalidad;
 		
 	}
+	
+	public Titular (Contribuyente unContribuyente){
+		super();
+		this.nombre=unContribuyente.getNombre();
+		this.apellido=unContribuyente.getApellido();
+		this.tipoDoc=unContribuyente.getTipoDoc();
+		this.numDoc=unContribuyente.getNumeroDoc();
+		this.fechaNac= unContribuyente.getFechaNac();
+		this.direccion = unContribuyente.getDireccion();
+		this.grupoSanguineo = unContribuyente.getGrupoSanguineo();
+		this.factorRH = unContribuyente.getFactorRH();
+		this.donante= unContribuyente.isDonante();
+		this.localidad = unContribuyente.getLocalidad();
+	}
 
 
 

@@ -102,6 +102,7 @@ public class AdminBD {
 		consulta =  "INSERT INTO `agiles`.`auditoriausuario` (`id`, `id_usuario_creado`, `Descripcion`, `Fecha`, `id_usuario_logueado`) VALUES (NULL, '"+usuarioLogueado.getId()+"','"+descripcion+"','" +fechaHora  +"', '"+usuarioCreado.getId()+"'); ";
 		AdminBD.getIstance().hacerConsulta(consulta);
 		
+		
 	}
 	
 	//Agregar titular
@@ -110,7 +111,7 @@ public class AdminBD {
 		
 		ResultSet rs = null;
 		//Realiza la consulta para testear si el titular existe en la BD
-		String consulta1 = "SELECT * FROM 'agiles'.'titular' WHERE TipoDoc LIKE '"+unTitular.getTipoDoc()+"' AND NumDoc LIKE '"+unTitular.getNumeroDoc()+"' AND Sexo LIKE '"+unTitular.getSexo()+"';";
+		String consulta1 = "SELECT * FROM `agiles`.`titular` WHERE TipoDoc LIKE '"+unTitular.getTipoDoc()+"' AND NumDoc LIKE '"+unTitular.getNumeroDoc()+"' AND Sexo LIKE '"+unTitular.getSexo()+"';";
 		rs = AdminBD.getIstance().devolverConsulta(consulta1);
 		
 		if (rs.next()){
@@ -119,7 +120,13 @@ public class AdminBD {
 		else{
 			
 			//Agrega el titular a la BD
-			String consulta2 = "INSERT INTO 'agiles'.'titular' ('Id', 'Nombre', 'Apellido', 'Sexo', 'EstadoCivil', 'FechaCacimiento', 'Localidad', 'Direccion', ''GrupoSanguineo', 'FactorRH', 'Donante', 'NumDoc', 'TipoDoc' ) VALUES (NULL, '"+unTitular.getNombre()+"', '"+unTitular.getApellido()+"', '"+unTitular.getSexo()+"', '" +unTitular.getEstadoCivil()+"','"+unTitular.getFechaNac().toString()+"','"+unTitular.getLocalidad()+"','"+unTitular.getDireccion()+"', '"+unTitular.getGrupoSanguineo()+"', '"+unTitular.getFactorRH()+"', '"+unTitular.isDonante()+"', '"+unTitular.getNumeroDoc()+"', '" +unTitular.getTipoDoc()+"'); ";
+			Integer donante;
+			if(unTitular.isDonante())
+				donante = 1;
+			else
+				donante = 0;
+			
+			String consulta2 = "INSERT INTO `agiles`.`titular` (`Id`, `Nombre`, `Apellido`, `Sexo`, `EstadoCivil`, `FechaNacimiento`, `Localidad`, `Direccion`, `GrupoSanguineo`, `FactorRH`, `Donante`, `NumDoc`, `TipoDoc` ) VALUES (NULL, '"+unTitular.getNombre()+"', '"+unTitular.getApellido()+"', '"+unTitular.getSexo()+"', '" +unTitular.getEstadoCivil()+"','"+unTitular.getFechaNac().toString()+"','"+unTitular.getLocalidad()+"','"+unTitular.getDireccion()+"', '"+unTitular.getGrupoSanguineo()+"', '"+unTitular.getFactorRH()+"', '"+donante.toString()+"', '"+unTitular.getNumeroDoc()+"', '" +unTitular.getTipoDoc()+"'); ";
 			AdminBD.getIstance().hacerConsulta(consulta2);
 			
 			
@@ -129,9 +136,11 @@ public class AdminBD {
 			String fechaHora = dateformat.format(cal.getTime());
 			
 			int id = recuperarIdTitular(unTitular.getTipoDoc(), unTitular.getNumeroDoc(), unTitular.getSexo());
-			entidades.Usuario usuario = recuperarUsuario(GestorUsuario.getIstance().getUsuarioLogueado().getNombre());
+			Usuario usuario = GestorUsuario.getIstance().getUsuarioLogueado();
 			
-			String consulta3 = "INSERT INTO 'agiles'.'auditoriatitular' ('id', 'Descripcion', 'Fecha', 'Id_titular', 'id_usuario') VALUES (NULL, 'El usuario "+GestorUsuario.getIstance().getUsuarioLogueado().getNombre()+" creó el titular "+unTitular.getNombre()+" "+unTitular.getApellido()+"', '"+fechaHora+"', '"+id+"', '"+usuario.getId()+"' ) ;";
+			String consulta3 = "INSERT INTO `agiles`.`auditoriatitular` (`id`, `Descripcion`, `Fecha`, `Id_titular`, `id_usuario`) VALUES (NULL, 'El usuario "+usuario.getNombre()+" creó el titular "+unTitular.getNombre()+" "+unTitular.getApellido()+"', '"+fechaHora+"', '"+id+"', '"+usuario.getId()+"' ) ;";
+			AdminBD.getIstance().hacerConsulta(consulta3);
+		
 		}
 
 		
@@ -179,7 +188,7 @@ public class AdminBD {
 	{
 		
 		ResultSet rs = null;
-		String consulta = "SELECT 'id' FROM 'agiles'.'titular' WHERE TipoDoc LIKE '"+unTipoDoc+"' AND NumDoc LIKE '"+unNumDoc+"' AND Sexo LIKE '"+unSexo+"';";
+		String consulta = "SELECT id FROM `agiles`.`titular` WHERE TipoDoc LIKE '"+unTipoDoc+"' AND NumDoc LIKE '"+unNumDoc+"' AND Sexo LIKE '"+unSexo+"';";
 		rs = devolverConsulta(consulta);
 	
 		rs.first();

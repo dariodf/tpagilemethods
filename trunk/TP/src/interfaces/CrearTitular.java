@@ -68,7 +68,6 @@ public class CrearTitular extends JDialog {
 	 */
 	public CrearTitular() 
 	{
-		//super(new JFrame(),true);
 		setTitle("Crear Titular");
 		setBounds(100, 100, 604, 406);
 		getContentPane().setLayout(new BorderLayout());
@@ -277,7 +276,30 @@ public class CrearTitular extends JDialog {
 						throw new GeneralException("Para crear un titular necesita seleccionar un contribuyente");
 					Titular titular = new Titular(contribuyenteSeleccionado);
 					GestorTitular.getIstance().CrearTitular(titular);
-					//falta actualizar la BD con el nuevo titular
+					
+					//Limpia campos
+					textField_1.setText("");
+					textField_2.setText("");
+					textField_3.setText("");
+					textField_4.setText("");
+					textField_5.setText("");
+					textField_6.setText("");
+					textField_7.setText("");
+					textField_8.setText("");
+					textField_9.setText("");
+					textField_11.setText("");
+					textField_12.setText("");
+					
+					// Limpia el contribuyente seleccionado
+					contribuyenteSeleccionado = null;
+					
+					// Cierra la ventana
+					dispose();
+					
+					//Muestra mensaje de informacion
+					JOptionPane.showMessageDialog(null, "Se ha creado con exito el titular "+titular.getNombre()+" "+titular.getApellido()+"." ,"Crear Titular",JOptionPane.INFORMATION_MESSAGE);
+									
+					
 				} catch (SQLException e) {
 					// Muestra un error de la base de datos
 					JOptionPane.showMessageDialog(null, e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);

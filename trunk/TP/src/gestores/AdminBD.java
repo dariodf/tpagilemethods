@@ -119,7 +119,7 @@ public class AdminBD {
 		else{
 			
 			//Agrega el titular a la BD
-			String consulta2 = "INSERT INTO 'agiles'.'titular' ('id', 'nombre', 'apellido', 'sexo', 'estadocivil', 'fechanacimiento', 'localidad', 'direccion', ''gruposanguineo', 'donante', 'numdoc', 'tipodoc' ) VALUES (NULL, '"+unTitular.getNombre()+"', '"+unTitular.getApellido()+"', '"+unTitular.getSexo()+"', '" +unTitular.getEstadoCivil()+"','"+unTitular.getFechaNac().toString()+"','"+unTitular.getLocalidad()+"','"+unTitular.getDireccion()+"', '"+unTitular.getGrupoSanguineo()+"', '" +unTitular.isDonante()+"', '"+unTitular.getNumeroDoc()+"', '" +unTitular.getTipoDoc()+"'); ";
+			String consulta2 = "INSERT INTO 'agiles'.'titular' ('id', 'nombre', 'apellido', 'sexo', 'estadocivil', 'fechanacimiento', 'localidad', 'direccion', ''gruposanguineo', 'factorrh', 'donante', 'numdoc', 'tipodoc' ) VALUES (NULL, '"+unTitular.getNombre()+"', '"+unTitular.getApellido()+"', '"+unTitular.getSexo()+"', '" +unTitular.getEstadoCivil()+"','"+unTitular.getFechaNac().toString()+"','"+unTitular.getLocalidad()+"','"+unTitular.getDireccion()+"', '"+unTitular.getGrupoSanguineo()+"', '"+unTitular.getFactorRH()+"', '"+unTitular.isDonante()+"', '"+unTitular.getNumeroDoc()+"', '" +unTitular.getTipoDoc()+"'); ";
 			AdminBD.getIstance().hacerConsulta(consulta2);
 			
 			

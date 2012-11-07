@@ -95,7 +95,11 @@ public class PantallaPrincipal extends JFrame {
 		JMenuItem mntmNewMenuItem = new JMenuItem("Crear Titular");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new CrearTitular().setVisible(true);
+				CrearTitular crearTitularDialog = new CrearTitular();
+				crearTitularDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				crearTitularDialog.setModalityType(ModalityType.DOCUMENT_MODAL);
+				crearTitularDialog.setModal(true);
+				crearTitularDialog.setVisible(true);
 			}
 		});
 		mnTitular.add(mntmNewMenuItem);

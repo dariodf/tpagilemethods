@@ -7,15 +7,18 @@ import java.util.Random;
 import entidades.Usuario;
 import excepciones.GeneralException;
 
-public class GestorUsuario {
+public class GestorUsuario 
+{
 	
-	private Usuario usuarioLogueado = new Usuario(true, "AdminJuan", "1234");
-	
-	
+	//Usuario temporal para pruebas
+	private Usuario usuarioLogueado = new Usuario(0,true, "Usuario-0", "1234");
+		
 	protected GestorUsuario(){}
 	private final static GestorUsuario instancia = new GestorUsuario();
+	
 	// Metodo encargado de devolver el singleton
-	public static GestorUsuario getIstance(){
+	public static GestorUsuario getIstance()
+	{
 		return instancia;
 	}
 	
@@ -24,40 +27,38 @@ public class GestorUsuario {
 		return usuarioLogueado;	
 	}
 	
-	public String crearUsuario(boolean unSuperUsuario, String unNombre)throws GeneralException
+	
+	//Crea un nuevo usuario en la BD y devuelve un String con la contraseña asignada al usuario creado
+	public String crearUsuario(boolean unSuperUsuario, String unNombre)throws SQLException, GeneralException
 	{
+		
 		if(!GestorUsuario.getIstance().getUsuarioLogueado().isSuperUsuario())
 			throw new GeneralException("El usuario logueado no posee los privilegios para esta acción");
 		else
 		{
-			String pass = this.generarPaswordUsuario();
-			AdminBD.getIstance().crearUsuario(unSuperUsuario, "Usuario-"+this.getIdUsuarioDisponible(), pass);
-			return pass;
+			String password = this.generarPasswordUsuario();
+			AdminBD.getIstance().crearUsuario(unSuperUsuario, "Usuario-"+this.getIdUsuarioDisponible(), password);
+			return password;
 		}
 			
 	}
 
-	private String generarPaswordUsuario() {
+	//Genera una Contraseña aleatoria de 8 dígitos
+	private String generarPasswordUsuario()
+	{
+		
 		Random r;
 		r=new Random();
 		r.setSeed(new Date().getTime());
 		return String.valueOf(r.nextInt(90000000)+10000000);
+		
 	}
 
-	public int getIdUsuarioDisponible() {
+	//Devuelve el id de usuario que se puede usar para un nuevo usuario
+	public int getIdUsuarioDisponible()throws SQLException
+	{
 		
-		int id = -1;
-		
-		try {
-			
-			id = AdminBD.getIstance().getIdUsuarioDisponible();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return id;
+		return AdminBD.getIstance().getIdUsuarioDisponible()+1;
 		
 	}
 	

@@ -3,6 +3,7 @@ package entidades;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 
 
 public class Titular {
@@ -13,19 +14,21 @@ public class Titular {
 	private String apellido;
 	private String tipoDoc;
 	private String numDoc;
+	private String sexo;
+	private String estadoCivil;
 	private Date fechaNac;
 	private String direccion;
 	private String grupoSanguineo;
 	private String factorRH;
 	private boolean donante;
-	private Collection<Licencia> licencia;
+	private Collection<Licencia> licencias;
 	private String localidad;
 	
 
 /*Constructores*/
 	
 	public Titular (String unNombre, String unApellido, String unTipoDoc,
-			String unNumeroDoc, Date unaFechaNac, String unaDireccion,
+			String unNumeroDoc, String unSexo, String unEstadoCivil, Date unaFechaNac, String unaDireccion,
 			String unGrupoSanguineo, String factorRH, boolean esDonante, String unaLocalidad){
 	
 		super();
@@ -33,12 +36,36 @@ public class Titular {
 		this.apellido=unApellido;
 		this.tipoDoc=unTipoDoc;
 		this.numDoc=unNumeroDoc;
+		this.sexo = unSexo;
+		this.estadoCivil = unEstadoCivil;
 		this.fechaNac= unaFechaNac;
 		this.direccion = unaDireccion;
 		this.grupoSanguineo = unGrupoSanguineo;
 		this.factorRH = factorRH;
 		this.donante= esDonante;
 		this.localidad = unaLocalidad;
+		this.licencias = new HashSet();
+		
+	}
+	
+	public Titular (String unNombre, String unApellido, String unTipoDoc,
+			String unNumeroDoc, String unSexo, String unEstadoCivil, Date unaFechaNac, String unaDireccion,
+			String unGrupoSanguineo, String factorRH, boolean esDonante, String unaLocalidad, Collection<Licencia> licencias ){
+	
+		super();
+		this.nombre=unNombre;
+		this.apellido=unApellido;
+		this.tipoDoc=unTipoDoc;
+		this.numDoc=unNumeroDoc;
+		this.sexo = unSexo;
+		this.estadoCivil = unEstadoCivil;
+		this.fechaNac= unaFechaNac;
+		this.direccion = unaDireccion;
+		this.grupoSanguineo = unGrupoSanguineo;
+		this.factorRH = factorRH;
+		this.donante= esDonante;
+		this.localidad = unaLocalidad;
+		this.licencias = licencias;
 		
 	}
 	
@@ -48,12 +75,15 @@ public class Titular {
 		this.apellido=unContribuyente.getApellido();
 		this.tipoDoc=unContribuyente.getTipoDoc();
 		this.numDoc=unContribuyente.getNumeroDoc();
+		this.sexo = unContribuyente.getSexo();
+		this.estadoCivil = unContribuyente.getEstadoCivil();
 		this.fechaNac= unContribuyente.getFechaNac();
 		this.direccion = unContribuyente.getDireccion();
 		this.grupoSanguineo = unContribuyente.getGrupoSanguineo();
 		this.factorRH = unContribuyente.getFactorRH();
 		this.donante= unContribuyente.isDonante();
 		this.localidad = unContribuyente.getLocalidad();
+		this.licencias = new HashSet();
 	}
 
 
@@ -118,6 +148,22 @@ public class Titular {
 
 
 
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+
+	public String getEstadoCivil() {
+		return estadoCivil;
+	}
+
+	public void setEstadoCivil(String estadoCivil) {
+		this.estadoCivil = estadoCivil;
+	}
+
 	public Date getFechaNac() {
 		return fechaNac;
 	}
@@ -174,14 +220,14 @@ public class Titular {
 
 
 
-	public Collection<Licencia> getLicencia() {
-		return licencia;
+	public Collection<Licencia> getLicencias() {
+		return licencias;
 	}
 
 
 
-	public void setLicencia(Collection<Licencia> licencia) {
-		this.licencia = licencia;
+	public void setLicencia(Collection<Licencia> licencias) {
+		this.licencias = licencias;
 	}
 
 

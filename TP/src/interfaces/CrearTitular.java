@@ -2,6 +2,7 @@ package interfaces;
 
 import entidades.Contribuyente;
 import entidades.Titular;
+import excepciones.GeneralException;
 import gestores.GestorTitular;
 
 import java.awt.BorderLayout;
@@ -114,7 +115,9 @@ public class CrearTitular extends JDialog {
 						textField_10.setText("No");
 					} 
 				} catch (SQLException e) {
-					// Lanzar error de la BD
+					
+				} catch (GeneralException e){
+					e.lanzarMensaje("Error");
 				}
 			
 			}
@@ -236,12 +239,14 @@ public class CrearTitular extends JDialog {
 		JButton button_1 = new JButton("Aceptar");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				// Agregar comprobacion de si no selecciono un titular
 				Boolean bool = new Boolean(false);
 				if(textField_10.getText()== "Si"){
 					bool = true;
 				}
 				java.sql.Date fecha = GestorTitular.getIstance().getDate(textField_5.toString());				
-				Titular titular = new Titular(textField_4.toString(), textField_3.toString(), textField_1.toString(), textField_2.toString(), fecha, textField_6.toString(), textField_8.toString(), textField_9.toString(), "", bool.booleanValue(), textField_7.toString());
+				Titular titular = new Titular(textField_4.toString(), textField_3.toString(), textField_1.toString(), textField_2.toString(), fecha, textField_6.toString(), textField_8.toString(), textField_9.toString(), bool.booleanValue(), textField_7.toString());
 				//falta actualizar la BD con el nuevo titular
 			}
 		});

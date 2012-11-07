@@ -33,10 +33,10 @@ public class GestorTitular {
 			
 	}
 	
-	public Date getDate(String date){
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+	public java.util.Date getDate(String date){
+		DateFormat df = new SimpleDateFormat("dd-mm-yyyy");
 	    try {
-	    	return (Date) df.parse(date);
+	    	return df.parse(date);
 		} catch (ParseException ex) {
 	    }
 	    return null;

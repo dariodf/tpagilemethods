@@ -4,6 +4,9 @@ import java.sql.*;
 
 import javax.swing.JOptionPane;
 
+import entidades.Titular;
+import excepciones.GeneralException;
+
 public class AdminBD {
 	private static Connection conexion;
 	private static Statement st;
@@ -79,6 +82,23 @@ public class AdminBD {
 		String superUser = "0";
 		if(unSuperUsuario) superUser = "1";
 		String consulta = "INSERT INTO `agiles`.`usuario` (`id`, `nombre`, `password`, `superUsuario`) VALUES (NULL, '"+unNombre+"', '" +unaPassword+"', '"+superUser+"'); ";
+		
+		
+		
+		try {
+			
+			AdminBD.getIstance().hacerConsulta(consulta);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	//Agregar titular
+	public void crearTitular(Titular unTitular)throws SQLException, GeneralException
+	{
+		// fijarse si no existe titular
+		String consulta = "INSERT INTO `agiles`.`titular` ('id', 'nombre', 'apellido', 'fechanacimiento', 'localidad', 'direccion', ''gruposanguineo', 'donante', 'numdoc', 'tipodoc' ) VALUES (NULL, '"+unTitular.getNombre()+"', '" +unTitular.getApellido()+"', '"+unTitular.getFechaNac().toString()+"','" +unTitular.getLocalidad()+"','" +unTitular.getDireccion()+"', '" +unTitular.getGrupoSanguineo()+"', '" +unTitular.isDonante()+"', '" +unTitular.getNumeroDoc()+"', '" +unTitular.getTipoDoc()+"'); ";
 		
 		
 		

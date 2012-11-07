@@ -35,7 +35,9 @@ public class GestorTitular {
 	}
 	
 
-	public void CrearTitular(Titular unTitular) throws SQLException, GeneralException {}
+	public void CrearTitular(Titular unTitular) throws SQLException, GeneralException {
+		AdminBD.getIstance().crearTitular(unTitular);
+	}
 	
 	public Date getDate(String date){
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");

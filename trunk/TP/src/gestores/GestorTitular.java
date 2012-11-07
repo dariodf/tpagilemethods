@@ -1,13 +1,15 @@
 package gestores;
 
-import java.sql.Date;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import entidades.Contribuyente;
+import entidades.Titular;
 import excepciones.GeneralException;
 
 public class GestorTitular {
@@ -33,8 +35,11 @@ public class GestorTitular {
 			
 	}
 	
-	public java.util.Date getDate(String date){
-		DateFormat df = new SimpleDateFormat("dd-mm-yyyy");
+
+	public void CrearTitular(Titular unTitular) throws SQLException, GeneralException {}
+	
+	public Date getDate(String date){
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	    try {
 	    	return df.parse(date);
 		} catch (ParseException ex) {

@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
@@ -45,7 +46,7 @@ public class CrearTitular extends JDialog {
 	private JTextField textField_8;
 	private JTextField textField_9;
 	private JTextField textField_10;
-
+	private Contribuyente contribuyenteSeleccionado;
 	/**
 	 * Launch the application.
 	 */
@@ -98,25 +99,30 @@ public class CrearTitular extends JDialog {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					Contribuyente contribuyente = GestorTitular.getIstance().buscarContribuyente(comboBox.toString(), textField.toString());
-					textField_1.setText(contribuyente.getTipoDoc());
-					textField_2.setText(contribuyente.getNumeroDoc());
-					textField_3.setText(contribuyente.getApellido());
-					textField_4.setText(contribuyente.getNombre());
-					textField_5.setText(contribuyente.getFechaNac().toString());
-					textField_6.setText(contribuyente.getDireccion());
-					textField_7.setText(contribuyente.getLocalidad());
-					textField_8.setText(contribuyente.getGrupoSanguineo());
-					textField_9.setText(contribuyente.getFactorRH());
-					if(contribuyente.isDonante()== true){
+					// Se instancia un titular con la consulta devuelta por el gestor.
+					contribuyenteSeleccionado = GestorTitular.getIstance().buscarContribuyente(comboBox.toString(), textField.toString());
+					
+					// Se cargan los datos del contribuyente en pantalla. 
+					textField_1.setText(contribuyenteSeleccionado.getTipoDoc());
+					textField_2.setText(contribuyenteSeleccionado.getNumeroDoc());
+					textField_3.setText(contribuyenteSeleccionado.getApellido());
+					textField_4.setText(contribuyenteSeleccionado.getNombre());
+					textField_5.setText(contribuyenteSeleccionado.getFechaNac().toString());
+					textField_6.setText(contribuyenteSeleccionado.getDireccion());
+					textField_7.setText(contribuyenteSeleccionado.getLocalidad());
+					textField_8.setText(contribuyenteSeleccionado.getGrupoSanguineo());
+					textField_9.setText(contribuyenteSeleccionado.getFactorRH());
+					if(contribuyenteSeleccionado.isDonante()== true){
 						textField_10.setText("Si");
 					}
 					else{
 						textField_10.setText("No");
 					} 
 				} catch (SQLException e) {
-					
+					// Muestra un error de la base de datos
+					JOptionPane.showMessageDialog(null, e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 				} catch (GeneralException e){
+					// En el caso de no encontrarse un contribuyente con el tipo y documento seleccionado, se muestra un mensaje de error
 					e.lanzarMensaje("Error");
 				}
 			
@@ -239,15 +245,21 @@ public class CrearTitular extends JDialog {
 		JButton button_1 = new JButton("Aceptar");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				// Agregar comprobacion de si no selecciono un titular
-				Boolean bool = new Boolean(false);
-				if(textField_10.getText()== "Si"){
-					bool = true;
+				try{
+					if(null == contribuyenteSeleccionado)
+						throw new GeneralException("Para crear un titular necesita seleccionar un contribuyente");
+					Titular titular = new Titular(contribuyenteSeleccionado);
+					GestorTitular.getIstance().CrearTitular(titular);
+					//falta actualizar la BD con el nuevo titular
+				} catch (SQLException e) {
+					// Muestra un error de la base de datos
+					JOptionPane.showMessageDialog(null, e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+				} catch (GeneralException e){
+					// En el caso de no se haya seleccionado un contribuyente o o el titular ya exista, se muestra un error por pantalla
+					e.lanzarMensaje("Error");
 				}
-				java.sql.Date fecha = GestorTitular.getIstance().getDate(textField_5.toString());				
-				Titular titular = new Titular(textField_4.toString(), textField_3.toString(), textField_1.toString(), textField_2.toString(), fecha, textField_6.toString(), textField_8.toString(), textField_9.toString(), bool.booleanValue(), textField_7.toString());
-				//falta actualizar la BD con el nuevo titular
+				
+				
 			}
 		});
 		button_1.setBounds(390, 324, 89, 23);

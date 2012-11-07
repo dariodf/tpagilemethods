@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 import entidades.Usuario;
 import excepciones.GeneralException;
 
@@ -55,11 +57,15 @@ public class GestorUsuario
 	}
 
 	//Devuelve el id de usuario que se puede usar para un nuevo usuario
-	public int getIdUsuarioDisponible()throws SQLException
+	public int getIdUsuarioDisponible()
 	{
-		
-		return AdminBD.getIstance().getIdUsuarioDisponible()+1;
-		
+		int id=0;
+		try {
+			id = AdminBD.getIstance().getIdUsuarioDisponible()+1;
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null,e.getMessage() , "Error en la Base de Datos",JOptionPane.ERROR_MESSAGE);
+		}
+		return id;
 	}
 	
 	

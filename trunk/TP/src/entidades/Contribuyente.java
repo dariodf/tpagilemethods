@@ -12,6 +12,8 @@ public class Contribuyente {
 		private String apellido;
 		private String tipoDoc;
 		private String numDoc;
+		private String sexo;
+		private String estadoCivil;
 		private Date fechaNac;
 		private String direccion;
 		private String grupoSanguineo;
@@ -22,19 +24,21 @@ public class Contribuyente {
 /*Constructores*/
 		
 		public Contribuyente(String nombre, String apellido, String tipoDoc,
-				String numeroDoc, Date fechaNac, String direccion,
+				String numeroDoc, String sexo, String estadoCivil, Date fechaNac, String direccion,
 				String grupoSanguineo, String factorRH, boolean donante, String unaLocalidad) {
 			
 			super();
-			this.nombre = nombre;
-			this.apellido = apellido;
-			this.tipoDoc = tipoDoc;
-			this.numDoc = numeroDoc;
-			this.fechaNac = fechaNac;
+			this.nombre=nombre;
+			this.apellido=apellido;
+			this.tipoDoc=tipoDoc;
+			this.numDoc=numeroDoc;
+			this.sexo = sexo;
+			this.estadoCivil = estadoCivil;
+			this.fechaNac= fechaNac;
 			this.direccion = direccion;
 			this.grupoSanguineo = grupoSanguineo;
 			this.factorRH = factorRH;
-			this.donante = donante;
+			this.donante= donante;
 			this.localidad = unaLocalidad;
 		}
 
@@ -78,6 +82,22 @@ public class Contribuyente {
 
 		public void setNumeroDoc(String numeroDoc) {
 			this.numDoc = numeroDoc;
+		}
+
+		public String getSexo() {
+			return sexo;
+		}
+
+		public void setSexo(String sexo) {
+			this.sexo = sexo;
+		}
+
+		public String getEstadoCivil() {
+			return estadoCivil;
+		}
+
+		public void setEstadoCivil(String estadoCivil) {
+			this.estadoCivil = estadoCivil;
 		}
 
 		public Date getFechaNac() {

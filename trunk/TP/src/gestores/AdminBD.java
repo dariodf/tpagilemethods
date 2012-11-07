@@ -75,7 +75,7 @@ public class AdminBD {
 	
 	public ResultSet buscarContribuyente(String tipoDoc, String numDoc) throws SQLException{
 		ResultSet rs = null;
-		String consulta = "SELECT * FROM contribuyente WHERE TipoDoc LIKE " + tipoDoc + " AND NumDoc LIKE " + numDoc;
+		String consulta = "SELECT * FROM contribuyente WHERE TipoDoc LIKE '"+ tipoDoc+"' AND NumDoc LIKE '"+numDoc+"';";
 		rs = devolverConsulta(consulta);
 		
 		return rs;

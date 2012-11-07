@@ -32,6 +32,7 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 public class CrearTitular extends JDialog {
 
@@ -68,8 +69,9 @@ public class CrearTitular extends JDialog {
 	 */
 	public CrearTitular() 
 	{
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\WS\\TP\\icono.png"));
 		setTitle("Crear Titular");
-		setBounds(100, 100, 604, 406);
+		setBounds(100, 100, 610, 338);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -79,23 +81,23 @@ public class CrearTitular extends JDialog {
 		Border title = BorderFactory.createTitledBorder("Búsqueda");
 		panel.setBorder(title);
 		panel.setLayout(null);
-		panel.setBounds(10, 26, 568, 110);
+		panel.setBounds(10, 26, 568, 64);
 		contentPanel.add(panel);
 		
-		JLabel label = new JLabel("Tipo");
-		label.setBounds(10, 24, 46, 14);
-		panel.add(label);
+		JLabel lblTipoDeDocumento = new JLabel("Tipo de Documento");
+		lblTipoDeDocumento.setBounds(10, 22, 113, 23);
+		panel.add(lblTipoDeDocumento);
 		
 		final JComboBox comboBox = new JComboBox();
 		comboBox.addItem("DNI");
 		comboBox.addItem("LE");
 		comboBox.addItem("LC");
-		comboBox.setBounds(45, 21, 83, 20);
+		comboBox.setBounds(128, 23, 83, 20);
 		panel.add(comboBox);
 		
 		textField = new JTextField();
 		textField.setColumns(10);
-		textField.setBounds(211, 21, 99, 20);
+		textField.setBounds(291, 23, 99, 20);
 		panel.add(textField);
 		
 		JButton button = new JButton("Buscar");
@@ -134,38 +136,38 @@ public class CrearTitular extends JDialog {
 			
 			}
 		});
-		button.setBounds(359, 20, 89, 23);
+		button.setBounds(469, 22, 89, 23);
 		panel.add(button);
 		
 		JLabel label_1 = new JLabel("N\u00FAmero");
-		label_1.setBounds(155, 24, 46, 14);
+		label_1.setBounds(234, 26, 62, 14);
 		panel.add(label_1);
 		
 		JPanel panel_1 = new JPanel();
 		Border title1 = BorderFactory.createTitledBorder("Contribuyente Seleccionado");
 		panel_1.setBorder(title1);
 		panel_1.setLayout(null);
-		panel_1.setBounds(10, 144, 568, 149);
+		panel_1.setBounds(10, 101, 568, 152);
 		contentPanel.add(panel_1);
 		
 		JLabel lblTipoDoc = new JLabel("Tipo Doc");
-		lblTipoDoc.setBounds(10, 23, 46, 14);
+		lblTipoDoc.setBounds(10, 23, 61, 14);
 		panel_1.add(lblTipoDoc);
 		
 		textField_1 = new JTextField();
 		textField_1.setEditable(false);
 		textField_1.setColumns(10);
-		textField_1.setBounds(61, 20, 100, 20);
+		textField_1.setBounds(68, 20, 100, 20);
 		panel_1.add(textField_1);
 		
 		JLabel label_3 = new JLabel("N\u00FAmero");
-		label_3.setBounds(166, 23, 46, 14);
+		label_3.setBounds(178, 23, 56, 14);
 		panel_1.add(label_3);
 		
 		textField_2 = new JTextField();
 		textField_2.setEditable(false);
 		textField_2.setColumns(10);
-		textField_2.setBounds(222, 20, 99, 20);
+		textField_2.setBounds(234, 20, 110, 20);
 		panel_1.add(textField_2);
 		
 		JLabel label_4 = new JLabel("Apellido");
@@ -175,97 +177,97 @@ public class CrearTitular extends JDialog {
 		textField_3 = new JTextField();
 		textField_3.setEditable(false);
 		textField_3.setColumns(10);
-		textField_3.setBounds(61, 55, 99, 20);
+		textField_3.setBounds(61, 55, 117, 20);
 		panel_1.add(textField_3);
 		
 		JLabel label_5 = new JLabel("Nombre");
-		label_5.setBounds(166, 58, 46, 14);
+		label_5.setBounds(188, 58, 46, 14);
 		panel_1.add(label_5);
 		
 		textField_4 = new JTextField();
 		textField_4.setEditable(false);
 		textField_4.setColumns(10);
-		textField_4.setBounds(222, 55, 99, 20);
+		textField_4.setBounds(244, 55, 126, 20);
 		panel_1.add(textField_4);
 		
 		JLabel label_6 = new JLabel("Fecha de nacimiento");
-		label_6.setBounds(10, 90, 100, 14);
+		label_6.setBounds(10, 90, 126, 14);
 		panel_1.add(label_6);
 		
 		textField_5 = new JTextField();
 		textField_5.setEditable(false);
 		textField_5.setColumns(10);
-		textField_5.setBounds(120, 87, 99, 20);
+		textField_5.setBounds(135, 86, 99, 20);
 		panel_1.add(textField_5);
 		
 		JLabel label_7 = new JLabel("Direcci\u00F3n");
-		label_7.setBounds(234, 90, 46, 14);
+		label_7.setBounds(10, 119, 61, 14);
 		panel_1.add(label_7);
 		
 		textField_6 = new JTextField();
 		textField_6.setEditable(false);
 		textField_6.setColumns(10);
-		textField_6.setBounds(287, 87, 99, 20);
+		textField_6.setBounds(68, 115, 126, 20);
 		panel_1.add(textField_6);
 		
 		JLabel label_8 = new JLabel("Localidad");
-		label_8.setBounds(396, 90, 46, 14);
+		label_8.setBounds(214, 119, 61, 14);
 		panel_1.add(label_8);
 		
 		textField_7 = new JTextField();
 		textField_7.setEditable(false);
 		textField_7.setColumns(10);
-		textField_7.setBounds(458, 86, 99, 20);
+		textField_7.setBounds(275, 115, 143, 20);
 		panel_1.add(textField_7);
 		
 		JLabel label_9 = new JLabel("Grupo sangu\u00EDneo");
-		label_9.setBounds(10, 124, 100, 14);
+		label_9.setBounds(283, 90, 100, 14);
 		panel_1.add(label_9);
 		
 		textField_8 = new JTextField();
 		textField_8.setEditable(false);
 		textField_8.setColumns(10);
-		textField_8.setBounds(120, 121, 99, 20);
+		textField_8.setBounds(393, 87, 37, 20);
 		panel_1.add(textField_8);
 		
 		JLabel label_10 = new JLabel("Factor RH");
-		label_10.setBounds(234, 124, 61, 14);
+		label_10.setBounds(451, 90, 85, 14);
 		panel_1.add(label_10);
 		
 		textField_9 = new JTextField();
 		textField_9.setEditable(false);
 		textField_9.setColumns(10);
-		textField_9.setBounds(287, 121, 46, 20);
+		textField_9.setBounds(528, 87, 29, 20);
 		panel_1.add(textField_9);
 		
 		JLabel label_11 = new JLabel("Es donante");
-		label_11.setBounds(358, 124, 61, 14);
+		label_11.setBounds(428, 119, 73, 14);
 		panel_1.add(label_11);
 		
 		textField_10 = new JTextField();
 		textField_10.setEditable(false);
-		textField_10.setBounds(429, 121, 46, 20);
+		textField_10.setBounds(511, 116, 46, 20);
 		panel_1.add(textField_10);
 		textField_10.setColumns(10);
 		
 		JLabel lblSexo = new JLabel("Sexo");
-		lblSexo.setBounds(331, 58, 29, 14);
+		lblSexo.setBounds(375, 23, 29, 14);
 		panel_1.add(lblSexo);
 		
 		textField_11 = new JTextField();
 		textField_11.setEditable(false);
 		textField_11.setColumns(10);
-		textField_11.setBounds(365, 55, 18, 20);
+		textField_11.setBounds(412, 20, 18, 20);
 		panel_1.add(textField_11);
 		
 		JLabel lblEstadoCivil = new JLabel("Estado Civil");
-		lblEstadoCivil.setBounds(396, 59, 56, 14);
+		lblEstadoCivil.setBounds(395, 58, 79, 14);
 		panel_1.add(lblEstadoCivil);
 		
 		textField_12 = new JTextField();
 		textField_12.setEditable(false);
 		textField_12.setColumns(10);
-		textField_12.setBounds(458, 56, 99, 20);
+		textField_12.setBounds(484, 56, 73, 20);
 		panel_1.add(textField_12);
 		
 		JButton button_1 = new JButton("Aceptar");
@@ -309,11 +311,33 @@ public class CrearTitular extends JDialog {
 				}
 			}
 		});
-		button_1.setBounds(390, 324, 89, 23);
+		button_1.setBounds(390, 264, 89, 23);
 		contentPanel.add(button_1);
 		
 		JButton button_2 = new JButton("Cancelar");
-		button_2.setBounds(489, 324, 89, 23);
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//Limpia campos
+				textField_1.setText("");
+				textField_2.setText("");
+				textField_3.setText("");
+				textField_4.setText("");
+				textField_5.setText("");
+				textField_6.setText("");
+				textField_7.setText("");
+				textField_8.setText("");
+				textField_9.setText("");
+				textField_11.setText("");
+				textField_12.setText("");
+				
+				// Limpia el contribuyente seleccionado
+				contribuyenteSeleccionado = null;
+				
+				dispose();
+				
+			}
+		});
+		button_2.setBounds(489, 264, 89, 23);
 		contentPanel.add(button_2);
 	}
 }

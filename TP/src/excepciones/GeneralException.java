@@ -16,9 +16,9 @@ public class GeneralException extends Exception {
 		if(0 == tipo.compareTo("Error"))
 			JOptionPane.showMessageDialog(null, mensaje,tipo,JOptionPane.ERROR_MESSAGE);
 		else if(0 == tipo.compareTo("Information"))
-			JOptionPane.showMessageDialog(null, mensaje,tipo,JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, mensaje,tipo,JOptionPane.INFORMATION_MESSAGE);
 		else if(0 == tipo.compareTo("Warning"))
-			JOptionPane.showMessageDialog(null, mensaje,tipo,JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, mensaje,tipo,JOptionPane.WARNING_MESSAGE);
 	}
 	
 	

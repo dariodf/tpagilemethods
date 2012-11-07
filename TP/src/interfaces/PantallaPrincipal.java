@@ -41,7 +41,8 @@ public class PantallaPrincipal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PantallaPrincipal() {
+	public PantallaPrincipal() 
+	{
 		setTitle("Municipalidad de Santa Fe - Registro del conductor");
 		// Causa la apertura en modo maximizado de la ventana
 		setExtendedState(JFrame.MAXIMIZED_BOTH);

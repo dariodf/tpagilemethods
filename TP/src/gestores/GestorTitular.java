@@ -22,7 +22,8 @@ public class GestorTitular {
 	}
 	
 	// Busca un contribuyente en la base de datos y lo retorna
-	public Contribuyente buscarContribuyente(String tipoDoc, String numDoc) throws SQLException, GeneralException{
+	public Contribuyente buscarContribuyente(String tipoDoc, String numDoc) throws SQLException, GeneralException
+	{
 		// Realiza la busqueda del contribuyente en la base de datos
 		ResultSet rs = AdminBD.getIstance().buscarContribuyente(tipoDoc, numDoc);
 		// Si no encuentra el contribuyente, lanza una excepcion
@@ -35,19 +36,12 @@ public class GestorTitular {
 	}
 	
 
-	public void CrearTitular(Titular unTitular) throws SQLException, GeneralException {
+	public void CrearTitular(Titular unTitular) throws SQLException, GeneralException 
+	{
 		AdminBD.getIstance().crearTitular(unTitular);
 	}
 	
-	public Date getDate(String date){
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-	    try {
-	    	return df.parse(date);
-		} catch (ParseException ex) {
-	    }
-	    return null;
 	
-	}
 
 
 }

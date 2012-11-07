@@ -3,6 +3,7 @@ package interfaces;
 import entidades.Contribuyente;
 import entidades.Titular;
 import excepciones.GeneralException;
+import funcionesExtra.Funciones;
 import gestores.GestorTitular;
 
 import java.awt.BorderLayout;
@@ -65,7 +66,8 @@ public class CrearTitular extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public CrearTitular() {
+	public CrearTitular() 
+	{
 		//super(new JFrame(),true);
 		setTitle("Crear Titular");
 		setBounds(100, 100, 604, 406);
@@ -109,7 +111,8 @@ public class CrearTitular extends JDialog {
 					textField_2.setText(contribuyenteSeleccionado.getNumeroDoc());
 					textField_3.setText(contribuyenteSeleccionado.getApellido());
 					textField_4.setText(contribuyenteSeleccionado.getNombre());
-					textField_5.setText(contribuyenteSeleccionado.getFechaNac().toString());
+					// Cambia el formato de la fecha y lo carga al textfield
+					textField_5.setText(Funciones.getIstance().cambiarFormatoFecha(contribuyenteSeleccionado.getFechaNac()).toString());
 					textField_6.setText(contribuyenteSeleccionado.getDireccion());
 					textField_7.setText(contribuyenteSeleccionado.getLocalidad());
 					textField_8.setText(contribuyenteSeleccionado.getGrupoSanguineo());
@@ -282,8 +285,6 @@ public class CrearTitular extends JDialog {
 					// En el caso de no se haya seleccionado un contribuyente o o el titular ya exista, se muestra un error por pantalla
 					e.lanzarMensaje("Error");
 				}
-				
-				
 			}
 		});
 		button_1.setBounds(390, 324, 89, 23);

@@ -109,7 +109,7 @@ public class AdminBD {
 	{
 		
 		ResultSet rs = null;
-		//Realizamos la consulta para testear si el titular existe en la BD
+		//Realiza la consulta para testear si el titular existe en la BD
 		String consulta1 = "SELECT * FROM 'agiles'.'titular' WHERE tipodoc LIKE '"+unTitular.getTipoDoc()+"' AND numdoc LIKE '"+unTitular.getNumeroDoc()+"' AND sexo LIKE '"+unTitular.getSexo()+"';";
 		rs = AdminBD.getIstance().devolverConsulta(consulta1);
 		
@@ -118,7 +118,7 @@ public class AdminBD {
 		}
 		else{
 			
-			//Agregamos el titular a la BD
+			//Agrega el titular a la BD
 			String consulta2 = "INSERT INTO 'agiles'.'titular' ('id', 'nombre', 'apellido', 'sexo', 'estadocivil', 'fechanacimiento', 'localidad', 'direccion', ''gruposanguineo', 'donante', 'numdoc', 'tipodoc' ) VALUES (NULL, '"+unTitular.getNombre()+"', '"+unTitular.getApellido()+"', '"+unTitular.getSexo()+"', '" +unTitular.getEstadoCivil()+"','"+unTitular.getFechaNac().toString()+"','"+unTitular.getLocalidad()+"','"+unTitular.getDireccion()+"', '"+unTitular.getGrupoSanguineo()+"', '" +unTitular.isDonante()+"', '"+unTitular.getNumeroDoc()+"', '" +unTitular.getTipoDoc()+"'); ";
 			AdminBD.getIstance().hacerConsulta(consulta2);
 			
@@ -128,7 +128,7 @@ public class AdminBD {
 			Calendar cal = Calendar.getInstance();
 			String fechaHora = dateformat.format(cal.getTime());
 			
-			int id = recuperarTitular(unTitular.getTipoDoc(), unTitular.getNumeroDoc(), unTitular.getSexo());
+			int id = recuperarIdTitular(unTitular.getTipoDoc(), unTitular.getNumeroDoc(), unTitular.getSexo());
 			entidades.Usuario usuario = recuperarUsuario(GestorUsuario.getIstance().getUsuarioLogueado().getNombre());
 			
 			String consulta3 = "INSERT INTO 'agiles'.'auditoriatitular' ('id', 'descripcion', 'fecha', 'id_titular', 'id_usuario') VALUES (NULL, 'El usuario "+GestorUsuario.getIstance().getUsuarioLogueado().getNombre()+" creó el titular "+unTitular.getNombre()+" "+unTitular.getApellido()+"', '"+fechaHora+"', '"+id+"', '"+usuario.getId()+"' ) ;";
@@ -175,7 +175,7 @@ public class AdminBD {
 	}
 
 
-	public int recuperarTitular(String unTipoDoc, String unNumDoc, String unSexo)throws SQLException
+	public int recuperarIdTitular(String unTipoDoc, String unNumDoc, String unSexo)throws SQLException
 	{
 		
 		ResultSet rs = null;

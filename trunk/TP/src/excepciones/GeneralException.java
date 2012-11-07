@@ -6,7 +6,8 @@ public class GeneralException extends Exception {
 	
 	String mensaje = new String(" ");
 
-	public GeneralException(String mensaje) {
+	public GeneralException(String mensaje) 
+	{
 		super();
 		this.mensaje = mensaje;
 	}

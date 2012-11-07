@@ -107,14 +107,17 @@ public class AdminBD {
 	//Agregar titular
 	public void crearTitular(Titular unTitular)throws SQLException, GeneralException
 	{
+		
 		ResultSet rs = null;
 		//Realizamos la consulta para testear si el titular existe en la BD
 		String consulta1 = "SELECT * FROM 'agiles'.'titular' WHERE tipodoc LIKE '"+unTitular.getTipoDoc()+"' AND numdoc LIKE '"+unTitular.getNumeroDoc()+"' AND sexo LIKE '"+unTitular.getSexo()+"';";
 		rs = AdminBD.getIstance().devolverConsulta(consulta1);
+		
 		if (rs.next()){
 			throw new GeneralException("Ya existe el titular");
 		}
 		else{
+			
 			//Agregamos el titular a la BD
 			String consulta2 = "INSERT INTO 'agiles'.'titular' ('id', 'nombre', 'apellido', 'sexo', 'estadocivil', 'fechanacimiento', 'localidad', 'direccion', ''gruposanguineo', 'donante', 'numdoc', 'tipodoc' ) VALUES (NULL, '"+unTitular.getNombre()+"', '"+unTitular.getApellido()+"', '"+unTitular.getSexo()+"', '" +unTitular.getEstadoCivil()+"','"+unTitular.getFechaNac().toString()+"','"+unTitular.getLocalidad()+"','"+unTitular.getDireccion()+"', '"+unTitular.getGrupoSanguineo()+"', '" +unTitular.isDonante()+"', '"+unTitular.getNumeroDoc()+"', '" +unTitular.getTipoDoc()+"'); ";
 			AdminBD.getIstance().hacerConsulta(consulta2);
@@ -134,11 +137,14 @@ public class AdminBD {
 		
 	}
 
+	//Devuelve el id de usuario que se puede usar para un nuevo usuario
 	public int getIdUsuarioDisponible() throws SQLException
 	{
+		
 		ResultSet rs = null;
 		String consulta = "SELECT MAX(id) FROM usuario";
 		rs = devolverConsulta(consulta);
+		
 		if(null == rs)
 		{
 			return 0;
@@ -150,6 +156,7 @@ public class AdminBD {
 		}	
 					
 	}
+	
 	public Usuario recuperarUsuario(String unNombre)throws SQLException
 	{
 		ResultSet rs = null;
@@ -162,8 +169,7 @@ public class AdminBD {
 		String nombreUsuario = rs.getString("nombre");
 		String password = rs.getString("password");
 		boolean superUsuario = rs.getBoolean("superUsuario");
-	 
-	
+	 	
 		Usuario user = new Usuario(id, superUsuario,nombreUsuario, password);
 		return user;
 	}
@@ -171,6 +177,7 @@ public class AdminBD {
 
 	public int recuperarTitular(String unTipoDoc, String unNumDoc, String unSexo)throws SQLException
 	{
+		
 		ResultSet rs = null;
 		String consulta = "SELECT 'id' FROM 'agiles'.'titular' WHERE tipodoc LIKE '"+unTipoDoc+"' AND numdoc LIKE '"+unNumDoc+"' AND sexo LIKE '"+unSexo+"';";
 		rs = devolverConsulta(consulta);

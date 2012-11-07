@@ -104,7 +104,7 @@ public class CrearTitular extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					// Se instancia un titular con la consulta devuelta por el gestor.
-					contribuyenteSeleccionado = GestorTitular.getIstance().buscarContribuyente(comboBox.toString(), textField.toString());
+					contribuyenteSeleccionado = GestorTitular.getIstance().buscarContribuyente((String) comboBox.getSelectedItem(), textField.getText());
 					
 					// Se cargan los datos del contribuyente en pantalla. 
 					textField_1.setText(contribuyenteSeleccionado.getTipoDoc());

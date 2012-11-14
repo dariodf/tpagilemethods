@@ -8,6 +8,7 @@ import java.util.GregorianCalendar;
 
 import entidades.Licencia;
 import entidades.Titular;
+import excepciones.GeneralException;
 
 public class GestorLicencia {
 
@@ -39,7 +40,7 @@ public class GestorLicencia {
 				Date fechaLimite = new Date();
 				
 				//Formateador
-				SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
+				SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
 				
 				//El formateador devuelve un string por eso lo asignamos a la cadenFecha
 						//A los calendarios cFechaNac y cFechaLimite les asignamos la fecha de nacimiento del titular		
@@ -86,11 +87,14 @@ public class GestorLicencia {
 
 		}
 		
-		public static void validarLicencia (Titular unTitular, String unaClaseLicencia){
+		public static boolean validarLicencia (Titular unTitular, String unaClaseLicencia) throws GeneralException{
 			
 			int edad=0;
+			boolean ValidacionLicencia = true;
+			
 			Calendar cFechaNac =  new GregorianCalendar();
 			//Calendar FechaVenLic = new GregorianCalendar();
+			
 			
 			cFechaNac.setTime(unTitular.getFechaNac());
 			
@@ -98,8 +102,10 @@ public class GestorLicencia {
 			
 			//**CONDICIONES PARA QUE SE PUEDA EMITIR LICENCIA
 			
-			//si ya tiene una licencia activa de ese mismo tipo
+			//si ya tiene una licencia activa de ese mismo tipo //QUÉ PASA SI YA QUIERE RENOVAR?????
 			
+			//recorre la colección de licencias que tiene el titular y compara la clase de cada una con la que viene como parámetro.
+			//Si son iguales y si la fecha de vencimiento de la licencia del titular es después de la fecha de hoy, da un mensaje de error.
 			if(unTitular.getLicencias().isEmpty()==false)
 			{
 				for (Licencia lic : unTitular.getLicencias()) 
@@ -108,26 +114,33 @@ public class GestorLicencia {
 					if((lic.clase==unaClaseLicencia) && 
 							(lic.fechaVencimiento.after(Calendar.getInstance().getTime())))
 							{
-						         //Se tira la excepción
+						         ValidacionLicencia = false;
+						         throw new GeneralException ("El titular ya tiene una licencia activa de esta clase");
+						         
 							}
+					
 						 
   			    }
 			}
 			
 			
 			//No se puede dar una licencia profesional por primera vez a una persona de más de 65 años.
-			
+			//recorre la colección de licencias que tiene el titular, si esta es vacía es porque nunca tuvo una licencia activa.
+			//Si el titular es mayor de 65 años y la colección es vacía, da un mensaje de error.
 			if ((unTitular.getLicencias().isEmpty()==true) && (edad>65))
 			{ 
-				//se tira excpción
+				ValidacionLicencia = false;
+				throw new GeneralException ("El titular no puede obtener una licencia por primera vez a los 65 años");  
 			}
 			
 			
 			//Una persona menor a 21 años sólo puede tener licencias de clase A, B, F, G. Y debe ser mayor a 17 años.
+			//Si el titular es menos a 21 años y la clase de la licencia que ingresa como parámetro es C, D o E, da mensaje de error.
 			
 			if (edad<21 && (unaClaseLicencia=="C" || unaClaseLicencia=="D" || unaClaseLicencia=="E"))
 			{
-				//se tira excepción
+				ValidacionLicencia = false;
+				throw new GeneralException ("El titular no puede recibir esta licencia hasta los 21 años");
 			}
 			
 			
@@ -135,9 +148,31 @@ public class GestorLicencia {
 			//si se quiere otorgar una licencia profesional (C, D o E) a una persona a la cual no se le haya 
 			//otorgado previamente (al menos un año antes) una licencia de clase B.
 			
+			//Si la licencia que ingresó como parámetro es C, D o E, se recorre la colección para ver si tiene o tuvo una licencia 
+			//de clase B. FALTA VER, SI ES LA PRIMERA VEZ, QUE TENGA UN AÑO DE ANTIGUEDAD.
 			
+			if (unaClaseLicencia=="C" || unaClaseLicencia=="D" || unaClaseLicencia=="E")
+			{
+				int noPuede=0;
+				
+				for (Licencia lic : unTitular.getLicencias()) 
+				{
+					//FechaVenLic.setTime(lic.fechaVencimiento);
+					if(lic.clase=="B") 
+							//&& (lic.fechaVencimiento.before(Calendar.getInstance().getTime())))
+							{
+								noPuede=1;
+							}
+				}
+				
+				if (noPuede==0)
+				{
+					ValidacionLicencia = false;
+					throw new GeneralException ("El titular debe tener una licencia de clase B con un año de antiguedad");
+				}
+			}
 			
-			
+			return ValidacionLicencia;
 			
 		}
 		
@@ -148,7 +183,7 @@ public class GestorLicencia {
 			//Date FechaHoy representa el current de la fecha
 			Date fechaHoy = Calendar.getInstance().getTime();
 			//Formateador
-			SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
+			SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
 			
 			//El formateador devuelve un string por eso lo asignamos a la cadenFecha
 			cadenaFecha = formateador.format(fechaHoy);
@@ -187,7 +222,7 @@ public class GestorLicencia {
 			Date fechaLimite = new Date();
 			
 			//Formateador
-			SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
+			SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
 			
 			//A los calendarios cFechaNac y cFechaLimite les asignamos la fecha de nacimiento del titular		
 			

@@ -1,0 +1,191 @@
+package interfaces;
+
+import interfaces.PantallaPrincipal.Contenedor;
+
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.UIManager;
+import javax.swing.border.TitledBorder;
+import java.awt.Color;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.SwingConstants;
+
+import entidades.Licencia;
+import entidades.Titular;
+import funcionesExtra.Funciones;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
+import java.awt.SystemColor;
+import javax.swing.border.EtchedBorder;
+import java.awt.ComponentOrientation;
+
+public class ImprimirLicencia extends JDialog {
+
+	private final JPanel contentPanel = new JPanel();
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			Licencia unaLicencia = new Licencia("A", "unaObservacion re loca re loca re loca re loca ", null);
+			Titular unTitular = new Titular("Juancito", "Paolantonio", "DNI", "12333333", "M", "Casado", null, "Lavalle 1234", "A", "+", true, "Santa Fe");
+			ImprimirLicencia dialog = new ImprimirLicencia(unaLicencia,unTitular);
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public ImprimirLicencia(Licencia unaLicencia, Titular unTitular) {
+		
+		
+		// Elimina la barra de titulo
+		this.setUndecorated(true);
+		
+		setBounds(100, 100, 467, 325);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Municipalidad de Santa Fe");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel.setBounds(34, 11, 163, 14);
+		contentPanel.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Licencia de Conducir");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1.setBounds(45, 30, 125, 14);
+		contentPanel.add(lblNewLabel_1);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(UIManager.getBorder("TextField.border"));
+		panel.setBounds(12, 64, 445, 250);
+		contentPanel.add(panel);
+		panel.setLayout(null);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBounds(10, 11, 101, 101);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(new TitledBorder(null, "", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		panel_2.setBounds(121, 11, 314, 228);
+		panel.add(panel_2);
+		panel_2.setLayout(null);
+		
+		JLabel label = new JLabel("Licencia N\u00BA:");
+		label.setFont(new Font("Tahoma", Font.BOLD, 11));
+		label.setBounds(11, 11, 64, 14);
+		panel_2.add(label);
+		
+		JLabel label_1 = new JLabel("Nombre: ");
+		label_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		label_1.setBounds(10, 36, 57, 14);
+		panel_2.add(label_1);
+		
+		JLabel label_2 = new JLabel("Apellido:");
+		label_2.setFont(new Font("Tahoma", Font.BOLD, 11));
+		label_2.setBounds(10, 61, 57, 14);
+		panel_2.add(label_2);
+		
+		JLabel label_3 = new JLabel("Direcci\u00F3n:");
+		label_3.setFont(new Font("Tahoma", Font.BOLD, 11));
+		label_3.setBounds(10, 86, 65, 14);
+		panel_2.add(label_3);
+		
+		JLabel label_4 = new JLabel("Localidad:");
+		label_4.setFont(new Font("Tahoma", Font.BOLD, 11));
+		label_4.setBounds(10, 111, 57, 14);
+		panel_2.add(label_4);
+		
+		JLabel label_5 = new JLabel("Fecha de Vencimiento:");
+		label_5.setFont(new Font("Tahoma", Font.BOLD, 11));
+		label_5.setBounds(11, 136, 133, 14);
+		panel_2.add(label_5);
+		
+		JLabel label_6 = new JLabel("Observaciones:");
+		label_6.setFont(new Font("Tahoma", Font.BOLD, 11));
+		label_6.setBounds(11, 161, 94, 14);
+		panel_2.add(label_6);
+		
+		String idLicencia = String.valueOf(unaLicencia.getId());
+		JLabel label_7 = new JLabel(idLicencia);
+		label_7.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		label_7.setBounds(85, 11, 64, 14);
+		panel_2.add(label_7);
+		
+		JLabel lblNombre = new JLabel(unTitular.getNombre());
+		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblNombre.setBounds(85, 36, 125, 14);
+		panel_2.add(lblNombre);
+		
+		JLabel lblApellido = new JLabel(unTitular.getApellido());
+		lblApellido.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblApellido.setBounds(85, 61, 125, 14);
+		panel_2.add(lblApellido);
+		
+		JLabel lblDireccion = new JLabel(unTitular.getDireccion());
+		lblDireccion.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblDireccion.setBounds(85, 86, 125, 14);
+		panel_2.add(lblDireccion);
+		
+		JLabel lblLocalidad = new JLabel(unTitular.getLocalidad());
+		lblLocalidad.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblLocalidad.setBounds(85, 111, 125, 14);
+		panel_2.add(lblLocalidad);
+		
+		//JLabel labelFechaVen = new JLabel(Funciones.getInstance().dateToString(unaLicencia.getFechaVencimiento()));
+		JLabel labelFechaVen = new JLabel("02-10-1989");
+		labelFechaVen.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		labelFechaVen.setBounds(145, 136, 71, 14);
+		panel_2.add(labelFechaVen);
+		
+		JLabel lblClase = new JLabel("Clase:");
+		lblClase.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblClase.setBounds(174, 11, 45, 14);
+		panel_2.add(lblClase);
+		
+		JLabel lblClaseDesc = new JLabel(unaLicencia.getClase());
+		lblClaseDesc.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblClaseDesc.setBounds(229, 11, 56, 14);
+		panel_2.add(lblClaseDesc);
+		
+		JTextArea textAreaObs = new JTextArea(unaLicencia.getObservacion());
+		textAreaObs.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		textAreaObs.setLineWrap(true);
+		textAreaObs.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		textAreaObs.setBackground(SystemColor.menu);
+		textAreaObs.setEditable(false);
+		textAreaObs.setBounds(115, 156, 193, 63);
+		panel_2.add(textAreaObs);
+		
+		
+	}
+}

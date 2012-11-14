@@ -12,14 +12,11 @@ public class GeneralException extends Exception {
 		this.mensaje = mensaje;
 	}
 
-	public void lanzarMensaje(String tipo)
+	public void lanzarMensaje()
 	{
-		if(0 == tipo.compareTo("Error"))
-			JOptionPane.showMessageDialog(null, mensaje,tipo,JOptionPane.ERROR_MESSAGE);
-		else if(0 == tipo.compareTo("Information"))
-			JOptionPane.showMessageDialog(null, mensaje,tipo,JOptionPane.INFORMATION_MESSAGE);
-		else if(0 == tipo.compareTo("Warning"))
-			JOptionPane.showMessageDialog(null, mensaje,tipo,JOptionPane.WARNING_MESSAGE);
+		
+		JOptionPane.showMessageDialog(null, mensaje,"Error",JOptionPane.ERROR_MESSAGE);
+		
 	}
 	
 	

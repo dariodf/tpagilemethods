@@ -19,7 +19,7 @@ public class GestorUsuario
 	private final static GestorUsuario instancia = new GestorUsuario();
 	
 	// Metodo encargado de devolver el singleton
-	public static GestorUsuario getIstance()
+	public static GestorUsuario getInstance()
 	{
 		return instancia;
 	}
@@ -34,12 +34,12 @@ public class GestorUsuario
 	public String crearUsuario(boolean unSuperUsuario, String unNombre)throws SQLException, GeneralException
 	{
 		
-		if(!GestorUsuario.getIstance().getUsuarioLogueado().isSuperUsuario())
+		if(!GestorUsuario.getInstance().getUsuarioLogueado().isSuperUsuario())
 			throw new GeneralException("El usuario logueado no posee los privilegios para esta acción");
 		else
 		{
 			String password = this.generarPasswordUsuario();
-			AdminBD.getIstance().crearUsuario(unSuperUsuario, "Usuario-"+this.getIdUsuarioDisponible(), password);
+			AdminBD.getInstance().crearUsuario(unSuperUsuario, "Usuario-"+this.getIdUsuarioDisponible(), password);
 			return password;
 		}
 			
@@ -61,7 +61,7 @@ public class GestorUsuario
 	{
 		int id=0;
 		try {
-			id = AdminBD.getIstance().getIdUsuarioDisponible()+1;
+			id = AdminBD.getInstance().getIdUsuarioDisponible()+1;
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null,e.getMessage() , "Error en la Base de Datos",JOptionPane.ERROR_MESSAGE);
 		}

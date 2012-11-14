@@ -30,6 +30,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -105,7 +107,7 @@ public class CrearTitular extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					// Se instancia un titular con la consulta devuelta por el gestor.
-					contribuyenteSeleccionado = GestorTitular.getIstance().buscarContribuyente((String) comboBox.getSelectedItem(), textField.getText());
+					contribuyenteSeleccionado = GestorTitular.getInstance().buscarContribuyente((String) comboBox.getSelectedItem(), textField.getText());
 					
 					// Se cargan los datos del contribuyente en pantalla. 
 					textField_1.setText(contribuyenteSeleccionado.getTipoDoc());
@@ -113,7 +115,7 @@ public class CrearTitular extends JDialog {
 					textField_3.setText(contribuyenteSeleccionado.getApellido());
 					textField_4.setText(contribuyenteSeleccionado.getNombre());
 					// Cambia el formato de la fecha y lo carga al textfield
-					textField_5.setText(Funciones.getIstance().cambiarFormatoFecha(contribuyenteSeleccionado.getFechaNac()).toString());
+					textField_5.setText(Funciones.getInstance().dateToString(contribuyenteSeleccionado.getFechaNac()));
 					textField_6.setText(contribuyenteSeleccionado.getDireccion());
 					textField_7.setText(contribuyenteSeleccionado.getLocalidad());
 					textField_8.setText(contribuyenteSeleccionado.getGrupoSanguineo());
@@ -131,7 +133,7 @@ public class CrearTitular extends JDialog {
 					JOptionPane.showMessageDialog(null, e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 				} catch (GeneralException e){
 					// En el caso de no encontrarse un contribuyente con el tipo y documento seleccionado, se muestra un mensaje de error
-					e.lanzarMensaje("Error");
+					e.lanzarMensaje();
 				}
 			
 			}
@@ -277,7 +279,7 @@ public class CrearTitular extends JDialog {
 					if(null == contribuyenteSeleccionado)
 						throw new GeneralException("Para crear un titular necesita seleccionar un contribuyente");
 					Titular titular = new Titular(contribuyenteSeleccionado);
-					GestorTitular.getIstance().CrearTitular(titular);
+					GestorTitular.getInstance().CrearTitular(titular);
 					
 					//Limpia campos
 					textField_1.setText("");
@@ -307,7 +309,7 @@ public class CrearTitular extends JDialog {
 					JOptionPane.showMessageDialog(null, e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 				} catch (GeneralException e){
 					// En el caso de no se haya seleccionado un contribuyente o o el titular ya exista, se muestra un error por pantalla
-					e.lanzarMensaje("Error");
+					e.lanzarMensaje();
 				}
 			}
 		});

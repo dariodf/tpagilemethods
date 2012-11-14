@@ -28,7 +28,7 @@ public class CrearUsuario extends JDialog
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtUsuariox;
 	
-	int idUsuarioDisponible = GestorUsuario.getIstance().getIdUsuarioDisponible();
+	int idUsuarioDisponible = GestorUsuario.getInstance().getIdUsuarioDisponible();
 	
 	/**
 	 * Create the dialog.
@@ -71,7 +71,7 @@ public class CrearUsuario extends JDialog
 					if(comboBox.getSelectedIndex()==1)
 						superUsuario=true;
 						
-					String password = GestorUsuario.getIstance().crearUsuario(superUsuario, "Usuario-"+idUsuarioDisponible);
+					String password = GestorUsuario.getInstance().crearUsuario(superUsuario, "Usuario-"+idUsuarioDisponible);
 					dispose();
 					
 					JOptionPane.showMessageDialog(null, "Se ha creado con Exito el usuario \n"+"Usuario-"+idUsuarioDisponible+" Contraseña: "+password, "Informacion",JOptionPane.INFORMATION_MESSAGE);
@@ -83,7 +83,7 @@ public class CrearUsuario extends JDialog
 				}
 				catch (GeneralException e) 
 				{
-					e.lanzarMensaje("Error");
+					e.lanzarMensaje();
 				}
 				
 			}

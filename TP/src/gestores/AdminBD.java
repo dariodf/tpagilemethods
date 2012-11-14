@@ -20,7 +20,7 @@ public class AdminBD {
 	protected AdminBD(){}
 	private final static AdminBD instancia = new AdminBD();
 	// Metodo encargado de devolver el singleton
-	public static AdminBD getIstance(){
+	public static AdminBD getInstance(){
 		return instancia;
 	}
 	
@@ -94,13 +94,13 @@ public class AdminBD {
 		String superUser = "0";
 		if(unSuperUsuario) superUser = "1";
 		String consulta = "INSERT INTO `agiles`.`usuario` (`id`, `nombre`, `password`, `superUsuario`) VALUES (NULL, '"+unNombre+"', '" +unaPassword+"', '"+superUser+"'); ";
-		AdminBD.getIstance().hacerConsulta(consulta);
+		AdminBD.getInstance().hacerConsulta(consulta);
 		
-		Usuario usuarioCreado = AdminBD.getIstance().recuperarUsuario(unNombre);
-		Usuario usuarioLogueado = AdminBD.getIstance().recuperarUsuario(GestorUsuario.getIstance().getUsuarioLogueado().getNombre());
+		Usuario usuarioCreado = AdminBD.getInstance().recuperarUsuario(unNombre);
+		Usuario usuarioLogueado = AdminBD.getInstance().recuperarUsuario(GestorUsuario.getInstance().getUsuarioLogueado().getNombre());
 		String descripcion = "El usuario "+usuarioLogueado.getNombre()+" ha creado al usuario "+usuarioCreado.getNombre();
 		consulta =  "INSERT INTO `agiles`.`auditoriausuario` (`id`, `id_usuario_creado`, `Descripcion`, `Fecha`, `id_usuario_logueado`) VALUES (NULL, '"+usuarioLogueado.getId()+"','"+descripcion+"','" +fechaHora  +"', '"+usuarioCreado.getId()+"'); ";
-		AdminBD.getIstance().hacerConsulta(consulta);
+		AdminBD.getInstance().hacerConsulta(consulta);
 		
 		
 	}
@@ -112,7 +112,7 @@ public class AdminBD {
 		ResultSet rs = null;
 		//Realiza la consulta para testear si el titular existe en la BD
 		String consulta1 = "SELECT * FROM `agiles`.`titular` WHERE TipoDoc LIKE '"+unTitular.getTipoDoc()+"' AND NumDoc LIKE '"+unTitular.getNumeroDoc()+"' AND Sexo LIKE '"+unTitular.getSexo()+"';";
-		rs = AdminBD.getIstance().devolverConsulta(consulta1);
+		rs = AdminBD.getInstance().devolverConsulta(consulta1);
 		
 		if (rs.next()){
 			throw new GeneralException("Ya existe el titular");
@@ -127,7 +127,7 @@ public class AdminBD {
 				donante = 0;
 			
 			String consulta2 = "INSERT INTO `agiles`.`titular` (`Id`, `Nombre`, `Apellido`, `Sexo`, `EstadoCivil`, `FechaNacimiento`, `Localidad`, `Direccion`, `GrupoSanguineo`, `FactorRH`, `Donante`, `NumDoc`, `TipoDoc` ) VALUES (NULL, '"+unTitular.getNombre()+"', '"+unTitular.getApellido()+"', '"+unTitular.getSexo()+"', '" +unTitular.getEstadoCivil()+"','"+unTitular.getFechaNac().toString()+"','"+unTitular.getLocalidad()+"','"+unTitular.getDireccion()+"', '"+unTitular.getGrupoSanguineo()+"', '"+unTitular.getFactorRH()+"', '"+donante.toString()+"', '"+unTitular.getNumeroDoc()+"', '" +unTitular.getTipoDoc()+"'); ";
-			AdminBD.getIstance().hacerConsulta(consulta2);
+			AdminBD.getInstance().hacerConsulta(consulta2);
 			
 			
 			//Auditoria
@@ -136,10 +136,10 @@ public class AdminBD {
 			String fechaHora = dateformat.format(cal.getTime());
 			
 			int id = recuperarIdTitular(unTitular.getTipoDoc(), unTitular.getNumeroDoc(), unTitular.getSexo());
-			Usuario usuario = GestorUsuario.getIstance().getUsuarioLogueado();
+			Usuario usuario = GestorUsuario.getInstance().getUsuarioLogueado();
 			
 			String consulta3 = "INSERT INTO `agiles`.`auditoriatitular` (`id`, `Descripcion`, `Fecha`, `Id_titular`, `id_usuario`) VALUES (NULL, 'El usuario "+usuario.getNombre()+" creó el titular "+unTitular.getNombre()+" "+unTitular.getApellido()+"', '"+fechaHora+"', '"+id+"', '"+usuario.getId()+"' ) ;";
-			AdminBD.getIstance().hacerConsulta(consulta3);
+			AdminBD.getInstance().hacerConsulta(consulta3);
 		
 		}
 

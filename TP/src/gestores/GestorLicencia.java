@@ -14,7 +14,7 @@ public class GestorLicencia {
 		protected GestorLicencia(){}
 		private final static GestorLicencia instancia = new GestorLicencia();
 		// Metodo encargado de devolver el singleton
-		public static GestorLicencia getIstance(){
+		public static GestorLicencia getInstance(){
 			return instancia;
 		}
 		

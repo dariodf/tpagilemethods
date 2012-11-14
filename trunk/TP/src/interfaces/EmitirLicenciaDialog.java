@@ -18,6 +18,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.border.BevelBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.text.MaskFormatter;
 import javax.swing.JScrollPane;
@@ -26,14 +27,23 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Date;
 
 import javax.swing.border.TitledBorder;
 import javax.swing.JCheckBox;
 import javax.swing.JTextArea;
 import javax.swing.DefaultComboBoxModel;
 
-public class emitirLicenciaDialog extends JDialog {
+import entidades.Titular;
+import gestores.AdminBD;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class EmitirLicenciaDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
@@ -49,13 +59,14 @@ public class emitirLicenciaDialog extends JDialog {
 	private JTextField textField_10;
 	private JTextField textField_11;
 	private JTextField textField_3;
+	private JTextField textField_12;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			emitirLicenciaDialog dialog = new emitirLicenciaDialog();
+			EmitirLicenciaDialog dialog = new EmitirLicenciaDialog();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -66,7 +77,7 @@ public class emitirLicenciaDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public emitirLicenciaDialog() {
+	public EmitirLicenciaDialog() {
 		setTitle("Emitir Licencia");
 		setBounds(100, 100, 769, 695);
 		getContentPane().setLayout(new BorderLayout());
@@ -83,7 +94,7 @@ public class emitirLicenciaDialog extends JDialog {
 		label.setBounds(10, 24, 46, 14);
 		panel.add(label);
 		
-		JComboBox comboBox = new JComboBox();
+		final JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"DNI", "LC", "LE", "PPTE"}));
 		comboBox.setSelectedIndex(0);
 		Border title = BorderFactory.createTitledBorder("Búsqueda");
@@ -95,17 +106,103 @@ public class emitirLicenciaDialog extends JDialog {
 		MaskFormatter mascara;
 		try {
 			mascara = new MaskFormatter("########");
-			JFormattedTextField textField = new JFormattedTextField(mascara);
-			textField.setColumns(10);
-			textField.setBounds(181, 21, 99, 20);
-			panel.add(textField);
 		} catch (ParseException e) {
 			JOptionPane.showMessageDialog(null,e.getMessage() , "Error en la entrada de los datos",JOptionPane.ERROR_MESSAGE);
 		}
 		
 		////////////////////////////////////////////////////////////
 		
+		textField_2 = new JTextField(20);
+		textField_2.setColumns(10);
+		textField_2.setBounds(485, 21, 99, 20);
+		panel.add(textField_2);
+		
+		textField_2.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				
+				if(textField_2.getText().length() > 20)
+					e.consume();
+				
+				else
+				{
+					
+					if((e.getKeyChar() <= 'z') && (e.getKeyChar() >= 'a'))
+					{
+						e.setKeyChar(Character.toUpperCase(e.getKeyChar()));
+					}
+					
+					if(((e.getKeyChar() < 'A') || (e.getKeyChar() > 'Z')) && (e.getKeyChar() != '\b') && (e.getKeyChar() != ' '))
+					{
+					   e.consume();  // ignorar el evento de teclado
+					}
+					
+					
+				}
+				
+			}
+		});
+		
+		////////////////////////////////////////////////////////////
+		
+		
+		//TABLA
+		
+		//titulos columnas
+		final String[] titulosColumnas = {"Tipo Doc.","N° Documento","Apellido","Nombre","F. Nacimiento","Dirección"};
+		//formatodedatos
+		Object[][] datos = {};
+		//a la tabla se le agrega el set de datos y los titulos de las columnas
+		DefaultTableModel model = new DefaultTableModel(datos,titulosColumnas);		
+		table = new JTable(model);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		table.setBounds(97, 279, 579, 126);
+		contentPanel.add(table);
+		table.setFillsViewportHeight(true);
+		
+		//meto la tabla dentro del panel de scroll
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(45, 73, 648, 163);		
+		panel.add(scrollPane);
+		
+		
 		JButton button = new JButton("Buscar");
+		button.addActionListener(new ActionListener() 
+			{
+			public void actionPerformed(ActionEvent arg0)
+			{
+				
+				try {
+					String numero = textField_12.getText();
+					String apellido = textField_1.getText();
+					String nombre =  textField_2.getText();
+					String tipoDoc =  (String) comboBox.getSelectedItem();
+					
+					Titular titularBuscado = new Titular(nombre,apellido, tipoDoc,numero, null, null, null, null, null, null, false, null);
+					ResultSet rs = AdminBD.getInstance().buscarTitular(titularBuscado);
+					rs.first();
+					int i = 0;
+					Object[][] datos = {}; 
+					DefaultTableModel model = new DefaultTableModel(datos,titulosColumnas);
+					table.setModel(model);
+					while (true)
+					{
+						
+						Object[] fila = {rs.getString("TipoDoc"), rs.getString("NumDoc"), rs.getString("Apellido"), rs.getString("Nombre"), rs.getString("FechaNacimiento"), rs.getString("Direccion")};
+						model.insertRow(i, fila);
+						i++;
+						if (rs.isLast()) break;
+						rs.next();
+					}
+					;
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		});
 		button.setBounds(604, 20, 89, 23);
 		panel.add(button);
 		
@@ -133,7 +230,7 @@ public class emitirLicenciaDialog extends JDialog {
 				else
 				{
 					
-					if((e.getKeyChar() < 'a') || (e.getKeyChar() > 'a'))
+					if((e.getKeyChar() <= 'z') && (e.getKeyChar() >= 'a'))
 					{
 						e.setKeyChar(Character.toUpperCase(e.getKeyChar()));
 					}
@@ -158,65 +255,31 @@ public class emitirLicenciaDialog extends JDialog {
 		lblNombre_1.setBounds(442, 24, 46, 14);
 		panel.add(lblNombre_1);
 		
-		textField_2 = new JTextField(20);
-		textField_2.setColumns(10);
-		textField_2.setBounds(485, 21, 99, 20);
-		panel.add(textField_2);
-		
-		textField_2.addKeyListener(new KeyAdapter() {
+		textField_12 = new JTextField("", 10);
+		textField_12.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				
-				if(textField_2.getText().length() > 20)
-					e.consume();
-				
-				else
+			
+			
+				if(((e.getKeyChar() < '0') || (e.getKeyChar() > '9')) && (e.getKeyChar() != '\b'))
 				{
-					
-					if((e.getKeyChar() < 'a') || (e.getKeyChar() > 'a'))
-					{
-						e.setKeyChar(Character.toUpperCase(e.getKeyChar()));
-					}
-					
-					if(((e.getKeyChar() < 'A') || (e.getKeyChar() > 'Z')) && (e.getKeyChar() != '\b') && (e.getKeyChar() != ' '))
-					{
-					   e.consume();  // ignorar el evento de teclado
-					}
-					
-					
+				   e.consume();  // ignorar el evento de teclado
 				}
-				
+
+
+			
 			}
 		});
+		textField_12.setBounds(181, 21, 99, 20);
+		panel.add(textField_12);
 		
 		
 		
-		//TABLA
-			
-			//titulos columnas
-		String[] titulosColumnas = {"Nº Licencia","Clase","Nombre","Apellido","Dirección","Localidad","F. Vencimiento"};
-			//formatodedatos
-			Object[][] datos = {
-			    {"12345", "A","Juan", "Perez", "Ramirez 123", "Parana", "25/10/2013"},
-			    {"12346", "A","Ruben", "Perez", "Ramirez 123", "Parana", "25/10/2013"},
-			    {"12347", "A","Jorge", "Perez", "Ramirez 123", "Parana", "25/10/2013"},
-			    {"12348", "A","Damian", "Perez", "Ramirez 123", "Parana", "25/10/2013"},
-			    {"12349", "A","Jose", "Perez", "Ramirez 123", "Parana", "25/10/2013"}
-			};
 		
 		
-		//a la tabla se le agrega el set de datos y los titulos de las columnas
-		table = new JTable(datos,titulosColumnas);
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		table.setBounds(97, 279, 579, 126);
-		contentPanel.add(table);
-		table.setFillsViewportHeight(true);
 		
-		//meto la tabla dentro del panel de scroll
-		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(45, 73, 648, 163);		
-		panel.add(scrollPane);
+		
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(null, "Contribuyente Seleccionado", TitledBorder.LEADING, TitledBorder.TOP, null, null));

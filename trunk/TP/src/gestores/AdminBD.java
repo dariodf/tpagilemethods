@@ -197,6 +197,16 @@ public class AdminBD {
 		return id;
 	
 	}
+	
+	public ResultSet buscarTitular(Titular titularBuscado) throws SQLException 
+	{
+		ResultSet rs;
+		String consulta = "SELECT * FROM titular WHERE TipoDoc LIKE '"+titularBuscado.getTipoDoc()+"%' AND NumDoc LIKE '"+titularBuscado.getNumeroDoc()+"%' AND Apellido LIKE '"+titularBuscado.getApellido()+"%' AND Nombre LIKE '"+titularBuscado.getNombre()+"%'";
+		rs = devolverConsulta(consulta);
+		
+		return rs;
+	}
+
 
 
 }

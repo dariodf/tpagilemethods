@@ -35,6 +35,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class CrearTitular extends JDialog {
 
@@ -94,10 +96,22 @@ public class CrearTitular extends JDialog {
 		comboBox.addItem("DNI");
 		comboBox.addItem("LE");
 		comboBox.addItem("LC");
+		comboBox.addItem("PPTE");
 		comboBox.setBounds(128, 23, 83, 20);
 		panel.add(comboBox);
 		
 		textField = new JTextField();
+		textField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				if (textField.getText().length() == 10 || !(Character.isAlphabetic(arg0.getKeyChar()) || Character.isDigit(arg0.getKeyChar())) ) {
+					 arg0.consume();
+				}
+				else{
+					arg0.setKeyChar(Character.toUpperCase(arg0.getKeyChar()));
+				}
+			}
+		});
 		textField.setColumns(10);
 		textField.setBounds(291, 23, 99, 20);
 		panel.add(textField);
@@ -106,28 +120,42 @@ public class CrearTitular extends JDialog {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					// Se instancia un titular con la consulta devuelta por el gestor.
-					contribuyenteSeleccionado = GestorTitular.getInstance().buscarContribuyente((String) comboBox.getSelectedItem(), textField.getText());
 					
-					// Se cargan los datos del contribuyente en pantalla. 
-					textField_1.setText(contribuyenteSeleccionado.getTipoDoc());
-					textField_2.setText(contribuyenteSeleccionado.getNumeroDoc());
-					textField_3.setText(contribuyenteSeleccionado.getApellido());
-					textField_4.setText(contribuyenteSeleccionado.getNombre());
-					// Cambia el formato de la fecha y lo carga al textfield
-					textField_5.setText(Funciones.getInstance().dateToString(contribuyenteSeleccionado.getFechaNac()));
-					textField_6.setText(contribuyenteSeleccionado.getDireccion());
-					textField_7.setText(contribuyenteSeleccionado.getLocalidad());
-					textField_8.setText(contribuyenteSeleccionado.getGrupoSanguineo());
-					textField_9.setText(contribuyenteSeleccionado.getFactorRH());
-					textField_11.setText(contribuyenteSeleccionado.getSexo());
-					textField_12.setText(contribuyenteSeleccionado.getEstadoCivil());
-					if(contribuyenteSeleccionado.isDonante()== true){
-						textField_10.setText("Si");
+					if(textField.getText().isEmpty()){
+						JOptionPane.showMessageDialog(null, "Debe ingresar un documento." ,"Campo nulo",JOptionPane.WARNING_MESSAGE);
+						limpiarVentana();
+					}
+					else if(textField.getText().length() < 7 ){
+						JOptionPane.showMessageDialog(null, "El documento debe contener al menos 7 caracteres." ,"Longitud errónea",JOptionPane.WARNING_MESSAGE);
+						limpiarVentana();
 					}
 					else{
-						textField_10.setText("No");
-					} 
+						// Se instancia un titular con la consulta devuelta por el gestor.
+						contribuyenteSeleccionado = GestorTitular.getInstance().buscarContribuyente((String) comboBox.getSelectedItem(), textField.getText());
+						
+						// Se cargan los datos del contribuyente en pantalla. 
+						textField_1.setText(contribuyenteSeleccionado.getTipoDoc());
+						textField_2.setText(contribuyenteSeleccionado.getNumeroDoc());
+						textField_3.setText(contribuyenteSeleccionado.getApellido());
+						textField_4.setText(contribuyenteSeleccionado.getNombre());
+						// Cambia el formato de la fecha y lo carga al textfield
+						textField_5.setText(Funciones.getInstance().dateToString(contribuyenteSeleccionado.getFechaNac()));
+						textField_6.setText(contribuyenteSeleccionado.getDireccion());
+						textField_7.setText(contribuyenteSeleccionado.getLocalidad());
+						textField_8.setText(contribuyenteSeleccionado.getGrupoSanguineo());
+						textField_9.setText(contribuyenteSeleccionado.getFactorRH());
+						textField_11.setText(contribuyenteSeleccionado.getSexo());
+						textField_12.setText(contribuyenteSeleccionado.getEstadoCivil());
+						if(contribuyenteSeleccionado.isDonante()== true){
+							textField_10.setText("Si");
+						}
+						else{
+							textField_10.setText("No");
+						}
+					}
+					
+					
+					 
 				} catch (SQLException e) {
 					// Muestra un error de la base de datos
 					JOptionPane.showMessageDialog(null, e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
@@ -281,21 +309,7 @@ public class CrearTitular extends JDialog {
 					Titular titular = new Titular(contribuyenteSeleccionado);
 					GestorTitular.getInstance().CrearTitular(titular);
 					
-					//Limpia campos
-					textField_1.setText("");
-					textField_2.setText("");
-					textField_3.setText("");
-					textField_4.setText("");
-					textField_5.setText("");
-					textField_6.setText("");
-					textField_7.setText("");
-					textField_8.setText("");
-					textField_9.setText("");
-					textField_11.setText("");
-					textField_12.setText("");
-					
-					// Limpia el contribuyente seleccionado
-					contribuyenteSeleccionado = null;
+					limpiarVentana();
 					
 					// Cierra la ventana
 					dispose();
@@ -319,21 +333,7 @@ public class CrearTitular extends JDialog {
 		JButton button_2 = new JButton("Cancelar");
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//Limpia campos
-				textField_1.setText("");
-				textField_2.setText("");
-				textField_3.setText("");
-				textField_4.setText("");
-				textField_5.setText("");
-				textField_6.setText("");
-				textField_7.setText("");
-				textField_8.setText("");
-				textField_9.setText("");
-				textField_11.setText("");
-				textField_12.setText("");
-				
-				// Limpia el contribuyente seleccionado
-				contribuyenteSeleccionado = null;
+				limpiarVentana();
 				
 				dispose();
 				
@@ -341,5 +341,25 @@ public class CrearTitular extends JDialog {
 		});
 		button_2.setBounds(489, 264, 89, 23);
 		contentPanel.add(button_2);
+	}
+	
+	public void limpiarVentana()
+	{
+		//Limpia campos
+		textField_1.setText("");
+		textField_2.setText("");
+		textField_3.setText("");
+		textField_4.setText("");
+		textField_5.setText("");
+		textField_6.setText("");
+		textField_7.setText("");
+		textField_8.setText("");
+		textField_9.setText("");
+		textField_10.setText("");
+		textField_11.setText("");
+		textField_12.setText("");
+		
+		// Limpia el contribuyente seleccionado
+		contribuyenteSeleccionado = null;
 	}
 }

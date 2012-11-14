@@ -11,6 +11,7 @@ public class Licencia {
 	public String clase;
 	public String observacion;
 	public Date fechaVencimiento;
+	public int id;
 	
 /*Constructores*/
 	
@@ -54,4 +55,9 @@ public class Licencia {
 	public void setFechaVencimiento(Date fechaVencimiento) {
 		this.fechaVencimiento = fechaVencimiento;
 	}
+	
+	public int getId() {
+		return id;
+	}
+
 }

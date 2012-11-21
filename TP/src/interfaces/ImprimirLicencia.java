@@ -146,8 +146,7 @@ public class ImprimirLicencia extends JDialog {
 		lblLocalidad.setBounds(85, 111, 125, 14);
 		panel_2.add(lblLocalidad);
 		
-		//JLabel labelFechaVen = new JLabel(Funciones.getInstance().dateToString(unaLicencia.getFechaVencimiento()));
-		JLabel labelFechaVen = new JLabel("02-10-1989");
+		JLabel labelFechaVen = new JLabel(Funciones.getInstance().dateToString(unaLicencia.getFechaVencimiento()));
 		labelFechaVen.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		labelFechaVen.setBounds(145, 136, 71, 14);
 		panel_2.add(labelFechaVen);

@@ -11,16 +11,20 @@ public class Licencia {
 	public String clase;
 	public String observacion;
 	public Date fechaVencimiento;
+	public Date fechaEmision;
+	
+
 	public int id;
 	
 /*Constructores*/
 	
-	public Licencia(String unaClase, String unaObservacion, Date unaFecha){
+	public Licencia(String unaClase, String unaObservacion, Date fechaVencimiento, Date fechaEmision){
 
 		super();
 		this.clase=unaClase;
 		this.observacion=unaObservacion;
-		this.fechaVencimiento=unaFecha;
+		this.fechaVencimiento=fechaVencimiento;
+		this.fechaEmision=fechaEmision;
 
 
 	}
@@ -36,7 +40,14 @@ public class Licencia {
 		this.clase = clase;
 	}
 
+	public Date getFechaEmision() {
+		return fechaEmision;
+	}
 
+	public void setFechaEmision(Date fechaEmision) {
+		this.fechaEmision = fechaEmision;
+	}
+	
 	public String getObservacion() {
 		return observacion;
 	}

@@ -114,6 +114,7 @@ public class AdminBD {
 		String consulta1 = "SELECT * FROM `agiles`.`titular` WHERE TipoDoc LIKE '"+unTitular.getTipoDoc()+"' AND NumDoc LIKE '"+unTitular.getNumeroDoc()+"' AND Sexo LIKE '"+unTitular.getSexo()+"';";
 		rs = AdminBD.getInstance().devolverConsulta(consulta1);
 		
+		// Si el titular ya existe, se lanza una excepcion
 		if (rs.next()){
 			throw new GeneralException("Ya existe el titular");
 		}
@@ -183,7 +184,7 @@ public class AdminBD {
 		return user;
 	}
 
-
+	// Recupera el id de un titular especifico
 	public int recuperarIdTitular(String unTipoDoc, String unNumDoc, String unSexo)throws SQLException
 	{
 		
@@ -197,6 +198,7 @@ public class AdminBD {
 		return id;
 	
 	}
+	
 	
 	public ResultSet buscarTitular(Titular titularBuscado) throws SQLException 
 	{

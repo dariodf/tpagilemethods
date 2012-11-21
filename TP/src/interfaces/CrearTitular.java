@@ -41,20 +41,20 @@ import java.awt.event.KeyEvent;
 public class CrearTitular extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_10;
+	private JTextField tfDocumentoBuscar;
+	private JTextField tfTipoDocumento;
+	private JTextField tfDocumento;
+	private JTextField tfApellido;
+	private JTextField tfNombre;
+	private JTextField tfFechaNacimiento;
+	private JTextField tfDireccion;
+	private JTextField tfLocalidad;
+	private JTextField tfGrupoSanguineo;
+	private JTextField tFactorRH;
+	private JTextField tfEsDonante;
 	private Contribuyente contribuyenteSeleccionado;
-	private JTextField textField_11;
-	private JTextField textField_12;
+	private JTextField tfSexo;
+	private JTextField tfEstadoCivil;
 	/**
 	 * Launch the application.
 	 */
@@ -81,30 +81,30 @@ public class CrearTitular extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
-		JPanel panel = new JPanel();
+		JPanel panelBusqueda = new JPanel();
 		Border title = BorderFactory.createTitledBorder("Búsqueda");
-		panel.setBorder(title);
-		panel.setLayout(null);
-		panel.setBounds(10, 26, 568, 64);
-		contentPanel.add(panel);
+		panelBusqueda.setBorder(title);
+		panelBusqueda.setLayout(null);
+		panelBusqueda.setBounds(10, 26, 568, 64);
+		contentPanel.add(panelBusqueda);
 		
-		JLabel lblTipoDeDocumento = new JLabel("Tipo de Documento");
-		lblTipoDeDocumento.setBounds(10, 22, 113, 23);
-		panel.add(lblTipoDeDocumento);
+		JLabel label = new JLabel("Tipo de Documento");
+		label.setBounds(10, 22, 113, 23);
+		panelBusqueda.add(label);
 		
-		final JComboBox comboBox = new JComboBox();
-		comboBox.addItem("DNI");
-		comboBox.addItem("LE");
-		comboBox.addItem("LC");
-		comboBox.addItem("PPTE");
-		comboBox.setBounds(128, 23, 83, 20);
-		panel.add(comboBox);
+		final JComboBox cbTipoDocumento = new JComboBox();
+		cbTipoDocumento.addItem("DNI");
+		cbTipoDocumento.addItem("LE");
+		cbTipoDocumento.addItem("LC");
+		cbTipoDocumento.addItem("PPTE");
+		cbTipoDocumento.setBounds(128, 23, 83, 20);
+		panelBusqueda.add(cbTipoDocumento);
 		
-		textField = new JTextField();
-		textField.addKeyListener(new KeyAdapter() {
+		tfDocumentoBuscar = new JTextField();
+		tfDocumentoBuscar.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent arg0) {
-				if (textField.getText().length() == 10 || !(Character.isAlphabetic(arg0.getKeyChar()) || Character.isDigit(arg0.getKeyChar())) ) {
+				if (tfDocumentoBuscar.getText().length() == 10 || !(Character.isAlphabetic(arg0.getKeyChar()) || Character.isDigit(arg0.getKeyChar())) ) {
 					 arg0.consume();
 				}
 				else{
@@ -112,45 +112,45 @@ public class CrearTitular extends JDialog {
 				}
 			}
 		});
-		textField.setColumns(10);
-		textField.setBounds(291, 23, 99, 20);
-		panel.add(textField);
+		tfDocumentoBuscar.setColumns(10);
+		tfDocumentoBuscar.setBounds(291, 23, 99, 20);
+		panelBusqueda.add(tfDocumentoBuscar);
 		
 		JButton button = new JButton("Buscar");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					
-					if(textField.getText().isEmpty()){
+					if(tfDocumentoBuscar.getText().isEmpty()){
 						JOptionPane.showMessageDialog(null, "Debe ingresar un documento." ,"Campo nulo",JOptionPane.WARNING_MESSAGE);
 						limpiarVentana();
 					}
-					else if(textField.getText().length() < 7 ){
+					else if(tfDocumentoBuscar.getText().length() < 7 ){
 						JOptionPane.showMessageDialog(null, "El documento debe contener al menos 7 caracteres." ,"Longitud errónea",JOptionPane.WARNING_MESSAGE);
 						limpiarVentana();
 					}
 					else{
 						// Se instancia un titular con la consulta devuelta por el gestor.
-						contribuyenteSeleccionado = GestorTitular.getInstance().buscarContribuyente((String) comboBox.getSelectedItem(), textField.getText());
+						contribuyenteSeleccionado = GestorTitular.getInstance().buscarContribuyente((String) cbTipoDocumento.getSelectedItem(), tfDocumentoBuscar.getText());
 						
 						// Se cargan los datos del contribuyente en pantalla. 
-						textField_1.setText(contribuyenteSeleccionado.getTipoDoc());
-						textField_2.setText(contribuyenteSeleccionado.getNumeroDoc());
-						textField_3.setText(contribuyenteSeleccionado.getApellido());
-						textField_4.setText(contribuyenteSeleccionado.getNombre());
+						tfTipoDocumento.setText(contribuyenteSeleccionado.getTipoDoc());
+						tfDocumento.setText(contribuyenteSeleccionado.getNumeroDoc());
+						tfApellido.setText(contribuyenteSeleccionado.getApellido());
+						tfNombre.setText(contribuyenteSeleccionado.getNombre());
 						// Cambia el formato de la fecha y lo carga al textfield
-						textField_5.setText(Funciones.getInstance().dateToString(contribuyenteSeleccionado.getFechaNac()));
-						textField_6.setText(contribuyenteSeleccionado.getDireccion());
-						textField_7.setText(contribuyenteSeleccionado.getLocalidad());
-						textField_8.setText(contribuyenteSeleccionado.getGrupoSanguineo());
-						textField_9.setText(contribuyenteSeleccionado.getFactorRH());
-						textField_11.setText(contribuyenteSeleccionado.getSexo());
-						textField_12.setText(contribuyenteSeleccionado.getEstadoCivil());
+						tfFechaNacimiento.setText(Funciones.getInstance().dateToString(contribuyenteSeleccionado.getFechaNac()));
+						tfDireccion.setText(contribuyenteSeleccionado.getDireccion());
+						tfLocalidad.setText(contribuyenteSeleccionado.getLocalidad());
+						tfGrupoSanguineo.setText(contribuyenteSeleccionado.getGrupoSanguineo());
+						tFactorRH.setText(contribuyenteSeleccionado.getFactorRH());
+						tfSexo.setText(contribuyenteSeleccionado.getSexo());
+						tfEstadoCivil.setText(contribuyenteSeleccionado.getEstadoCivil());
 						if(contribuyenteSeleccionado.isDonante()== true){
-							textField_10.setText("Si");
+							tfEsDonante.setText("Si");
 						}
 						else{
-							textField_10.setText("No");
+							tfEsDonante.setText("No");
 						}
 					}
 					
@@ -167,141 +167,141 @@ public class CrearTitular extends JDialog {
 			}
 		});
 		button.setBounds(469, 22, 89, 23);
-		panel.add(button);
+		panelBusqueda.add(button);
 		
 		JLabel label_1 = new JLabel("N\u00FAmero");
 		label_1.setBounds(234, 26, 62, 14);
-		panel.add(label_1);
+		panelBusqueda.add(label_1);
 		
-		JPanel panel_1 = new JPanel();
+		JPanel panelContribuyenteSeleccionado = new JPanel();
 		Border title1 = BorderFactory.createTitledBorder("Contribuyente Seleccionado");
-		panel_1.setBorder(title1);
-		panel_1.setLayout(null);
-		panel_1.setBounds(10, 101, 568, 152);
-		contentPanel.add(panel_1);
+		panelContribuyenteSeleccionado.setBorder(title1);
+		panelContribuyenteSeleccionado.setLayout(null);
+		panelContribuyenteSeleccionado.setBounds(10, 101, 568, 152);
+		contentPanel.add(panelContribuyenteSeleccionado);
 		
-		JLabel lblTipoDoc = new JLabel("Tipo Doc");
-		lblTipoDoc.setBounds(10, 23, 61, 14);
-		panel_1.add(lblTipoDoc);
+		JLabel label_2 = new JLabel("Tipo Doc");
+		label_2.setBounds(10, 23, 61, 14);
+		panelContribuyenteSeleccionado.add(label_2);
 		
-		textField_1 = new JTextField();
-		textField_1.setEditable(false);
-		textField_1.setColumns(10);
-		textField_1.setBounds(68, 20, 100, 20);
-		panel_1.add(textField_1);
+		tfTipoDocumento = new JTextField();
+		tfTipoDocumento.setEditable(false);
+		tfTipoDocumento.setColumns(10);
+		tfTipoDocumento.setBounds(68, 20, 100, 20);
+		panelContribuyenteSeleccionado.add(tfTipoDocumento);
 		
 		JLabel label_3 = new JLabel("N\u00FAmero");
 		label_3.setBounds(178, 23, 56, 14);
-		panel_1.add(label_3);
+		panelContribuyenteSeleccionado.add(label_3);
 		
-		textField_2 = new JTextField();
-		textField_2.setEditable(false);
-		textField_2.setColumns(10);
-		textField_2.setBounds(234, 20, 110, 20);
-		panel_1.add(textField_2);
+		tfDocumento = new JTextField();
+		tfDocumento.setEditable(false);
+		tfDocumento.setColumns(10);
+		tfDocumento.setBounds(234, 20, 110, 20);
+		panelContribuyenteSeleccionado.add(tfDocumento);
 		
 		JLabel label_4 = new JLabel("Apellido");
 		label_4.setBounds(10, 58, 46, 14);
-		panel_1.add(label_4);
+		panelContribuyenteSeleccionado.add(label_4);
 		
-		textField_3 = new JTextField();
-		textField_3.setEditable(false);
-		textField_3.setColumns(10);
-		textField_3.setBounds(61, 55, 117, 20);
-		panel_1.add(textField_3);
+		tfApellido = new JTextField();
+		tfApellido.setEditable(false);
+		tfApellido.setColumns(10);
+		tfApellido.setBounds(61, 55, 117, 20);
+		panelContribuyenteSeleccionado.add(tfApellido);
 		
 		JLabel label_5 = new JLabel("Nombre");
 		label_5.setBounds(188, 58, 46, 14);
-		panel_1.add(label_5);
+		panelContribuyenteSeleccionado.add(label_5);
 		
-		textField_4 = new JTextField();
-		textField_4.setEditable(false);
-		textField_4.setColumns(10);
-		textField_4.setBounds(244, 55, 126, 20);
-		panel_1.add(textField_4);
+		tfNombre = new JTextField();
+		tfNombre.setEditable(false);
+		tfNombre.setColumns(10);
+		tfNombre.setBounds(244, 55, 126, 20);
+		panelContribuyenteSeleccionado.add(tfNombre);
 		
 		JLabel label_6 = new JLabel("Fecha de nacimiento");
 		label_6.setBounds(10, 90, 126, 14);
-		panel_1.add(label_6);
+		panelContribuyenteSeleccionado.add(label_6);
 		
-		textField_5 = new JTextField();
-		textField_5.setEditable(false);
-		textField_5.setColumns(10);
-		textField_5.setBounds(135, 86, 99, 20);
-		panel_1.add(textField_5);
+		tfFechaNacimiento = new JTextField();
+		tfFechaNacimiento.setEditable(false);
+		tfFechaNacimiento.setColumns(10);
+		tfFechaNacimiento.setBounds(135, 86, 99, 20);
+		panelContribuyenteSeleccionado.add(tfFechaNacimiento);
 		
 		JLabel label_7 = new JLabel("Direcci\u00F3n");
 		label_7.setBounds(10, 119, 61, 14);
-		panel_1.add(label_7);
+		panelContribuyenteSeleccionado.add(label_7);
 		
-		textField_6 = new JTextField();
-		textField_6.setEditable(false);
-		textField_6.setColumns(10);
-		textField_6.setBounds(68, 115, 126, 20);
-		panel_1.add(textField_6);
+		tfDireccion = new JTextField();
+		tfDireccion.setEditable(false);
+		tfDireccion.setColumns(10);
+		tfDireccion.setBounds(68, 115, 126, 20);
+		panelContribuyenteSeleccionado.add(tfDireccion);
 		
 		JLabel label_8 = new JLabel("Localidad");
 		label_8.setBounds(214, 119, 61, 14);
-		panel_1.add(label_8);
+		panelContribuyenteSeleccionado.add(label_8);
 		
-		textField_7 = new JTextField();
-		textField_7.setEditable(false);
-		textField_7.setColumns(10);
-		textField_7.setBounds(275, 115, 143, 20);
-		panel_1.add(textField_7);
+		tfLocalidad = new JTextField();
+		tfLocalidad.setEditable(false);
+		tfLocalidad.setColumns(10);
+		tfLocalidad.setBounds(275, 115, 143, 20);
+		panelContribuyenteSeleccionado.add(tfLocalidad);
 		
 		JLabel label_9 = new JLabel("Grupo sangu\u00EDneo");
 		label_9.setBounds(283, 90, 100, 14);
-		panel_1.add(label_9);
+		panelContribuyenteSeleccionado.add(label_9);
 		
-		textField_8 = new JTextField();
-		textField_8.setEditable(false);
-		textField_8.setColumns(10);
-		textField_8.setBounds(393, 87, 37, 20);
-		panel_1.add(textField_8);
+		tfGrupoSanguineo = new JTextField();
+		tfGrupoSanguineo.setEditable(false);
+		tfGrupoSanguineo.setColumns(10);
+		tfGrupoSanguineo.setBounds(393, 87, 37, 20);
+		panelContribuyenteSeleccionado.add(tfGrupoSanguineo);
 		
 		JLabel label_10 = new JLabel("Factor RH");
 		label_10.setBounds(451, 90, 85, 14);
-		panel_1.add(label_10);
+		panelContribuyenteSeleccionado.add(label_10);
 		
-		textField_9 = new JTextField();
-		textField_9.setEditable(false);
-		textField_9.setColumns(10);
-		textField_9.setBounds(528, 87, 29, 20);
-		panel_1.add(textField_9);
+		tFactorRH = new JTextField();
+		tFactorRH.setEditable(false);
+		tFactorRH.setColumns(10);
+		tFactorRH.setBounds(528, 87, 29, 20);
+		panelContribuyenteSeleccionado.add(tFactorRH);
 		
 		JLabel label_11 = new JLabel("Es donante");
 		label_11.setBounds(428, 119, 73, 14);
-		panel_1.add(label_11);
+		panelContribuyenteSeleccionado.add(label_11);
 		
-		textField_10 = new JTextField();
-		textField_10.setEditable(false);
-		textField_10.setBounds(511, 116, 46, 20);
-		panel_1.add(textField_10);
-		textField_10.setColumns(10);
+		tfEsDonante = new JTextField();
+		tfEsDonante.setEditable(false);
+		tfEsDonante.setBounds(511, 116, 46, 20);
+		panelContribuyenteSeleccionado.add(tfEsDonante);
+		tfEsDonante.setColumns(10);
 		
-		JLabel lblSexo = new JLabel("Sexo");
-		lblSexo.setBounds(375, 23, 29, 14);
-		panel_1.add(lblSexo);
+		JLabel label_13 = new JLabel("Sexo");
+		label_13.setBounds(375, 23, 29, 14);
+		panelContribuyenteSeleccionado.add(label_13);
 		
-		textField_11 = new JTextField();
-		textField_11.setEditable(false);
-		textField_11.setColumns(10);
-		textField_11.setBounds(412, 20, 18, 20);
-		panel_1.add(textField_11);
+		tfSexo = new JTextField();
+		tfSexo.setEditable(false);
+		tfSexo.setColumns(10);
+		tfSexo.setBounds(412, 20, 18, 20);
+		panelContribuyenteSeleccionado.add(tfSexo);
 		
-		JLabel lblEstadoCivil = new JLabel("Estado Civil");
-		lblEstadoCivil.setBounds(395, 58, 79, 14);
-		panel_1.add(lblEstadoCivil);
+		JLabel label_12 = new JLabel("Estado Civil");
+		label_12.setBounds(395, 58, 79, 14);
+		panelContribuyenteSeleccionado.add(label_12);
 		
-		textField_12 = new JTextField();
-		textField_12.setEditable(false);
-		textField_12.setColumns(10);
-		textField_12.setBounds(484, 56, 73, 20);
-		panel_1.add(textField_12);
+		tfEstadoCivil = new JTextField();
+		tfEstadoCivil.setEditable(false);
+		tfEstadoCivil.setColumns(10);
+		tfEstadoCivil.setBounds(484, 56, 73, 20);
+		panelContribuyenteSeleccionado.add(tfEstadoCivil);
 		
-		JButton button_1 = new JButton("Aceptar");
-		button_1.addActionListener(new ActionListener() {
+		JButton botonAceptar = new JButton("Aceptar");
+		botonAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try{
 					if(null == contribuyenteSeleccionado)
@@ -327,11 +327,11 @@ public class CrearTitular extends JDialog {
 				}
 			}
 		});
-		button_1.setBounds(390, 264, 89, 23);
-		contentPanel.add(button_1);
+		botonAceptar.setBounds(390, 264, 89, 23);
+		contentPanel.add(botonAceptar);
 		
-		JButton button_2 = new JButton("Cancelar");
-		button_2.addActionListener(new ActionListener() {
+		JButton botonCancelar = new JButton("Cancelar");
+		botonCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				limpiarVentana();
 				
@@ -339,25 +339,25 @@ public class CrearTitular extends JDialog {
 				
 			}
 		});
-		button_2.setBounds(489, 264, 89, 23);
-		contentPanel.add(button_2);
+		botonCancelar.setBounds(489, 264, 89, 23);
+		contentPanel.add(botonCancelar);
 	}
 	
 	public void limpiarVentana()
 	{
 		//Limpia campos
-		textField_1.setText("");
-		textField_2.setText("");
-		textField_3.setText("");
-		textField_4.setText("");
-		textField_5.setText("");
-		textField_6.setText("");
-		textField_7.setText("");
-		textField_8.setText("");
-		textField_9.setText("");
-		textField_10.setText("");
-		textField_11.setText("");
-		textField_12.setText("");
+		tfTipoDocumento.setText("");
+		tfDocumento.setText("");
+		tfApellido.setText("");
+		tfNombre.setText("");
+		tfFechaNacimiento.setText("");
+		tfDireccion.setText("");
+		tfLocalidad.setText("");
+		tfGrupoSanguineo.setText("");
+		tFactorRH.setText("");
+		tfEsDonante.setText("");
+		tfSexo.setText("");
+		tfEstadoCivil.setText("");
 		
 		// Limpia el contribuyente seleccionado
 		contribuyenteSeleccionado = null;

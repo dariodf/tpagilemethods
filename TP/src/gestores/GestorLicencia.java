@@ -1,10 +1,14 @@
 package gestores;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 
 import entidades.Licencia;
 import entidades.Titular;
@@ -250,6 +254,43 @@ public class GestorLicencia {
 			
 			return fechaLimite;
 		}
+
+		public Collection<Licencia> getLicenciasAnteriores(String id_titular) {
+			try 
+			{
+				// Recupera de la base de datos las licencias que ya pertenecen al titular seleccionado.
+				ResultSet rs = AdminBD.getInstance().buscarLicenciasTitular(id_titular);
+				Collection<Licencia> licenciasAnteriores = new HashSet<Licencia>();
+				// Verifica que el titular tenga licencias anteriores. De no ser así, retorna la colección vacía.
+				if(rs.getRow()!=0)
+				{
+					while (true)
+					{
+						// Instancia una de las licencias.
+						Licencia licencia = new Licencia(rs.getString("Clase"),rs.getString("Observacion"),rs.getDate("FechaVencimiento"),rs.getDate("FechaEmision"));
+						// Agrega la instancia de Licencia a la colección.
+						licenciasAnteriores.add(licencia);
+						if (rs.isLast()) break;
+						rs.next();
+					}
+				}
+				return licenciasAnteriores; 
+			} 
+			
+			catch (SQLException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			return null;
+		}
+
+		
+		
+		
+		
 }
 
 

@@ -7,6 +7,7 @@ import java.util.Calendar;
 
 import javax.swing.JOptionPane;
 
+import entidades.Licencia;
 import entidades.Usuario;
 
 import entidades.Titular;
@@ -207,6 +208,25 @@ public class AdminBD {
 		rs = devolverConsulta(consulta);
 		
 		return rs;
+	}
+
+	public ResultSet buscarLicenciasTitular(String id_titular) throws SQLException {
+		ResultSet rs;
+		String consulta = "SELECT * FROM licencia WHERE id_titular LIKE '"+id_titular+"';";
+		rs = devolverConsulta(consulta);
+		return rs;
+	}
+	
+	public void agregarLicencia(Licencia nuevaLicencia, String id_titular) throws SQLException
+	{
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String fechaVencimiento = dateFormat.format(nuevaLicencia.getFechaVencimiento());
+		DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String fechaEmision = dateFormat.format(nuevaLicencia.getFechaEmision());
+		
+		String consulta =  "INSERT INTO `agiles`.`licencia` (`Clase`, `FechaVencimiento`, `Observacion`, `id_titular`, `FechaEmision`) VALUES ('"+nuevaLicencia.getClase()+"','"+fechaVencimiento+"','"+nuevaLicencia.observacion+"','"+id_titular+"','"+fechaEmision+"'); ";
+		AdminBD.getInstance().hacerConsulta(consulta);
+		
 	}
 
 

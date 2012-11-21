@@ -64,6 +64,8 @@ public class GestorLicencia {
 					vigencia=3;
 				else if (edad>=70 && edad<100)
 					vigencia=1;
+				
+				
 
 				//Creamos un nuevo calendario para obtener la fecha de vencimiento de la licencia
 				Calendar cFechaVencimiento = new GregorianCalendar();
@@ -87,10 +89,10 @@ public class GestorLicencia {
 
 		}
 		
-		public static boolean validarLicencia (Titular unTitular, String unaClaseLicencia) throws GeneralException{
+		public static void validarLicencia (Titular unTitular, String unaClaseLicencia) throws GeneralException{
 			
 			int edad=0;
-			boolean ValidacionLicencia = true;
+			//boolean ValidacionLicencia = true;
 			
 			Calendar cFechaNac =  new GregorianCalendar();
 			//Calendar FechaVenLic = new GregorianCalendar();
@@ -114,7 +116,7 @@ public class GestorLicencia {
 					if((lic.clase==unaClaseLicencia) && 
 							(lic.fechaVencimiento.after(Calendar.getInstance().getTime())))
 							{
-						         ValidacionLicencia = false;
+						       //  ValidacionLicencia = false;
 						         throw new GeneralException ("El titular ya tiene una licencia activa de esta clase");
 						         
 							}
@@ -129,7 +131,7 @@ public class GestorLicencia {
 			//Si el titular es mayor de 65 años y la colección es vacía, da un mensaje de error.
 			if ((unTitular.getLicencias().isEmpty()==true) && (edad>65))
 			{ 
-				ValidacionLicencia = false;
+				//ValidacionLicencia = false;
 				throw new GeneralException ("El titular no puede obtener una licencia por primera vez a los 65 años");  
 			}
 			
@@ -139,7 +141,7 @@ public class GestorLicencia {
 			
 			if (edad<21 && (unaClaseLicencia=="C" || unaClaseLicencia=="D" || unaClaseLicencia=="E"))
 			{
-				ValidacionLicencia = false;
+				//ValidacionLicencia = false;
 				throw new GeneralException ("El titular no puede recibir esta licencia hasta los 21 años");
 			}
 			
@@ -153,26 +155,27 @@ public class GestorLicencia {
 			
 			if (unaClaseLicencia=="C" || unaClaseLicencia=="D" || unaClaseLicencia=="E")
 			{
-				int noPuede=0;
-				
+				int puede=0;
+				Calendar calendarTemp = Calendar.getInstance();
+				calendarTemp.add(1, -1);
 				for (Licencia lic : unTitular.getLicencias()) 
 				{
 					//FechaVenLic.setTime(lic.fechaVencimiento);
-					if(lic.clase=="B") 
-							//&& (lic.fechaVencimiento.before(Calendar.getInstance().getTime())))
+					if((lic.clase=="B") 
+							&& (lic.fechaEmision.before(calendarTemp.getTime())))
 							{
-								noPuede=1;
+								puede=1;
 							}
 				}
 				
-				if (noPuede==0)
+				if (puede==0)
 				{
-					ValidacionLicencia = false;
+					//ValidacionLicencia = false;
 					throw new GeneralException ("El titular debe tener una licencia de clase B con un año de antiguedad");
 				}
 			}
 			
-			return ValidacionLicencia;
+			//return ValidacionLicencia;
 			
 		}
 		

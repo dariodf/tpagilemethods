@@ -262,8 +262,9 @@ public class GestorLicencia {
 				ResultSet rs = AdminBD.getInstance().buscarLicenciasTitular(id_titular);
 				Collection<Licencia> licenciasAnteriores = new HashSet<Licencia>();
 				// Verifica que el titular tenga licencias anteriores. De no ser así, retorna la colección vacía.
-				if(rs.getRow()!=0)
+				if(rs.next())
 				{
+					rs.first();
 					while (true)
 					{
 						// Instancia una de las licencias.

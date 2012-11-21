@@ -29,16 +29,24 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 
 import javax.swing.border.TitledBorder;
 import javax.swing.JCheckBox;
 import javax.swing.JTextArea;
 import javax.swing.DefaultComboBoxModel;
 
+import entidades.Licencia;
 import entidades.Titular;
+import excepciones.GeneralException;
 import gestores.AdminBD;
+import gestores.GestorLicencia;
 import gestores.GestorTitular;
 
 import java.awt.event.ActionListener;
@@ -46,6 +54,8 @@ import java.awt.event.ActionEvent;
 
 public class EmitirLicenciaDialog extends JDialog {
 
+	private ResultSet busquedaTitular;
+	
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
 	private JTextField textField_1;
@@ -61,10 +71,27 @@ public class EmitirLicenciaDialog extends JDialog {
 	private JTextField localidadContribuyenteSeleccionado;
 	private JTextField tipoDocContribuyenteSeleccionado;
 	private JTextField textField_12;
+	private JTextField donanteContribuyenteSeleccionado;
 
 	/**
 	 * Launch the application.
 	 */
+	public ResultSet getBusquedaTitular() {
+		return busquedaTitular;
+	}
+
+	public void setBusquedaTitular(Titular titularBuscado) {
+		try 
+		{
+			this.busquedaTitular = AdminBD.getInstance().buscarTitular(titularBuscado);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+		}
+	}
+
+	
 	public static void main(String[] args) {
 		try {
 			EmitirLicenciaDialog dialog = new EmitirLicenciaDialog();
@@ -169,43 +196,7 @@ public class EmitirLicenciaDialog extends JDialog {
 		
 		
 		JButton button = new JButton("Buscar");
-		button.addActionListener(new ActionListener() 
-			{
-			public void actionPerformed(ActionEvent arg0)
-			{
-				
-				try {
-					String numero = textField_12.getText();
-					String apellido = textField_1.getText();
-					String nombre =  textField_2.getText();
-					String tipoDoc =  (String) comboBox.getSelectedItem();
-					
-					Titular titularBuscado = new Titular(nombre,apellido, tipoDoc,numero, null, null, null, null, null, null, false, null);
-					GestorTitular.getInstance().setBusquedaTitular(titularBuscado);
-					
-					ResultSet rs = GestorTitular.getInstance().getBusquedaTitular(); 
-					rs.first();
-					int i = 0;
-					Object[][] datos = {}; 
-					DefaultTableModel model = new DefaultTableModel(datos,titulosColumnas);
-					table.setModel(model);
-					while (true)
-					{
-						
-						Object[] fila = {rs.getString("TipoDoc"), rs.getString("NumDoc"), rs.getString("Apellido"), rs.getString("Nombre"), rs.getString("FechaNacimiento"), rs.getString("Direccion")};
-						model.insertRow(i, fila);
-						i++;
-						if (rs.isLast()) break;
-						rs.next();
-					}
-					;
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-			}
-		});
+
 		button.setBounds(604, 20, 89, 23);
 		panel.add(button);
 		
@@ -299,6 +290,7 @@ public class EmitirLicenciaDialog extends JDialog {
 		panel_1.add(lblApellido);
 		
 		apellidoContribuyenteSeleccionado = new JTextField();
+		apellidoContribuyenteSeleccionado.setEditable(false);
 		apellidoContribuyenteSeleccionado.setColumns(10);
 		apellidoContribuyenteSeleccionado.setBounds(52, 54, 86, 20);
 		panel_1.add(apellidoContribuyenteSeleccionado);
@@ -308,6 +300,7 @@ public class EmitirLicenciaDialog extends JDialog {
 		panel_1.add(lblFNacimiento);
 		
 		fechaNacContribuyenteSeleccionado = new JTextField();
+		fechaNacContribuyenteSeleccionado.setEditable(false);
 		fechaNacContribuyenteSeleccionado.setColumns(10);
 		fechaNacContribuyenteSeleccionado.setBounds(88, 79, 86, 20);
 		panel_1.add(fechaNacContribuyenteSeleccionado);
@@ -317,11 +310,13 @@ public class EmitirLicenciaDialog extends JDialog {
 		panel_1.add(lblGSanguineo);
 		
 		grupoSanguineoContribuyenteSeleccionado = new JTextField();
+		grupoSanguineoContribuyenteSeleccionado.setEditable(false);
 		grupoSanguineoContribuyenteSeleccionado.setColumns(10);
 		grupoSanguineoContribuyenteSeleccionado.setBounds(88, 107, 86, 20);
 		panel_1.add(grupoSanguineoContribuyenteSeleccionado);
 		
 		numeroDocContribuyenteSeleccionado = new JTextField();
+		numeroDocContribuyenteSeleccionado.setEditable(false);
 		numeroDocContribuyenteSeleccionado.setColumns(10);
 		numeroDocContribuyenteSeleccionado.setBounds(199, 26, 144, 20);
 		panel_1.add(numeroDocContribuyenteSeleccionado);
@@ -331,6 +326,7 @@ public class EmitirLicenciaDialog extends JDialog {
 		panel_1.add(lblNmero);
 		
 		nombreContribuyenteSeleccionado = new JTextField();
+		nombreContribuyenteSeleccionado.setEditable(false);
 		nombreContribuyenteSeleccionado.setColumns(10);
 		nombreContribuyenteSeleccionado.setBounds(199, 54, 144, 20);
 		panel_1.add(nombreContribuyenteSeleccionado);
@@ -340,6 +336,7 @@ public class EmitirLicenciaDialog extends JDialog {
 		panel_1.add(lblNombre);
 		
 		direccionContribuyenteSeleccionado = new JTextField();
+		direccionContribuyenteSeleccionado.setEditable(false);
 		direccionContribuyenteSeleccionado.setColumns(10);
 		direccionContribuyenteSeleccionado.setBounds(257, 79, 86, 20);
 		panel_1.add(direccionContribuyenteSeleccionado);
@@ -349,6 +346,7 @@ public class EmitirLicenciaDialog extends JDialog {
 		panel_1.add(lblDireccion);
 		
 		factorRHContribuyenteSeleccionado = new JTextField();
+		factorRHContribuyenteSeleccionado.setEditable(false);
 		factorRHContribuyenteSeleccionado.setColumns(10);
 		factorRHContribuyenteSeleccionado.setBounds(257, 107, 86, 20);
 		panel_1.add(factorRHContribuyenteSeleccionado);
@@ -358,6 +356,7 @@ public class EmitirLicenciaDialog extends JDialog {
 		panel_1.add(lblFactor);
 		
 		localidadContribuyenteSeleccionado = new JTextField();
+		localidadContribuyenteSeleccionado.setEditable(false);
 		localidadContribuyenteSeleccionado.setColumns(10);
 		localidadContribuyenteSeleccionado.setBounds(424, 79, 86, 20);
 		panel_1.add(localidadContribuyenteSeleccionado);
@@ -365,11 +364,6 @@ public class EmitirLicenciaDialog extends JDialog {
 		JLabel lblLocalidad = new JLabel("Localidad");
 		lblLocalidad.setBounds(368, 82, 46, 14);
 		panel_1.add(lblLocalidad);
-		
-		final JCheckBox donanteContribuyenteSeleccionado = new JCheckBox("Donante");
-		donanteContribuyenteSeleccionado.setHorizontalTextPosition(SwingConstants.LEFT);
-		donanteContribuyenteSeleccionado.setBounds(368, 106, 97, 23);
-		panel_1.add(donanteContribuyenteSeleccionado);
 		
 		JLabel lblObservaciones = new JLabel("Observaciones");
 		lblObservaciones.setBounds(10, 138, 79, 14);
@@ -383,9 +377,20 @@ public class EmitirLicenciaDialog extends JDialog {
 		panel_1.add(observacionesContribuyenteSeleccionado);
 		
 		tipoDocContribuyenteSeleccionado = new JTextField();
+		tipoDocContribuyenteSeleccionado.setEditable(false);
 		tipoDocContribuyenteSeleccionado.setColumns(10);
 		tipoDocContribuyenteSeleccionado.setBounds(52, 26, 50, 20);
 		panel_1.add(tipoDocContribuyenteSeleccionado);
+		
+		JLabel lblDonante = new JLabel("Donante");
+		lblDonante.setBounds(368, 113, 46, 14);
+		panel_1.add(lblDonante);
+		
+		donanteContribuyenteSeleccionado = new JTextField();
+		donanteContribuyenteSeleccionado.setEditable(false);
+		donanteContribuyenteSeleccionado.setBounds(424, 110, 37, 20);
+		panel_1.add(donanteContribuyenteSeleccionado);
+		donanteContribuyenteSeleccionado.setColumns(10);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null, "Clase", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -393,7 +398,8 @@ public class EmitirLicenciaDialog extends JDialog {
 		contentPanel.add(panel_2);
 		panel_2.setLayout(null);
 		
-		JComboBox comboBox_1 = new JComboBox();
+		final JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"A", "B", "C", "D", "E"}));
 		comboBox_1.setBounds(43, 29, 52, 22);
 		panel_2.add(comboBox_1);
 		
@@ -401,9 +407,54 @@ public class EmitirLicenciaDialog extends JDialog {
 		lblClase.setBounds(10, 33, 68, 14);
 		panel_2.add(lblClase);
 		
-		JButton btnNewButton = new JButton("Aceptar");
-		btnNewButton.setBounds(444, 633, 91, 23);
-		contentPanel.add(btnNewButton);
+		final JButton aceptarButton = new JButton("Aceptar");
+
+
+		aceptarButton.addMouseListener(new MouseAdapter() 
+		{
+			@Override
+			// Realiza la acción de hacer click en el botón de Aceptar.
+			public void mouseClicked(MouseEvent e) 
+			{
+
+				try 
+				{
+					ResultSet rs = busquedaTitular;
+					//Busca las Licencias anteriores y las instancia para las validaciones de la licencia a crear.
+					Collection<Licencia> licenciasAnteriores = GestorLicencia.getInstance().getLicenciasAnteriores(rs.getString("Id"));
+					// Crea una instancia de Titular del titular seleccionado.
+					Titular titularNuevaLicencia = new Titular(rs.getString("Nombre"), rs.getString("Apellido"), 
+							rs.getString("TipoDoc"),rs.getString("NumDoc"),rs.getString("Sexo"),rs.getString("EstadoCivil"),
+							rs.getDate("FechaNacimiento"),rs.getString("Direccion"),rs.getString("GrupoSanguineo"),
+							rs.getString("FactorRH"),rs.getBoolean("Donante"),rs.getString("Localidad"),licenciasAnteriores);
+					
+					// Verifica que el titular esté en condiciones de obtener la licencia requerida. En caso contrario, lanza excepciones.
+					GestorLicencia.getInstance().validarLicencia(titularNuevaLicencia, (String)comboBox_1.getSelectedItem());						
+					// Instancia la nueva Licencia que luego será ingresada en la base de datos. 
+					Calendar cal = Calendar.getInstance();
+
+					Licencia nuevaLicencia = new Licencia((String)comboBox_1.getSelectedItem(),observacionesContribuyenteSeleccionado.getText(),GestorLicencia.getInstance().calcularVigencia(titularNuevaLicencia),cal.getTime());
+					// Ingresa la nueva licencia en la base de datos.
+					AdminBD.getInstance().agregarLicencia(nuevaLicencia, rs.getString("Id"));
+						
+					
+				}		
+				 
+				catch (SQLException e1) 
+				{
+					JOptionPane.showMessageDialog(null, e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+					
+				} 
+				catch (GeneralException e1)
+				{
+					e1.lanzarMensaje();
+				}
+
+			}
+		});
+		aceptarButton.setEnabled(false);
+		aceptarButton.setBounds(444, 633, 91, 23);
+		contentPanel.add(aceptarButton);
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(553, 633, 91, 23);
@@ -438,17 +489,60 @@ public class EmitirLicenciaDialog extends JDialog {
 		    
 		}
 		
+		//BOTON BUSCAR
+		button.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0)
+			{
+				
+				try {
+					// Asegura que cada vez que se presione el botón de buscar no se pueda crear una Licencia sin seleccionar un Titular.
+					aceptarButton.setEnabled(false);
+					String numero = textField_12.getText();
+					String apellido = textField_1.getText();
+					String nombre =  textField_2.getText();
+					String tipoDoc =  (String) comboBox.getSelectedItem();
+					// Instancia un titular con los valores ingresados en los TextFields.
+					Titular titularBuscado = new Titular(nombre,apellido, tipoDoc,numero, null, null, null, null, null, null, false, null);
+					// Guarda en el ResultSet de la interfaz todos los valores de todos los titulares que coinciden con los campos de búsqueda ingresados.
+					setBusquedaTitular(titularBuscado);
+					ResultSet rs = getBusquedaTitular();
+					// Genera los objetos necesarios para cargar en la tabla los valores de los titulares encontrados.
+					rs.first();
+					int i = 0;
+					Object[][] datos = {}; 
+					DefaultTableModel model = new DefaultTableModel(datos,titulosColumnas);
+					table.setModel(model);
+					while (true)
+					{
+						
+						Object[] fila = {rs.getString("TipoDoc"), rs.getString("NumDoc"), rs.getString("Apellido"), rs.getString("Nombre"), rs.getString("FechaNacimiento"), rs.getString("Direccion")};
+						model.insertRow(i, fila);
+						i++;
+						if (rs.isLast()) break;
+						rs.next();
+					}
+					;
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		});
+		
 		
 		//LISTENERS DE LA TABLA
 		table.addMouseListener(new MouseAdapter() 
 		{
 			@Override
-			public void mouseClicked(MouseEvent arg0) 
+			// Se encarga de mostrar en los campos inferiores todos los valores del Titular seleccionado.
+			public void mouseReleased(MouseEvent arg0) 
 			{
 				try 
 				{
 					int position = table.getSelectedRow();
-					ResultSet rs = GestorTitular.getInstance().getBusquedaTitular();
+					ResultSet rs = getBusquedaTitular();
 					if (rs == null)	return;
 					rs.first();
 					for (int i=0; i<position;i++) rs.next();
@@ -462,7 +556,8 @@ public class EmitirLicenciaDialog extends JDialog {
 					localidadContribuyenteSeleccionado.setText(rs.getString("Localidad"));
 					grupoSanguineoContribuyenteSeleccionado.setText(rs.getString("GrupoSanguineo"));
 					factorRHContribuyenteSeleccionado.setText(rs.getString("FactorRH"));
-					donanteContribuyenteSeleccionado.setSelected(rs.getBoolean("Donante"));
+					donanteContribuyenteSeleccionado.setText(rs.getBoolean("Donante")?"SI":"NO");
+					aceptarButton.setEnabled(true);
 				} 
 				catch (SQLException e) 
 				{
@@ -472,14 +567,6 @@ public class EmitirLicenciaDialog extends JDialog {
 				
 			}
 		});
-		
-		table.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent arg0) {
-				//
-			}
-		});
-		
 		
 		
 		

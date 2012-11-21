@@ -16,7 +16,6 @@ public class GestorTitular {
 
 	protected GestorTitular(){}
 	private final static GestorTitular instancia = new GestorTitular();
-	private ResultSet busquedaTitular;
 	
 	// Metodo encargado de devolver el singleton
 	public static GestorTitular getInstance(){
@@ -41,23 +40,7 @@ public class GestorTitular {
 	public void CrearTitular(Titular unTitular) throws SQLException, GeneralException 
 	{
 		AdminBD.getInstance().crearTitular(unTitular);
-	}
-
-	public ResultSet getBusquedaTitular() {
-		return busquedaTitular;
-	}
-
-	public void setBusquedaTitular(Titular titularBuscado) {
-		try 
-		{
-			this.busquedaTitular = AdminBD.getInstance().buscarTitular(titularBuscado);
-		} 
-		catch (SQLException e) 
-		{
-			// TODO Auto-generated catch block
-		}
-	}
-	
+	}	
 	
 
 

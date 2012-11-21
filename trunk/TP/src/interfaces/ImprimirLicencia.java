@@ -121,10 +121,10 @@ public class ImprimirLicencia extends JDialog {
 		panel_2.add(label_6);
 		
 		String idLicencia = String.valueOf(unaLicencia.getId());
-		JLabel label_7 = new JLabel(idLicencia);
-		label_7.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		label_7.setBounds(85, 11, 64, 14);
-		panel_2.add(label_7);
+		JLabel lblNumeroLicencia = new JLabel(idLicencia);
+		lblNumeroLicencia.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblNumeroLicencia.setBounds(85, 11, 64, 14);
+		panel_2.add(lblNumeroLicencia);
 		
 		JLabel lblNombre = new JLabel(unTitular.getNombre());
 		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -152,15 +152,15 @@ public class ImprimirLicencia extends JDialog {
 		labelFechaVen.setBounds(145, 136, 71, 14);
 		panel_2.add(labelFechaVen);
 		
-		JLabel lblClase = new JLabel("Clase:");
-		lblClase.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblClase.setBounds(174, 11, 45, 14);
-		panel_2.add(lblClase);
+		JLabel label_7 = new JLabel("Clase:");
+		label_7.setFont(new Font("Tahoma", Font.BOLD, 11));
+		label_7.setBounds(174, 11, 45, 14);
+		panel_2.add(label_7);
 		
-		JLabel lblClaseDesc = new JLabel(unaLicencia.getClase());
-		lblClaseDesc.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblClaseDesc.setBounds(229, 11, 56, 14);
-		panel_2.add(lblClaseDesc);
+		JLabel lblClase = new JLabel(unaLicencia.getClase());
+		lblClase.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblClase.setBounds(229, 11, 56, 14);
+		panel_2.add(lblClase);
 		
 		JTextArea textAreaObs = new JTextArea(unaLicencia.getObservacion());
 		textAreaObs.setFont(new Font("Tahoma", Font.PLAIN, 11));

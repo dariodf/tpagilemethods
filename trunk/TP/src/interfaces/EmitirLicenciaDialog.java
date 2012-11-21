@@ -39,6 +39,7 @@ import javax.swing.DefaultComboBoxModel;
 
 import entidades.Titular;
 import gestores.AdminBD;
+import gestores.GestorTitular;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -50,15 +51,15 @@ public class EmitirLicenciaDialog extends JDialog {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTable table;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_10;
-	private JTextField textField_11;
-	private JTextField textField_3;
+	private JTextField apellidoContribuyenteSeleccionado;
+	private JTextField fechaNacContribuyenteSeleccionado;
+	private JTextField grupoSanguineoContribuyenteSeleccionado;
+	private JTextField numeroDocContribuyenteSeleccionado;
+	private JTextField nombreContribuyenteSeleccionado;
+	private JTextField direccionContribuyenteSeleccionado;
+	private JTextField factorRHContribuyenteSeleccionado;
+	private JTextField localidadContribuyenteSeleccionado;
+	private JTextField tipoDocContribuyenteSeleccionado;
 	private JTextField textField_12;
 
 	/**
@@ -180,7 +181,9 @@ public class EmitirLicenciaDialog extends JDialog {
 					String tipoDoc =  (String) comboBox.getSelectedItem();
 					
 					Titular titularBuscado = new Titular(nombre,apellido, tipoDoc,numero, null, null, null, null, null, null, false, null);
-					ResultSet rs = AdminBD.getInstance().buscarTitular(titularBuscado);
+					GestorTitular.getInstance().setBusquedaTitular(titularBuscado);
+					
+					ResultSet rs = GestorTitular.getInstance().getBusquedaTitular(); 
 					rs.first();
 					int i = 0;
 					Object[][] datos = {}; 
@@ -295,94 +298,94 @@ public class EmitirLicenciaDialog extends JDialog {
 		lblApellido.setBounds(10, 57, 37, 14);
 		panel_1.add(lblApellido);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(52, 54, 86, 20);
-		panel_1.add(textField_4);
+		apellidoContribuyenteSeleccionado = new JTextField();
+		apellidoContribuyenteSeleccionado.setColumns(10);
+		apellidoContribuyenteSeleccionado.setBounds(52, 54, 86, 20);
+		panel_1.add(apellidoContribuyenteSeleccionado);
 		
 		JLabel lblFNacimiento = new JLabel("F. Nacimiento");
 		lblFNacimiento.setBounds(10, 85, 68, 14);
 		panel_1.add(lblFNacimiento);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(88, 79, 86, 20);
-		panel_1.add(textField_5);
+		fechaNacContribuyenteSeleccionado = new JTextField();
+		fechaNacContribuyenteSeleccionado.setColumns(10);
+		fechaNacContribuyenteSeleccionado.setBounds(88, 79, 86, 20);
+		panel_1.add(fechaNacContribuyenteSeleccionado);
 		
 		JLabel lblGSanguineo = new JLabel("G. Sanguineo");
 		lblGSanguineo.setBounds(10, 113, 68, 14);
 		panel_1.add(lblGSanguineo);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(88, 107, 86, 20);
-		panel_1.add(textField_6);
+		grupoSanguineoContribuyenteSeleccionado = new JTextField();
+		grupoSanguineoContribuyenteSeleccionado.setColumns(10);
+		grupoSanguineoContribuyenteSeleccionado.setBounds(88, 107, 86, 20);
+		panel_1.add(grupoSanguineoContribuyenteSeleccionado);
 		
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(199, 26, 144, 20);
-		panel_1.add(textField_7);
+		numeroDocContribuyenteSeleccionado = new JTextField();
+		numeroDocContribuyenteSeleccionado.setColumns(10);
+		numeroDocContribuyenteSeleccionado.setBounds(199, 26, 144, 20);
+		panel_1.add(numeroDocContribuyenteSeleccionado);
 		
 		JLabel lblNmero = new JLabel("N\u00FAmero");
 		lblNmero.setBounds(157, 29, 37, 14);
 		panel_1.add(lblNmero);
 		
-		textField_8 = new JTextField();
-		textField_8.setColumns(10);
-		textField_8.setBounds(199, 54, 144, 20);
-		panel_1.add(textField_8);
+		nombreContribuyenteSeleccionado = new JTextField();
+		nombreContribuyenteSeleccionado.setColumns(10);
+		nombreContribuyenteSeleccionado.setBounds(199, 54, 144, 20);
+		panel_1.add(nombreContribuyenteSeleccionado);
 		
 		JLabel lblNombre = new JLabel("Nombre");
 		lblNombre.setBounds(157, 57, 37, 14);
 		panel_1.add(lblNombre);
 		
-		textField_9 = new JTextField();
-		textField_9.setColumns(10);
-		textField_9.setBounds(257, 79, 86, 20);
-		panel_1.add(textField_9);
+		direccionContribuyenteSeleccionado = new JTextField();
+		direccionContribuyenteSeleccionado.setColumns(10);
+		direccionContribuyenteSeleccionado.setBounds(257, 79, 86, 20);
+		panel_1.add(direccionContribuyenteSeleccionado);
 		
 		JLabel lblDireccion = new JLabel("Direcci\u00F3n");
 		lblDireccion.setBounds(197, 82, 50, 14);
 		panel_1.add(lblDireccion);
 		
-		textField_10 = new JTextField();
-		textField_10.setColumns(10);
-		textField_10.setBounds(257, 107, 86, 20);
-		panel_1.add(textField_10);
+		factorRHContribuyenteSeleccionado = new JTextField();
+		factorRHContribuyenteSeleccionado.setColumns(10);
+		factorRHContribuyenteSeleccionado.setBounds(257, 107, 86, 20);
+		panel_1.add(factorRHContribuyenteSeleccionado);
 		
 		JLabel lblFactor = new JLabel("Factor RH");
 		lblFactor.setBounds(197, 110, 50, 14);
 		panel_1.add(lblFactor);
 		
-		textField_11 = new JTextField();
-		textField_11.setColumns(10);
-		textField_11.setBounds(424, 79, 86, 20);
-		panel_1.add(textField_11);
+		localidadContribuyenteSeleccionado = new JTextField();
+		localidadContribuyenteSeleccionado.setColumns(10);
+		localidadContribuyenteSeleccionado.setBounds(424, 79, 86, 20);
+		panel_1.add(localidadContribuyenteSeleccionado);
 		
 		JLabel lblLocalidad = new JLabel("Localidad");
 		lblLocalidad.setBounds(368, 82, 46, 14);
 		panel_1.add(lblLocalidad);
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Donante");
-		chckbxNewCheckBox.setHorizontalTextPosition(SwingConstants.LEFT);
-		chckbxNewCheckBox.setBounds(368, 106, 97, 23);
-		panel_1.add(chckbxNewCheckBox);
+		final JCheckBox donanteContribuyenteSeleccionado = new JCheckBox("Donante");
+		donanteContribuyenteSeleccionado.setHorizontalTextPosition(SwingConstants.LEFT);
+		donanteContribuyenteSeleccionado.setBounds(368, 106, 97, 23);
+		panel_1.add(donanteContribuyenteSeleccionado);
 		
 		JLabel lblObservaciones = new JLabel("Observaciones");
 		lblObservaciones.setBounds(10, 138, 79, 14);
 		panel_1.add(lblObservaciones);
 		
 				
-		JTextArea textArea_1 = new JTextArea();
+		final JTextArea observacionesContribuyenteSeleccionado = new JTextArea();
 		Border bordecito = BorderFactory.createLineBorder(new Color(0,0,0));
-		textArea_1.setBorder(bordecito);
-		textArea_1.setBounds(87, 143, 604, 111);
-		panel_1.add(textArea_1);
+		observacionesContribuyenteSeleccionado.setBorder(bordecito);
+		observacionesContribuyenteSeleccionado.setBounds(87, 143, 604, 111);
+		panel_1.add(observacionesContribuyenteSeleccionado);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(52, 26, 50, 20);
-		panel_1.add(textField_3);
+		tipoDocContribuyenteSeleccionado = new JTextField();
+		tipoDocContribuyenteSeleccionado.setColumns(10);
+		tipoDocContribuyenteSeleccionado.setBounds(52, 26, 50, 20);
+		panel_1.add(tipoDocContribuyenteSeleccionado);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null, "Clase", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -437,10 +440,36 @@ public class EmitirLicenciaDialog extends JDialog {
 		
 		
 		//LISTENERS DE LA TABLA
-		table.addMouseListener(new MouseAdapter() {
+		table.addMouseListener(new MouseAdapter() 
+		{
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				//
+			public void mouseClicked(MouseEvent arg0) 
+			{
+				try 
+				{
+					int position = table.getSelectedRow();
+					ResultSet rs = GestorTitular.getInstance().getBusquedaTitular();
+					if (rs == null)	return;
+					rs.first();
+					for (int i=0; i<position;i++) rs.next();
+					
+					tipoDocContribuyenteSeleccionado.setText(rs.getString("TipoDoc"));
+					numeroDocContribuyenteSeleccionado.setText(rs.getString("NumDoc"));
+					apellidoContribuyenteSeleccionado.setText(rs.getString("Apellido"));
+					nombreContribuyenteSeleccionado.setText(rs.getString("Nombre"));
+					fechaNacContribuyenteSeleccionado.setText(rs.getString("FechaNacimiento"));
+					direccionContribuyenteSeleccionado.setText(rs.getString("Direccion"));
+					localidadContribuyenteSeleccionado.setText(rs.getString("Localidad"));
+					grupoSanguineoContribuyenteSeleccionado.setText(rs.getString("GrupoSanguineo"));
+					factorRHContribuyenteSeleccionado.setText(rs.getString("FactorRH"));
+					donanteContribuyenteSeleccionado.setSelected(rs.getBoolean("Donante"));
+				} 
+				catch (SQLException e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}
 		});
 		

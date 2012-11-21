@@ -43,21 +43,6 @@ public class ImprimirLicencia extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			Licencia unaLicencia = new Licencia("A", "unaObservacion re loca re loca re loca re loca ", null);
-			Titular unTitular = new Titular("Juancito", "Paolantonio", "DNI", "12333333", "M", "Casado", null, "Lavalle 1234", "A", "+", true, "Santa Fe");
-			ImprimirLicencia dialog = new ImprimirLicencia(unaLicencia,unTitular);
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the dialog.
 	 */
 	public ImprimirLicencia(Licencia unaLicencia, Titular unTitular) {

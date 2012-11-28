@@ -13,7 +13,7 @@ public class GestorUsuario
 {
 	
 	//Usuario temporal para pruebas
-	private Usuario usuarioLogueado = new Usuario(0,true, "Usuario-0", "1234");
+	private Usuario usuarioLogueado;
 		
 	protected GestorUsuario(){}
 	private final static GestorUsuario instancia = new GestorUsuario();
@@ -66,6 +66,18 @@ public class GestorUsuario
 			JOptionPane.showMessageDialog(null,e.getMessage() , "Error en la Base de Datos",JOptionPane.ERROR_MESSAGE);
 		}
 		return id;
+	}
+	
+	public void setearUsuarioLogueado(Usuario unUsuario)
+	{
+		this.usuarioLogueado = unUsuario;
+	}
+	
+	public void verificarUsuario(String usuario, String contrasenya) throws GeneralException, SQLException 
+	{
+		Usuario unUsuario = AdminBD.getInstance().verificarUsuario(usuario, contrasenya);
+		setearUsuarioLogueado(unUsuario);
+		
 	}
 	
 	

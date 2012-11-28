@@ -55,24 +55,14 @@ public class CrearTitular extends JDialog {
 	private Contribuyente contribuyenteSeleccionado;
 	private JTextField tfSexo;
 	private JTextField tfEstadoCivil;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			CrearTitular dialog = new CrearTitular();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+
 
 	/**
 	 * Create the dialog.
 	 */
 	public CrearTitular() 
 	{
+		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\WS\\TP\\icono.png"));
 		setTitle("Crear Titular");
 		setBounds(100, 100, 610, 338);
@@ -92,6 +82,38 @@ public class CrearTitular extends JDialog {
 		label.setBounds(10, 22, 113, 23);
 		panelBusqueda.add(label);
 		
+		
+		final KeyAdapter soloNumerosDNI = new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+			
+		
+				if(((e.getKeyChar() < '0') || (e.getKeyChar() > '9')) && (e.getKeyChar() != '\b'))
+				{
+				   e.consume();  // ignorar el evento de teclado
+				}
+			
+			}
+		};
+		
+		final KeyAdapter soloNumerosYLetrasDNI = new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+		
+				if((e.getKeyChar() <= 'z') && (e.getKeyChar() >= 'a'))
+				{
+					e.setKeyChar(Character.toUpperCase(e.getKeyChar()));
+				}
+				if( (((e.getKeyChar() < '0') || (e.getKeyChar() > '9')) && ((e.getKeyChar() < 'A') || (e.getKeyChar() > 'Z')) ) && (e.getKeyChar() != '\b'))
+				{
+				   e.consume();  // ignorar el evento de teclado
+				}
+			
+			}
+		};
+		
+		
+		
 		final JComboBox cbTipoDocumento = new JComboBox();
 		cbTipoDocumento.addItem("DNI");
 		cbTipoDocumento.addItem("LE");
@@ -100,19 +122,26 @@ public class CrearTitular extends JDialog {
 		cbTipoDocumento.setBounds(128, 23, 83, 20);
 		panelBusqueda.add(cbTipoDocumento);
 		
-		tfDocumentoBuscar = new JTextField();
-		tfDocumentoBuscar.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent arg0) {
-				if (tfDocumentoBuscar.getText().length() == 10 || !(Character.isAlphabetic(arg0.getKeyChar()) || Character.isDigit(arg0.getKeyChar())) ) {
-					 arg0.consume();
+		cbTipoDocumento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				tfDocumentoBuscar.removeKeyListener(soloNumerosDNI);								
+				if(cbTipoDocumento.getSelectedIndex()==3)
+					tfDocumentoBuscar.addKeyListener(soloNumerosYLetrasDNI);
+													
+				else {
+					tfDocumentoBuscar.removeKeyListener(soloNumerosYLetrasDNI);
+					tfDocumentoBuscar.addKeyListener(soloNumerosDNI);
 				}
-				else{
-					arg0.setKeyChar(Character.toUpperCase(arg0.getKeyChar()));
-				}
+				tfDocumentoBuscar.setText(""); 
 			}
 		});
+		
+		
+		
+		tfDocumentoBuscar = new JTextField();
 		tfDocumentoBuscar.setColumns(10);
+		tfDocumentoBuscar.addKeyListener(soloNumerosDNI);
 		tfDocumentoBuscar.setBounds(291, 23, 99, 20);
 		panelBusqueda.add(tfDocumentoBuscar);
 		

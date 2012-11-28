@@ -23,6 +23,8 @@ import javax.swing.table.TableColumn;
 import javax.swing.text.MaskFormatter;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+
+import java.awt.Dialog.ModalityType;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.KeyAdapter;
@@ -73,9 +75,7 @@ public class EmitirLicenciaDialog extends JDialog {
 	private JTextField textField_12;
 	private JTextField donanteContribuyenteSeleccionado;
 
-	/**
-	 * Launch the application.
-	 */
+	
 	public ResultSet getBusquedaTitular() {
 		return busquedaTitular;
 	}
@@ -87,7 +87,9 @@ public class EmitirLicenciaDialog extends JDialog {
 		} 
 		catch (SQLException e) 
 		{
-			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null,e.getMessage() , "Error de Base de Datos",JOptionPane.ERROR_MESSAGE);
+		} catch (GeneralException e) {
+			e.lanzarMensaje();
 		}
 	}
 
@@ -477,7 +479,19 @@ public class EmitirLicenciaDialog extends JDialog {
 					
 					// Ingresa la nueva licencia en la base de datos.
 					AdminBD.getInstance().agregarLicencia(nuevaLicencia, rs.getString("Id"));
-					dispose();	
+					
+					if(JOptionPane.showConfirmDialog(null, "La Licencia se ha creado exitosamente \n ¿Desea Imprimir la Licencia?","Confirmación",JOptionPane.OK_CANCEL_OPTION) == 0)
+					{
+						ImprimirLicencia imprimirLicenciaDialog = new ImprimirLicencia(nuevaLicencia,titularNuevaLicencia);
+						imprimirLicenciaDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+						imprimirLicenciaDialog.setModalityType(ModalityType.DOCUMENT_MODAL);
+						imprimirLicenciaDialog.setLocationRelativeTo(null);
+						imprimirLicenciaDialog.setModal(true);
+						imprimirLicenciaDialog.setVisible(true);						
+					}
+					else dispose();
+					
+						
 					
 				}		
 				 

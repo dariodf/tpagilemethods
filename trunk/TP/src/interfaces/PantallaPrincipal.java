@@ -23,21 +23,7 @@ public class PantallaPrincipal extends JFrame {
 
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PantallaPrincipal frame = new PantallaPrincipal();
-					frame.setVisible(true);
-				}catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
@@ -66,9 +52,11 @@ public class PantallaPrincipal extends JFrame {
 					CrearUsuario crearUsuarioDialog = new CrearUsuario();
 					crearUsuarioDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					crearUsuarioDialog.setModalityType(ModalityType.DOCUMENT_MODAL);
+					crearUsuarioDialog.setLocationRelativeTo(null);
 					crearUsuarioDialog.setModal(true);
 					crearUsuarioDialog.setVisible(true);
-				
+			
+					
 			}
 		});
 		
@@ -83,6 +71,16 @@ public class PantallaPrincipal extends JFrame {
 		menuBar.add(mnLicencia);
 		
 		JMenuItem mntmEmitirLicencia = new JMenuItem("Emitir Licencia");
+		mntmEmitirLicencia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				EmitirLicenciaDialog emitirLicenciaDialog = new EmitirLicenciaDialog();
+				emitirLicenciaDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				emitirLicenciaDialog.setModalityType(ModalityType.DOCUMENT_MODAL);
+				emitirLicenciaDialog.setLocationRelativeTo(null);
+				emitirLicenciaDialog.setModal(true);
+				emitirLicenciaDialog.setVisible(true);
+			}
+		});
 		mnLicencia.add(mntmEmitirLicencia);
 		
 		JMenuItem mntmRenovarLicencia = new JMenuItem("Renovar Licencia");
@@ -100,10 +98,15 @@ public class PantallaPrincipal extends JFrame {
 				CrearTitular crearTitularDialog = new CrearTitular();
 				crearTitularDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				crearTitularDialog.setModalityType(ModalityType.DOCUMENT_MODAL);
+				crearTitularDialog.setLocationRelativeTo(null);
 				crearTitularDialog.setModal(true);
 				crearTitularDialog.setVisible(true);
 			}
 		});
+		
+		
+		
+		
 		mnTitular.add(mntmNewMenuItem);
 		
 		JMenuItem mntmModificarTitular = new JMenuItem("Modificar Titular");

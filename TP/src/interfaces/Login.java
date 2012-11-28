@@ -122,6 +122,32 @@ public class Login extends JFrame {
 				if (tfUsuario.getText().length() == 8 || !Character.isDigit(e.getKeyChar())){
 					 e.consume();
 				}
+				
+				if(e.getKeyChar() == '\n')
+				{
+				
+					try {
+						// Si el campo de usuario es nulo, muestra un mensaje de error
+						if(tfUsuario.getText().isEmpty())
+							throw new GeneralException("El campo de usuario no puede estar en blanco.");
+						// Si el campo de contraseña es nulo, muestra un mensaje de error
+						if(tfContrasenya.getText().isEmpty())
+							throw new GeneralException("El campo de contraseña no puede estar en blanco.");
+						
+						GestorUsuario.getInstance().verificarUsuario(tfUsuario.getText(), tfContrasenya.getText());
+						
+						PantallaPrincipal pantallaPrincipal = new PantallaPrincipal();
+						pantallaPrincipal.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+						pantallaPrincipal.setVisible(true);
+						dispose();
+					} catch (GeneralException e1) {
+						e1.lanzarMensaje();
+					} catch (SQLException e1) {
+						// Muestra un error de la base de datos
+						JOptionPane.showMessageDialog(null, e1.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+					}
+					
+				}
 			}
 		});
 		tfContrasenya.setBounds(149, 88, 130, 20);

@@ -37,6 +37,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
 
 public class CrearTitular extends JDialog {
 
@@ -371,6 +373,7 @@ public class CrearTitular extends JDialog {
 		});
 		botonCancelar.setBounds(489, 264, 89, 23);
 		contentPanel.add(botonCancelar);
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{cbTipoDocumento, tfDocumentoBuscar, button, botonAceptar, botonCancelar}));
 	}
 	
 	public void limpiarVentana()

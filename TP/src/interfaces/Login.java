@@ -24,6 +24,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
 
 public class Login extends JFrame {
 
@@ -167,5 +169,6 @@ public class Login extends JFrame {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel_1.setBounds(118, 26, 130, 14);
 		contentPane.add(lblNewLabel_1);
+		contentPane.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{tfUsuario, tfContrasenya, btnIniciar, btnCancelar}));
 	}
 }

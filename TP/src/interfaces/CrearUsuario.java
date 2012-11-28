@@ -20,6 +20,8 @@ import java.sql.SQLException;
 
 import gestores.GestorUsuario;
 import excepciones.GeneralException;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
 
 
 
@@ -114,6 +116,7 @@ public class CrearUsuario extends JDialog
 		JLabel lblPrivilegio = new JLabel("Privilegio:");
 		lblPrivilegio.setBounds(22, 61, 69, 14);
 		contentPanel.add(lblPrivilegio);
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{comboBox, btnAceptar, btnCancelar}));
 		
 			
 	}

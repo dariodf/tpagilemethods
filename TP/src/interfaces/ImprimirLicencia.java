@@ -79,6 +79,18 @@ public class ImprimirLicencia extends JDialog {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
+		// Insertamos la imagen en el panel
+		JLabel labelImagen = new JLabel(" "); 
+		ImageIcon imagen = new ImageIcon("./usuario.png"); 
+		labelImagen.setIcon(imagen); 
+		panel.add(labelImagen);
+
+		//Propiedades de la etiqueta 
+		labelImagen.setSize(101,101); 
+		labelImagen.setLocation(0,0); 
+		labelImagen.setVisible(true); 
+		
+		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null, "", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		panel_2.setBounds(121, 11, 314, 228);

@@ -125,7 +125,7 @@ public class GestorLicencia {
 			{
 				for (Licencia lic : unTitular.getLicencias()) 
 				{
-					//FechaVenLic.setTime(lic.fechaVencimiento);
+					
 					if((lic.clase.compareTo(unaClaseLicencia) ==0) && 
 							(lic.fechaVencimiento.after(fechaHoyAux.getTime())))
 							{
@@ -144,7 +144,6 @@ public class GestorLicencia {
 			//Si el titular es mayor de 65 años y la colección es vacía, da un mensaje de error.
 			if ((unTitular.getLicencias().isEmpty()==true) && (edad>65))
 			{ 
-				//ValidacionLicencia = false;
 				throw new GeneralException ("El titular no puede obtener una licencia por primera vez a los 65 años");  
 			}
 			
@@ -154,7 +153,6 @@ public class GestorLicencia {
 			
 			if (edad<21 && (unaClaseLicencia.compareTo("C") == 0|| unaClaseLicencia.compareTo("D") == 0 || unaClaseLicencia.compareTo("E") == 0))
 			{
-				//ValidacionLicencia = false;
 				throw new GeneralException ("El titular no puede recibir esta licencia hasta los 21 años");
 			}
 			
@@ -185,13 +183,9 @@ public class GestorLicencia {
 				
 				if (puede==0)
 				{
-					//ValidacionLicencia = false;
 					throw new GeneralException ("El titular debe tener una licencia de clase B con un año de antiguedad");
 				}
-			}
-			
-			//return ValidacionLicencia;
-			
+			}			
 		}
 		
 		

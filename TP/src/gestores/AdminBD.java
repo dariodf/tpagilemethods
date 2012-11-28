@@ -4,6 +4,7 @@ import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JOptionPane;
 
@@ -219,6 +220,15 @@ public class AdminBD {
 		return rs;
 	}
 	
+	public Licencia recuperarLicencia(String id_titular) throws SQLException {
+		ResultSet rs;
+		String consulta = "SELECT * FROM licencia WHERE id_titular LIKE '"+id_titular+"' ORDER BY FechaEmision DESC;";
+		rs = devolverConsulta(consulta);
+		rs.first();
+		return new Licencia(rs.getInt("NumeroLicencia"), rs.getString("Clase"),  rs.getString("Observacion"), rs.getDate("FechaVencimiento"), rs.getDate("FechaEmision"));
+				
+	}
+	
 	public void agregarLicencia(Licencia nuevaLicencia, String id_titular) throws SQLException
 	{
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -228,6 +238,17 @@ public class AdminBD {
 		
 		String consulta =  "INSERT INTO `agiles`.`licencia` (`Clase`, `FechaVencimiento`, `Observacion`, `id_titular`, `FechaEmision`) VALUES ('"+nuevaLicencia.getClase()+"','"+fechaVencimiento+"','"+nuevaLicencia.observacion+"','"+id_titular+"','"+fechaEmision+"'); ";
 		AdminBD.getInstance().hacerConsulta(consulta);
+		
+		DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar cal = Calendar.getInstance();
+		String fechaHora = dateformat.format(cal.getTime());
+		
+		
+		String descripcion = "El usuario "+GestorUsuario.getInstance().getUsuarioLogueado().getNombre()+" ha creado la licencia";
+		Licencia lic = recuperarLicencia(id_titular);
+		
+		consulta = "INSERT INTO `agiles`.`auditorialicencia` (`id`, `Descripcion`, `Fecha`, `NumeroLicencia`, `id_Usuario`) VALUES (NULL,'"+descripcion+"','"+fechaHora+"','"+lic.getId()+"','"+GestorUsuario.getInstance().getUsuarioLogueado().getId()+"');";
+		AdminBD.getInstance().hacerConsulta(consulta);		
 		
 	}
 

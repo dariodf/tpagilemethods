@@ -37,6 +37,10 @@ import javax.swing.JTextArea;
 import java.awt.SystemColor;
 import javax.swing.border.EtchedBorder;
 import java.awt.ComponentOrientation;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
 
 public class ImprimirLicencia extends JDialog {
 
@@ -53,6 +57,12 @@ public class ImprimirLicencia extends JDialog {
 		
 		setBounds(100, 100, 467, 325);
 		getContentPane().setLayout(new BorderLayout());
+		contentPanel.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				dispose();
+			}
+		});
 		contentPanel.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);

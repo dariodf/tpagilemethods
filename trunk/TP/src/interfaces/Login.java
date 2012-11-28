@@ -119,7 +119,7 @@ public class Login extends JFrame {
 		tfContrasenya.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				if (tfUsuario.getText().length() == 8 || !Character.isDigit(e.getKeyChar())){
+				if (tfContrasenya.getText().length() == 8 || !Character.isDigit(e.getKeyChar())){
 					 e.consume();
 				}
 				

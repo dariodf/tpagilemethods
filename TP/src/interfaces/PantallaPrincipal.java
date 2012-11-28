@@ -30,14 +30,18 @@ public class PantallaPrincipal extends JFrame {
 	 */
 	public PantallaPrincipal() 
 	{
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\WS\\TP\\icono.png"));
 		setTitle("Municipalidad de Santa Fe - Registro del conductor");
 		// Causa la apertura en modo maximizado de la ventana
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//setExtendedState(JFrame.MAXIMIZED_BOTH);
 		// Setea la accion por defecto en la salida
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// Setea el comienzo y el tamaño de la ventana en pixeles
 		setBounds(37, 0, 1280, 720);
+		java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize(); 
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setResizable(false);
 		
 		// Definicion del JMenu
 		JMenuBar menuBar = new JMenuBar();

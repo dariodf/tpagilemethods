@@ -106,12 +106,9 @@ public class Login extends JFrame {
 		tfUsuario.addKeyListener(new KeyAdapter(){
 			@Override
 			public void keyTyped(KeyEvent arg0) {
-				if (tfUsuario.getText().length() == 20 || !(Character.isAlphabetic(arg0.getKeyChar()) || Character.isDigit(arg0.getKeyChar()) || arg0.getKeyChar() == '-' )) {
+				if (tfUsuario.getText().length() == 20 || !(Character.isAlphabetic(arg0.getKeyChar()) || Character.isDigit(arg0.getKeyChar()) || arg0.getKeyChar() == '-' )) 
 					 arg0.consume();
-				}
-				else{
-					arg0.setKeyChar(Character.toUpperCase(arg0.getKeyChar()));
-				}
+				
 			}
 		});
 		tfUsuario.setBounds(149, 55, 130, 20);

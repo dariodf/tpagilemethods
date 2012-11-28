@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
@@ -113,6 +114,10 @@ public class EmitirLicenciaDialog extends JDialog {
 		
 		setResizable(false);
 		setTitle("Emitir Licencia");
+		
+		ImageIcon icono = new ImageIcon("src/ICONO.png");
+		this.setIconImage(icono.getImage());
+		
 		setBounds(100, 100, 769, 695);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

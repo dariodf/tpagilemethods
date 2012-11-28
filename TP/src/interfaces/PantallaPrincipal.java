@@ -31,7 +31,9 @@ public class PantallaPrincipal extends JFrame {
 	public PantallaPrincipal() 
 	{
 		
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\WS\\TP\\icono.png"));
+		ImageIcon icono = new ImageIcon("src/ICONO.png");
+		this.setIconImage(icono.getImage());
+		
 		setTitle("Municipalidad de Santa Fe - Registro del conductor");
 		// Causa la apertura en modo maximizado de la ventana
 		//setExtendedState(JFrame.MAXIMIZED_BOTH);

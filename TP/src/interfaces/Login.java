@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -26,6 +27,7 @@ import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
+import java.awt.Toolkit;
 
 public class Login extends JFrame {
 
@@ -57,6 +59,9 @@ public class Login extends JFrame {
 		
 		// Elimina la barra de titulo
 		this.setUndecorated(true);
+		
+		ImageIcon icono = new ImageIcon("src/ICONO.png");
+		this.setIconImage(icono.getImage());
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(500, 280, 322, 200);

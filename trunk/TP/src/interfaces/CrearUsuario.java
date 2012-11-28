@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -39,6 +40,10 @@ public class CrearUsuario extends JDialog
 	{
 		setResizable(false);
 		setTitle("Crear Usuario");
+		
+		ImageIcon icono = new ImageIcon("src/ICONO.png");
+		this.setIconImage(icono.getImage());
+		
 		setBounds(100, 100, 290, 182);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

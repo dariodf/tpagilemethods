@@ -16,6 +16,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
@@ -65,7 +66,10 @@ public class CrearTitular extends JDialog {
 	public CrearTitular() 
 	{
 		setResizable(false);
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\WS\\TP\\icono.png"));
+		
+		ImageIcon icono = new ImageIcon("src/ICONO.png");
+		this.setIconImage(icono.getImage());
+		
 		setTitle("Crear Titular");
 		setBounds(100, 100, 610, 338);
 		getContentPane().setLayout(new BorderLayout());

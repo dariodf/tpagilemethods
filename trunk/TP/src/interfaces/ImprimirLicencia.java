@@ -10,11 +10,15 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -37,6 +41,7 @@ import javax.swing.JTextArea;
 import java.awt.SystemColor;
 import javax.swing.border.EtchedBorder;
 import java.awt.ComponentOrientation;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
@@ -45,6 +50,7 @@ import java.awt.Component;
 public class ImprimirLicencia extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
+	
 	
 	/**
 	 * Create the dialog.
@@ -57,12 +63,20 @@ public class ImprimirLicencia extends JDialog {
 		
 		setBounds(100, 100, 467, 325);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				dispose();
-			}
-		});
+				
+		//Para cerrar el dialogo con ESC
+		KeyStroke escapeKeyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE,0, false);
+		AbstractAction escapeAction = new AbstractAction() {
+				public void actionPerformed(ActionEvent e) {
+				 dispose();
+				}
+		};
+		getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(escapeKeyStroke,
+		"ESCAPE");
+		getRootPane().getActionMap().put("ESCAPE", escapeAction);
+		////////////////////////////////
+		
+		
 		contentPanel.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);

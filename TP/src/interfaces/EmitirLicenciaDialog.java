@@ -53,6 +53,8 @@ import gestores.GestorTitular;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
 
 public class EmitirLicenciaDialog extends JDialog {
 
@@ -543,6 +545,8 @@ public class EmitirLicenciaDialog extends JDialog {
 		});
 		btnCancelar.setBounds(552, 622, 91, 23);
 		contentPanel.add(btnCancelar);
+		contentPanel.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{comboBox, textField_12, textField_1, textField_2, button, table, comboBox_1, aceptarButton, btnCancelar, table}));
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{comboBox, textField_12, textField_1, textField_2, button, comboBox_1, aceptarButton, btnCancelar}));
 		
 		//Acomoda el ancho de los titulos
 		TableColumn column = null;

@@ -109,6 +109,7 @@ public class EmitirLicenciaDialog extends JDialog {
 	 */
 	public EmitirLicenciaDialog() {
 		
+		setResizable(false);
 		setTitle("Emitir Licencia");
 		setBounds(100, 100, 769, 695);
 		getContentPane().setLayout(new BorderLayout());
@@ -487,7 +488,8 @@ public class EmitirLicenciaDialog extends JDialog {
 						imprimirLicenciaDialog.setModalityType(ModalityType.DOCUMENT_MODAL);
 						imprimirLicenciaDialog.setLocationRelativeTo(null);
 						imprimirLicenciaDialog.setModal(true);
-						imprimirLicenciaDialog.setVisible(true);						
+						imprimirLicenciaDialog.setVisible(true);	
+						dispose();
 					}
 					else dispose();
 					
@@ -512,6 +514,11 @@ public class EmitirLicenciaDialog extends JDialog {
 		contentPanel.add(aceptarButton);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		btnCancelar.setBounds(553, 633, 91, 23);
 		contentPanel.add(btnCancelar);
 		

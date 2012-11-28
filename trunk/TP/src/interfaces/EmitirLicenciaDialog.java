@@ -129,7 +129,8 @@ public class EmitirLicenciaDialog extends JDialog {
 			@Override
 			public void keyTyped(KeyEvent e) {
 			
-		
+				if(textField_12.getText().length() > 10) e.consume();
+				
 				if(((e.getKeyChar() < '0') || (e.getKeyChar() > '9')) && (e.getKeyChar() != '\b'))
 				{
 				   e.consume();  // ignorar el evento de teclado
@@ -142,6 +143,8 @@ public class EmitirLicenciaDialog extends JDialog {
 			@Override
 			public void keyTyped(KeyEvent e) {
 		
+				if(textField_12.getText().length() > 10) e.consume();
+				
 				if((e.getKeyChar() <= 'z') && (e.getKeyChar() >= 'a'))
 				{
 					e.setKeyChar(Character.toUpperCase(e.getKeyChar()));
@@ -186,7 +189,7 @@ public class EmitirLicenciaDialog extends JDialog {
 		comboBox.setSelectedIndex(0);
 		Border title = BorderFactory.createTitledBorder("Búsqueda");
 		panel.setBorder(title);
-		comboBox.setBounds(45, 21, 83, 20);
+		comboBox.setBounds(45, 21, 68, 20);
 		panel.add(comboBox);
 		
 		//ENMASCARA LA ENTRADA PARA EL CAMPO DE NUMERO_DNI
@@ -201,7 +204,7 @@ public class EmitirLicenciaDialog extends JDialog {
 		
 		textField_2 = new JTextField(20);
 		textField_2.setColumns(10);
-		textField_2.setBounds(485, 21, 99, 20);
+		textField_2.setBounds(522, 21, 99, 20);
 		panel.add(textField_2);
 		
 		textField_2.addKeyListener(new KeyAdapter() {
@@ -252,28 +255,30 @@ public class EmitirLicenciaDialog extends JDialog {
 		
 		//meto la tabla dentro del panel de scroll
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(45, 73, 648, 163);		
+		scrollPane.setLocation(97, 279);
+		scrollPane.setSize(579, 126);
+		scrollPane.setBounds(45, 73, 648, 155);		
 		panel.add(scrollPane);
 		
 		
 		JButton button = new JButton("Buscar");
 
-		button.setBounds(604, 20, 89, 23);
+		button.setBounds(631, 20, 89, 23);
 		panel.add(button);
 		
 		JLabel label_1 = new JLabel("N\u00FAmero");
-		label_1.setBounds(138, 24, 46, 14);
+		label_1.setBounds(123, 24, 55, 14);
 		panel.add(label_1);
 		
 		JLabel label_2 = new JLabel("Apellido");
-		label_2.setBounds(290, 24, 46, 14);
+		label_2.setBounds(290, 24, 55, 14);
 		panel.add(label_2);
 		
 		
 		//ENMASCARA LA ENTRADA PARA EL CAMPO DE NUMERO_DNI
 		textField_1 = new JTextField("",20);
 		textField_1.setColumns(10);
-		textField_1.setBounds(333, 21, 99, 20);
+		textField_1.setBounds(346, 21, 99, 20);
 		panel.add(textField_1);
 		
 		textField_1.addKeyListener(new KeyAdapter() {
@@ -311,7 +316,7 @@ public class EmitirLicenciaDialog extends JDialog {
 		
 			
 		JLabel lblNombre_1 = new JLabel("Nombre");
-		lblNombre_1.setBounds(442, 24, 46, 14);
+		lblNombre_1.setBounds(457, 24, 55, 14);
 		panel.add(lblNombre_1);
 		
 		
@@ -327,94 +332,100 @@ public class EmitirLicenciaDialog extends JDialog {
 		panel_1.add(lblTipo);
 		
 		JLabel lblApellido = new JLabel("Apellido");
-		lblApellido.setBounds(10, 57, 37, 14);
+		lblApellido.setBounds(10, 57, 50, 14);
 		panel_1.add(lblApellido);
 		
 		apellidoContribuyenteSeleccionado = new JTextField();
 		apellidoContribuyenteSeleccionado.setEditable(false);
 		apellidoContribuyenteSeleccionado.setColumns(10);
-		apellidoContribuyenteSeleccionado.setBounds(52, 54, 144, 20);
+		apellidoContribuyenteSeleccionado.setBounds(62, 54, 144, 20);
 		panel_1.add(apellidoContribuyenteSeleccionado);
 		
 		JLabel lblFNacimiento = new JLabel("F. Nacimiento");
-		lblFNacimiento.setBounds(10, 85, 68, 14);
+		lblFNacimiento.setBounds(10, 85, 86, 14);
 		panel_1.add(lblFNacimiento);
 		
 		fechaNacContribuyenteSeleccionado = new JTextField();
 		fechaNacContribuyenteSeleccionado.setEditable(false);
 		fechaNacContribuyenteSeleccionado.setColumns(10);
-		fechaNacContribuyenteSeleccionado.setBounds(88, 79, 86, 20);
+		fechaNacContribuyenteSeleccionado.setBounds(98, 82, 86, 20);
 		panel_1.add(fechaNacContribuyenteSeleccionado);
 		
 		JLabel lblGSanguineo = new JLabel("G. Sanguineo");
-		lblGSanguineo.setBounds(10, 113, 68, 14);
+		lblGSanguineo.setBounds(10, 113, 78, 14);
 		panel_1.add(lblGSanguineo);
 		
 		grupoSanguineoContribuyenteSeleccionado = new JTextField();
 		grupoSanguineoContribuyenteSeleccionado.setEditable(false);
 		grupoSanguineoContribuyenteSeleccionado.setColumns(10);
-		grupoSanguineoContribuyenteSeleccionado.setBounds(88, 107, 86, 20);
+		grupoSanguineoContribuyenteSeleccionado.setBounds(98, 110, 108, 20);
 		panel_1.add(grupoSanguineoContribuyenteSeleccionado);
 		
 		numeroDocContribuyenteSeleccionado = new JTextField();
 		numeroDocContribuyenteSeleccionado.setEditable(false);
 		numeroDocContribuyenteSeleccionado.setColumns(10);
-		numeroDocContribuyenteSeleccionado.setBounds(270, 26, 144, 20);
+		numeroDocContribuyenteSeleccionado.setBounds(286, 26, 144, 20);
 		panel_1.add(numeroDocContribuyenteSeleccionado);
 		
 		JLabel lblNmero = new JLabel("N\u00FAmero");
-		lblNmero.setBounds(228, 29, 37, 14);
+		lblNmero.setBounds(228, 29, 54, 14);
 		panel_1.add(lblNmero);
 		
 		nombreContribuyenteSeleccionado = new JTextField();
 		nombreContribuyenteSeleccionado.setEditable(false);
 		nombreContribuyenteSeleccionado.setColumns(10);
-		nombreContribuyenteSeleccionado.setBounds(270, 54, 191, 20);
+		nombreContribuyenteSeleccionado.setBounds(286, 54, 191, 20);
 		panel_1.add(nombreContribuyenteSeleccionado);
 		
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(228, 57, 37, 14);
+		lblNombre.setBounds(228, 57, 54, 14);
 		panel_1.add(lblNombre);
 		
 		direccionContribuyenteSeleccionado = new JTextField();
 		direccionContribuyenteSeleccionado.setEditable(false);
 		direccionContribuyenteSeleccionado.setColumns(10);
-		direccionContribuyenteSeleccionado.setBounds(257, 79, 132, 20);
+		direccionContribuyenteSeleccionado.setBounds(286, 82, 191, 20);
 		panel_1.add(direccionContribuyenteSeleccionado);
 		
 		JLabel lblDireccion = new JLabel("Direcci\u00F3n");
-		lblDireccion.setBounds(197, 82, 50, 14);
+		lblDireccion.setBounds(216, 85, 68, 14);
 		panel_1.add(lblDireccion);
 		
 		factorRHContribuyenteSeleccionado = new JTextField();
 		factorRHContribuyenteSeleccionado.setEditable(false);
 		factorRHContribuyenteSeleccionado.setColumns(10);
-		factorRHContribuyenteSeleccionado.setBounds(257, 107, 86, 20);
+		factorRHContribuyenteSeleccionado.setBounds(286, 110, 86, 20);
 		panel_1.add(factorRHContribuyenteSeleccionado);
 		
 		JLabel lblFactor = new JLabel("Factor RH");
-		lblFactor.setBounds(197, 110, 50, 14);
+		lblFactor.setBounds(216, 113, 66, 14);
 		panel_1.add(lblFactor);
 		
 		localidadContribuyenteSeleccionado = new JTextField();
 		localidadContribuyenteSeleccionado.setEditable(false);
 		localidadContribuyenteSeleccionado.setColumns(10);
-		localidadContribuyenteSeleccionado.setBounds(455, 79, 86, 20);
+		localidadContribuyenteSeleccionado.setBounds(562, 82, 86, 20);
 		panel_1.add(localidadContribuyenteSeleccionado);
 		
 		JLabel lblLocalidad = new JLabel("Localidad");
-		lblLocalidad.setBounds(399, 82, 46, 14);
+		lblLocalidad.setBounds(488, 85, 64, 14);
 		panel_1.add(lblLocalidad);
 		
 		JLabel lblObservaciones = new JLabel("Observaciones");
-		lblObservaciones.setBounds(10, 138, 79, 14);
+		lblObservaciones.setBounds(10, 138, 103, 14);
 		panel_1.add(lblObservaciones);
 		
 				
 		final JTextArea observacionesContribuyenteSeleccionado = new JTextArea();
+		observacionesContribuyenteSeleccionado.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				if(observacionesContribuyenteSeleccionado.getText().length() > 100) arg0.consume();
+			}
+		});
 		Border bordecito = BorderFactory.createLineBorder(new Color(0,0,0));
 		observacionesContribuyenteSeleccionado.setBorder(bordecito);
-		observacionesContribuyenteSeleccionado.setBounds(87, 143, 604, 111);
+		observacionesContribuyenteSeleccionado.setBounds(112, 143, 579, 111);
 		panel_1.add(observacionesContribuyenteSeleccionado);
 		
 		tipoDocContribuyenteSeleccionado = new JTextField();
@@ -424,12 +435,12 @@ public class EmitirLicenciaDialog extends JDialog {
 		panel_1.add(tipoDocContribuyenteSeleccionado);
 		
 		JLabel lblDonante = new JLabel("Donante");
-		lblDonante.setBounds(368, 113, 46, 14);
+		lblDonante.setBounds(409, 113, 50, 14);
 		panel_1.add(lblDonante);
 		
 		donanteContribuyenteSeleccionado = new JTextField();
 		donanteContribuyenteSeleccionado.setEditable(false);
-		donanteContribuyenteSeleccionado.setBounds(424, 110, 37, 20);
+		donanteContribuyenteSeleccionado.setBounds(461, 110, 37, 20);
 		panel_1.add(donanteContribuyenteSeleccionado);
 		donanteContribuyenteSeleccionado.setColumns(10);
 		
@@ -514,7 +525,7 @@ public class EmitirLicenciaDialog extends JDialog {
 			}
 		});
 		aceptarButton.setEnabled(false);
-		aceptarButton.setBounds(444, 633, 91, 23);
+		aceptarButton.setBounds(443, 622, 91, 23);
 		contentPanel.add(aceptarButton);
 		
 		JButton btnCancelar = new JButton("Cancelar");
@@ -523,11 +534,13 @@ public class EmitirLicenciaDialog extends JDialog {
 				dispose();
 			}
 		});
-		btnCancelar.setBounds(553, 633, 91, 23);
+		btnCancelar.setBounds(552, 622, 91, 23);
 		contentPanel.add(btnCancelar);
 		
 		//Acomoda el ancho de los titulos
 		TableColumn column = null;
+		table.getTableHeader().setResizingAllowed(false);
+		
 		for (int i = 0; i < 5; i++) {
 		    column = table.getColumnModel().getColumn(i);
 		    
@@ -635,6 +648,8 @@ public class EmitirLicenciaDialog extends JDialog {
 				
 			}
 		});
+		
+		
 		
 	}
 }

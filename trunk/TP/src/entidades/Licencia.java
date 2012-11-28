@@ -12,8 +12,6 @@ public class Licencia {
 	public String observacion;
 	public Date fechaVencimiento;
 	public Date fechaEmision;
-	
-
 	public int id;
 	
 /*Constructores*/
@@ -21,6 +19,18 @@ public class Licencia {
 	public Licencia(String unaClase, String unaObservacion, Date fechaVencimiento, Date fechaEmision){
 
 		super();
+		this.clase=unaClase;
+		this.observacion=unaObservacion;
+		this.fechaVencimiento=fechaVencimiento;
+		this.fechaEmision=fechaEmision;
+
+
+	}
+	
+	public Licencia(int id,String unaClase, String unaObservacion, Date fechaVencimiento, Date fechaEmision){
+
+		super();
+		this.id = id;
 		this.clase=unaClase;
 		this.observacion=unaObservacion;
 		this.fechaVencimiento=fechaVencimiento;

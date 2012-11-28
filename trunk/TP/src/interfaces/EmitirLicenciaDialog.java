@@ -449,6 +449,10 @@ public class EmitirLicenciaDialog extends JDialog {
 		panel_2.add(lblClase);
 		
 		final JButton aceptarButton = new JButton("Aceptar");
+		aceptarButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 
 
 		aceptarButton.addMouseListener(new MouseAdapter() 

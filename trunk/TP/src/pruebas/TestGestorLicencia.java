@@ -20,6 +20,7 @@ import gestores.GestorLicencia;
 
 public class TestGestorLicencia {
 
+//Caso de prueba para evaluar método calcularVigencia	
 	@Test
 	public void test() throws GeneralException {
 		GestorLicencia test= GestorLicencia.getInstance();
@@ -28,7 +29,7 @@ public class TestGestorLicencia {
 		SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
 		Date fechaEntrada =  new Date();
 		try {		
-			fechaEntrada = formateador.parse("02-10-1989");
+			fechaEntrada = formateador.parse("28-11-1992");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -42,21 +43,18 @@ public class TestGestorLicencia {
 		
 		try {
 			
-			fechaResultado = formateador.parse("02-10-2017");
+			fechaResultado = formateador.parse("28-11-2017");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//assertEquals(fechaResultado,test.calcularVigencia(titular1));
 		
-		
-		//titular1.getLicencias().add(new Licencia("B",null,null));
 		assertEquals(fechaResultado,test.calcularVigencia(titular1));
 		
-		//assertEquals(true,test.validarLicencia(titular1,"A"));
 
 	}
 
+//Caso de prueba para verificar método calcularVigencia()
 	@Test
 	public void test1() throws GeneralException {
 		GestorLicencia test= GestorLicencia.getInstance();
@@ -84,15 +82,13 @@ public class TestGestorLicencia {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//assertEquals(fechaResultado,test.calcularVigencia(titular1));
-		
-		
-		//titular1.getLicencias().add(new Licencia("B",null,null));
 		assertEquals(fechaResultado,test.calcularVigencia(titular1));
 		
-		//assertEquals(true,test.validarLicencia(titular1,"A"));
+		
 
 	}
+	
+//Caso de prueba para verificar método calcularVigencia()
 	@Test
 	public void test2() throws GeneralException {
 		GestorLicencia test= GestorLicencia.getInstance();
@@ -120,16 +116,13 @@ public class TestGestorLicencia {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//assertEquals(fechaResultado,test.calcularVigencia(titular1));
-		
-		
-		//titular1.getLicencias().add(new Licencia("B",null,null));
 		assertEquals(fechaResultado,test.calcularVigencia(titular1));
 		
-		//assertEquals(true,test.validarLicencia(titular1,"A"));
+		
 
 	}
 	
+//Caso de prueba para verificar método calcularVigencia()
 	@Test
 	public void test3() throws GeneralException {
 		GestorLicencia test= GestorLicencia.getInstance();
@@ -157,16 +150,14 @@ public class TestGestorLicencia {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//assertEquals(fechaResultado,test.calcularVigencia(titular1));
 		
-		
-		//titular1.getLicencias().add(new Licencia("B",null,null));
 		assertEquals(fechaResultado,test.calcularVigencia(titular1));
 		
-		//assertEquals(true,test.validarLicencia(titular1,"A"));
+		
 
 	}
 	
+//Caso de prueba para verificar método calcularVigencia()
 	@Test
 	public void test4() throws GeneralException {
 		GestorLicencia test= GestorLicencia.getInstance();
@@ -194,16 +185,17 @@ public class TestGestorLicencia {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//assertEquals(fechaResultado,test.calcularVigencia(titular1));
 		
 		
-		//titular1.getLicencias().add(new Licencia("B",null,null));
+		
+		
 		assertEquals(fechaResultado,test.calcularVigencia(titular1));
 		
-		//assertEquals(true,test.validarLicencia(titular1,"A"));
+		
 
 	}
 	
+//Caso de prueba para verificar método validarVigencia()	
 	@Test
 	public void test5() throws GeneralException {
 		GestorLicencia test= GestorLicencia.getInstance();
@@ -238,14 +230,14 @@ public class TestGestorLicencia {
 			test.validarLicencia(titular1,"A");
 			fail();
 		} catch (GeneralException e) {
-			//TODO: assertEquals("El titular no puede obtener una licencia por primera vez a los 65 años",e.lanzarMensaje());
+			assertEquals("El titular no puede obtener una licencia por primera vez a los 65 años",e.lanzarMensaje());
 		           
 		}
 		 
 	}
 	
 
-	
+//Caso de prueba para verificar método validarVigencia()
 	@Test
 	public void test7() throws GeneralException {
 		GestorLicencia test= GestorLicencia.getInstance();
@@ -281,11 +273,13 @@ public class TestGestorLicencia {
 			test.validarLicencia(titular1,"B");
 			fail();
 		} catch (GeneralException e) {
-			//TODO: assertEquals("El titular ya tiene una licencia activa de esta clase",e.lanzarMensaje());
+			assertEquals("El titular ya tiene una licencia activa de esta clase",e.lanzarMensaje());
 		           
 		}
 		 
 	}
+	
+//Caso de prueba para verificar método validarVigencia()
 	@Test
 	public void test8() throws GeneralException {
 		GestorLicencia test= GestorLicencia.getInstance();
@@ -294,7 +288,7 @@ public class TestGestorLicencia {
 		SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
 		Date fechaEntrada =  new Date();
 		try {		
-			fechaEntrada = formateador.parse("05-08-1930");
+			fechaEntrada = formateador.parse("05-08-1960");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -308,25 +302,38 @@ public class TestGestorLicencia {
 		
 		try {
 			
-			fechaResultado = formateador.parse("05-08-2012");
+			fechaResultado = formateador.parse("21-11-2011");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		titular1.getLicencias().add(new Licencia("B",null,null,fechaResultado));
+	try {
+			
+		//titular1.getLicencias().add(new Licencia("B",null,null,fechaResultado));
+		titular1.getLicencias().add(new Licencia("B",null,null,formateador.parse("28-11-2011")));
+	//	titular1.getLicencias().add(new Licencia("B",null,null,formateador.parse("23-11-2007")));
+		//titular1.getLicencias().add(new Licencia("A",null,null,formateador.parse("23-11-2001")));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
 		try {
 		            
 
 			test.validarLicencia(titular1,"C");
 			fail();
 		} catch (GeneralException e) {
-			//TODO:assertEquals("El titular debe tener una licencia de clase B con un año de antiguedad",e.lanzarMensaje());
+			assertEquals("El titular debe tener una licencia de clase B con un año de antiguedad",e.lanzarMensaje());
 		           
 		}
 		 
 	}
 	
+//Caso de prueba para verificar método validarVigencia()
 	@Test
 	public void test9() throws GeneralException {
 		GestorLicencia test= GestorLicencia.getInstance();
@@ -362,12 +369,13 @@ public class TestGestorLicencia {
 			test.validarLicencia(titular1,"C");
 			fail();
 		} catch (GeneralException e) {
-			//TODO:assertEquals("El titular no puede recibir esta licencia hasta los 21 años",e.lanzarMensaje());
+			assertEquals("El titular no puede recibir esta licencia hasta los 21 años",e.lanzarMensaje());
 		           
 		}
 		 
 	}
 	
+//Caso de prueba para verificar método validarVigencia()
 	@Test
 	public void test10() throws GeneralException {
 		GestorLicencia test= GestorLicencia.getInstance();
@@ -403,7 +411,7 @@ public class TestGestorLicencia {
 			test.validarLicencia(titular1,"A");
 			fail();
 		} catch (GeneralException e) {
-			//TODO:assertEquals("El titular no puede recibir esta licencia hasta los 21 años",e.lanzarMensaje());
+			assertEquals("El titular no puede recibir esta licencia hasta los 21 años",e.lanzarMensaje());
 		           
 		}
 		 

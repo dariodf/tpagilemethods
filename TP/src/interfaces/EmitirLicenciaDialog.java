@@ -246,7 +246,14 @@ public class EmitirLicenciaDialog extends JDialog {
 		
 		//a la tabla se le agrega el set de datos y los titulos de las columnas
 		DefaultTableModel model = new DefaultTableModel(datos,titulosColumnas);		
-		table = new JTable(model);
+		table = new JTable(model)
+		{
+			// Bloquea la edición de las celdas.
+			public boolean isCellEditable (int row, int column)
+			   {
+			       return false;
+			   }
+		};
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		table.setBounds(97, 279, 579, 126);

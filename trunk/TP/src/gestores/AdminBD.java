@@ -229,6 +229,28 @@ public class AdminBD {
 		
 	}
 
+	// Retorna un usuario de la base de datos a partir de los datos cargados: usuario y contraseña
+	public Usuario verificarUsuario(String usuario, String contrasenya) throws SQLException, GeneralException {
+		ResultSet rs;
+		Usuario unUsuario;
+		String consulta = "SELECT * FROM usuario WHERE nombre LIKE '"+usuario+"' AND password LIKE '"+contrasenya+"';";
+		rs = devolverConsulta(consulta);
+		
+		// Si no encuentra el usuario, lanza una excepcion
+		if(!rs.next()){
+			throw new GeneralException("Usuario o Contraseña Incorrectos");
+		}
+		// Si encuentra el usuario, lo instancia y lo retorna
+		else{
+			boolean esSuperUsuario = true;
+			if (rs.getInt("superUsuario") == 0)
+				esSuperUsuario = false;
+				
+			unUsuario = new Usuario(rs.getInt("id"), esSuperUsuario, rs.getString("nombre"), rs.getString("password"));
+		}
+		return unUsuario;
+	}
+
 
 
 }

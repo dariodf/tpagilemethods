@@ -88,7 +88,7 @@ public class CrearTitular extends JDialog {
 			public void keyTyped(KeyEvent e) {
 			
 		
-				if(((e.getKeyChar() < '0') || (e.getKeyChar() > '9')) && (e.getKeyChar() != '\b'))
+				if(( (e.getKeyChar() < '0') || (e.getKeyChar() > '9') || tfDocumentoBuscar.getText().length() == 10 ) && (e.getKeyChar() != '\b'))
 				{
 				   e.consume();  // ignorar el evento de teclado
 				}
@@ -104,7 +104,7 @@ public class CrearTitular extends JDialog {
 				{
 					e.setKeyChar(Character.toUpperCase(e.getKeyChar()));
 				}
-				if( (((e.getKeyChar() < '0') || (e.getKeyChar() > '9')) && ((e.getKeyChar() < 'A') || (e.getKeyChar() > 'Z')) ) && (e.getKeyChar() != '\b'))
+				if (( (((e.getKeyChar() < '0') || (e.getKeyChar() > '9')) && ((e.getKeyChar() < 'A') || (e.getKeyChar() > 'Z')) ) && (e.getKeyChar() != '\b')) || tfDocumentoBuscar.getText().length() == 10)
 				{
 				   e.consume();  // ignorar el evento de teclado
 				}
@@ -191,6 +191,7 @@ public class CrearTitular extends JDialog {
 				} catch (GeneralException e){
 					// En el caso de no encontrarse un contribuyente con el tipo y documento seleccionado, se muestra un mensaje de error
 					e.lanzarMensaje();
+					limpiarVentana();
 				}
 			
 			}

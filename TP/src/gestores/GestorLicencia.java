@@ -96,11 +96,13 @@ public class GestorLicencia {
 		public static void validarLicencia (Titular unTitular, String unaClaseLicencia) throws GeneralException{
 			
 			int edad=0;
-			//boolean ValidacionLicencia = true;
 			
+			SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
+			String cadenaFecha;
 			Calendar cFechaNac =  new GregorianCalendar();
-			//Calendar FechaVenLic = new GregorianCalendar();
-			
+			Calendar fechaHoyAux = Calendar.getInstance();
+			fechaHoyAux.add(5,-1);
+						
 			
 			cFechaNac.setTime(unTitular.getFechaNac());
 			
@@ -108,19 +110,26 @@ public class GestorLicencia {
 			
 			//**CONDICIONES PARA QUE SE PUEDA EMITIR LICENCIA
 			
-			//si ya tiene una licencia activa de ese mismo tipo //QUÉ PASA SI YA QUIERE RENOVAR?????
+			if(edad<17)
+			{
+				throw new GeneralException ("El titular debe ser mayor a 17 años para obtener una licencia");
+			}
+			//si ya tiene una licencia activa de ese mismo tipo
 			
 			//recorre la colección de licencias que tiene el titular y compara la clase de cada una con la que viene como parámetro.
 			//Si son iguales y si la fecha de vencimiento de la licencia del titular es después de la fecha de hoy, da un mensaje de error.
+			
+			
+			
 			if(unTitular.getLicencias().isEmpty()==false)
 			{
 				for (Licencia lic : unTitular.getLicencias()) 
 				{
 					//FechaVenLic.setTime(lic.fechaVencimiento);
-					if((lic.clase==unaClaseLicencia) && 
-							(lic.fechaVencimiento.after(Calendar.getInstance().getTime())))
+					if((lic.clase.compareTo(unaClaseLicencia) ==0) && 
+							(lic.fechaVencimiento.after(fechaHoyAux.getTime())))
 							{
-						       //  ValidacionLicencia = false;
+						       
 						         throw new GeneralException ("El titular ya tiene una licencia activa de esta clase");
 						         
 							}
@@ -143,7 +152,7 @@ public class GestorLicencia {
 			//Una persona menor a 21 años sólo puede tener licencias de clase A, B, F, G. Y debe ser mayor a 17 años.
 			//Si el titular es menos a 21 años y la clase de la licencia que ingresa como parámetro es C, D o E, da mensaje de error.
 			
-			if (edad<21 && (unaClaseLicencia=="C" || unaClaseLicencia=="D" || unaClaseLicencia=="E"))
+			if (edad<21 && (unaClaseLicencia.compareTo("C") == 0|| unaClaseLicencia.compareTo("D") == 0 || unaClaseLicencia.compareTo("E") == 0))
 			{
 				//ValidacionLicencia = false;
 				throw new GeneralException ("El titular no puede recibir esta licencia hasta los 21 años");
@@ -157,19 +166,21 @@ public class GestorLicencia {
 			//Si la licencia que ingresó como parámetro es C, D o E, se recorre la colección para ver si tiene o tuvo una licencia 
 			//de clase B. FALTA VER, SI ES LA PRIMERA VEZ, QUE TENGA UN AÑO DE ANTIGUEDAD.
 			
-			if (unaClaseLicencia=="C" || unaClaseLicencia=="D" || unaClaseLicencia=="E")
+			if (unaClaseLicencia.compareTo("C") == 0|| unaClaseLicencia.compareTo("D") == 0 || unaClaseLicencia.compareTo("E")==0)
 			{
 				int puede=0;
 				Calendar calendarTemp = Calendar.getInstance();
 				calendarTemp.add(1, -1);
 				for (Licencia lic : unTitular.getLicencias()) 
 				{
-					//FechaVenLic.setTime(lic.fechaVencimiento);
-					if((lic.clase=="B") 
-							&& (lic.fechaEmision.before(calendarTemp.getTime())))
+					
+					if(lic.clase.compareTo("B") == 0) 
+						{
+							if(lic.fechaEmision.before(calendarTemp.getTime()))
 							{
 								puede=1;
 							}
+						}	
 				}
 				
 				if (puede==0)

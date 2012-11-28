@@ -12,10 +12,11 @@ public class GeneralException extends Exception {
 		this.mensaje = mensaje;
 	}
 
-	public void lanzarMensaje()
+	public String lanzarMensaje()
 	{
 		
 		JOptionPane.showMessageDialog(null, mensaje,"Error",JOptionPane.ERROR_MESSAGE);
+		return mensaje;
 		
 	}
 	

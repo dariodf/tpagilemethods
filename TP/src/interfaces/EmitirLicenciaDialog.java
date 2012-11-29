@@ -115,7 +115,7 @@ public class EmitirLicenciaDialog extends JDialog {
 		setResizable(false);
 		setTitle("Emitir Licencia");
 		
-		ImageIcon icono = new ImageIcon("src/ICONO.png");
+		ImageIcon icono = new ImageIcon("./ICONO.png");
 		this.setIconImage(icono.getImage());
 		
 		setBounds(100, 100, 769, 695);

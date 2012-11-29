@@ -67,7 +67,7 @@ public class CrearTitular extends JDialog {
 	{
 		setResizable(false);
 		
-		ImageIcon icono = new ImageIcon("src/ICONO.png");
+		ImageIcon icono = new ImageIcon("./ICONO.png");
 		this.setIconImage(icono.getImage());
 		
 		setTitle("Crear Titular");

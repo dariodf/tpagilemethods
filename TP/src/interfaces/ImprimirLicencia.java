@@ -61,7 +61,7 @@ public class ImprimirLicencia extends JDialog {
 		// Elimina la barra de titulo
 		this.setUndecorated(true);
 		
-		ImageIcon icono = new ImageIcon("src/ICONO.png");
+		ImageIcon icono = new ImageIcon("./ICONO.png");
 		this.setIconImage(icono.getImage());
 		
 		setBounds(100, 100, 467, 325);

@@ -31,7 +31,7 @@ public class PantallaPrincipal extends JFrame {
 	public PantallaPrincipal() 
 	{
 		
-		ImageIcon icono = new ImageIcon("src/ICONO.png");
+		ImageIcon icono = new ImageIcon("./ICONO.png");
 		this.setIconImage(icono.getImage());
 		
 		setTitle("Municipalidad de Santa Fe - Registro del conductor");

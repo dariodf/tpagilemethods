@@ -41,7 +41,7 @@ public class CrearUsuario extends JDialog
 		setResizable(false);
 		setTitle("Crear Usuario");
 		
-		ImageIcon icono = new ImageIcon("src/ICONO.png");
+		ImageIcon icono = new ImageIcon("./ICONO.png");
 		this.setIconImage(icono.getImage());
 		
 		setBounds(100, 100, 290, 182);

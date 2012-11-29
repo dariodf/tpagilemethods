@@ -60,7 +60,7 @@ public class Login extends JFrame {
 		// Elimina la barra de titulo
 		this.setUndecorated(true);
 		
-		ImageIcon icono = new ImageIcon("src/ICONO.png");
+		ImageIcon icono = new ImageIcon("./ICONO.png");
 		this.setIconImage(icono.getImage());
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

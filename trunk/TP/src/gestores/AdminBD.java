@@ -208,7 +208,7 @@ public class AdminBD {
 		String consulta = "SELECT * FROM titular WHERE TipoDoc LIKE '"+titularBuscado.getTipoDoc()+"%' AND NumDoc LIKE '"+titularBuscado.getNumeroDoc()+"%' AND Apellido LIKE '"+titularBuscado.getApellido()+"%' AND Nombre LIKE '"+titularBuscado.getNombre()+"%'";
 		rs = devolverConsulta(consulta);
 		
-		if(!rs.first()) throw new GeneralException("No Hay titulares cargados en la Base de Datos");
+		if(!rs.first()) throw new GeneralException("La búsqueda no genero resultados.");
 		
 		return rs;
 	}
